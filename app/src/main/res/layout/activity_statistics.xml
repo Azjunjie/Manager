@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.aitewei.manager.activity.statistics.StatisticsActivity">
+
+    <include layout="@layout/layout_tool_bar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="@dimen/d60"
+        android:layout_marginRight="@dimen/d60"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btn_1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/d45"
+            android:layout_marginTop="@dimen/d15"
+            android:background="@drawable/shape_corner_btn_bg"
+            android:text="船舶信息实时查询"
+            android:textColor="@color/white"
+            android:textSize="@dimen/f15" />
+
+        <Button
+            android:id="@+id/btn_2"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/d45"
+            android:layout_marginTop="@dimen/d5"
+            android:background="@drawable/shape_corner_btn_bg"
+            android:text="船舱信息实时查询"
+            android:textColor="@color/white"
+            android:textSize="@dimen/f15" />
+
+    </LinearLayout>
+
+    <include layout="@layout/layout_bottom_tab_item" />
+
+</LinearLayout>

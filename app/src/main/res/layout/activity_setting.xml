@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.aitewei.manager.activity.user.SettingActivity">
+
+    <FrameLayout
+        android:id="@+id/tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tool_bar_height"
+        android:background="@color/blue">
+
+        <FrameLayout
+            android:id="@+id/btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="@dimen/d25"
+                android:layout_height="@dimen/d25"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/d10"
+                android:layout_marginRight="@dimen/d10"
+                android:background="@mipmap/icon_back_btn_white" />
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/tv_tool_bar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="标题"
+            android:textColor="@color/white"
+            android:textSize="@dimen/f18" />
+
+        <FrameLayout
+            android:id="@+id/btn_mine"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="right">
+
+            <ImageView
+                android:id="@+id/btn_exit"
+                android:layout_width="@dimen/d34"
+                android:layout_height="@dimen/d34"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/d15"
+                android:layout_marginRight="@dimen/d5"
+                android:background="@mipmap/icon_mine_exit" />
+        </FrameLayout>
+
+    </FrameLayout>
+
+    <ImageView
+        android:layout_width="@dimen/d80"
+        android:layout_height="@dimen/d80"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/d80"
+        android:background="@mipmap/icon_default_portrait" />
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/d30"
+        android:text="用户名"
+        android:textColor="@color/text_31"
+        android:textSize="@dimen/f18" />
+
+    <TextView
+        android:id="@+id/tv_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/d15"
+        android:text="指导员"
+        android:textColor="@color/blue"
+        android:textSize="@dimen/f16" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <include layout="@layout/layout_bottom_tab_item" />
+
+</LinearLayout>

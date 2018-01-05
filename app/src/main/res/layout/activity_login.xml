@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.aitewei.manager.activity.user.LoginActivity">
+
+    <TextView
+        android:id="@+id/tv_tool_bar_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tool_bar_height"
+        android:background="@color/blue"
+        android:gravity="center"
+        android:text="登录"
+        android:textColor="@color/white"
+        android:textSize="@dimen/f18" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/d100"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/d50"
+        android:paddingRight="@dimen/d50">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/d24"
+            android:layout_marginLeft="@dimen/d10"
+            android:layout_marginRight="@dimen/d10"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/d24"
+                android:layout_height="match_parent"
+                android:src="@mipmap/icon_login_account" />
+
+            <EditText
+                android:id="@+id/et_account"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/d10"
+                android:background="@android:color/transparent"
+                android:gravity="bottom"
+                android:hint="请输入账号"
+                android:inputType="text"
+                android:maxLength="11"
+                android:singleLine="true"
+                android:textColorHint="@color/text_c0"
+                android:textSize="@dimen/f15" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/d1"
+            android:layout_marginTop="@dimen/d10"
+            android:background="@color/bg_color" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/d24"
+            android:layout_marginLeft="@dimen/d10"
+            android:layout_marginRight="@dimen/d10"
+            android:layout_marginTop="@dimen/d25"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/d24"
+                android:layout_height="match_parent"
+                android:src="@mipmap/icon_login_pwd" />
+
+            <EditText
+                android:id="@+id/et_pwd"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/d10"
+                android:background="@android:color/transparent"
+                android:gravity="bottom"
+                android:hint="请输入密码"
+                android:inputType="textPassword"
+                android:maxLength="18"
+                android:singleLine="true"
+                android:textColorHint="@color/text_c0"
+                android:textSize="@dimen/f15" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/d1"
+            android:layout_marginTop="@dimen/d10"
+            android:background="@color/bg_color" />
+
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/d45"
+            android:layout_marginTop="@dimen/d30"
+            android:background="@drawable/shape_corner_btn_bg"
+            android:text="登录"
+            android:textColor="@color/white"
+            android:textSize="@dimen/f15" />
+
+    </LinearLayout>
+
+    <include layout="@layout/layout_bottom_tab_item" />
+
+</LinearLayout>

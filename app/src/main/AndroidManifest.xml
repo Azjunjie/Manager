@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.aitewei.manager">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:name=".common.ManagerApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".activity.SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.user.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ship.ShipBaseInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ship.ShipCabinListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ship.ShipGoodsDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ship.SetCabinPositionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.user.SettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ship.ShipCabinDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ship.ShipListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.statistics.StatisticsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.statistics.Statistics1Activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.statistics.StatisticsResult1Activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.statistics.Statistics2Activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.statistics.StatisticsResult2Activity"
+            android:screenOrientation="portrait" />
+    </application>
+
+</manifest>
