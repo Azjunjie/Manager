@@ -21,8 +21,8 @@ import retrofit2.http.POST;
  */
 
 public interface ApiService {
-//        String BASEURL = "http://47.95.205.78/wcms/api/http/";//测试环境
-    String BASEURL = "http://60.2.201.70:8086/wcms/api/http/";//生产环境
+        String BASEURL = "http://47.95.205.78/wcms/api/http/";//测试环境
+//    String BASEURL = "http://60.2.201.70:8086/wcms/api/http/";//生产环境
 
     /**
      * 用户登录接口
