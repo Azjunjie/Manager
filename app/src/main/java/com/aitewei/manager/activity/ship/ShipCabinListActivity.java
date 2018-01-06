@@ -71,6 +71,8 @@ public class ShipCabinListActivity extends BaseActivity {
     FrameLayout btnRefresh;
     @BindView(R.id.btn_modify_location)
     Button btnModifyLocation;
+    @BindView(R.id.btn_progress)
+    Button btnProgress;
     @BindView(R.id.btn_begin)
     Button btnBegin;
     @BindView(R.id.btn_complete)
@@ -109,6 +111,7 @@ public class ShipCabinListActivity extends BaseActivity {
         type = getIntent().getIntExtra("type", -1);
         if (type == ShipListFragment.TYPE_WORKING) {
             btnBegin.setVisibility(View.GONE);
+            btnProgress.setVisibility(View.VISIBLE);
             if (PermissionsCode.isHasPermission(PermissionsCode.clearStatus)) {
                 tvOperation.setVisibility(View.VISIBLE);
             } else {
@@ -127,6 +130,7 @@ public class ShipCabinListActivity extends BaseActivity {
         } else if (type == ShipListFragment.TYPE_COMING) {
             tvOperation.setVisibility(View.GONE);
             btnComplete.setVisibility(View.GONE);
+            btnProgress.setVisibility(View.GONE);
             if (PermissionsCode.isHasPermission(PermissionsCode.setLocation)) {
                 btnModifyLocation.setVisibility(View.VISIBLE);
             } else {
@@ -142,6 +146,7 @@ public class ShipCabinListActivity extends BaseActivity {
             btnModifyLocation.setVisibility(View.GONE);
             btnBegin.setVisibility(View.GONE);
             btnComplete.setVisibility(View.GONE);
+            btnProgress.setVisibility(View.GONE);
         }
     }
 
@@ -321,7 +326,8 @@ public class ShipCabinListActivity extends BaseActivity {
                 });
     }
 
-    @OnClick({R.id.btn_refresh, R.id.btn_ship_info, R.id.btn_modify_location, R.id.btn_begin, R.id.btn_complete})
+    @OnClick({R.id.btn_refresh, R.id.btn_ship_info, R.id.btn_modify_location, R.id.btn_begin
+            , R.id.btn_complete, R.id.btn_progress})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_refresh://刷新
@@ -353,7 +359,53 @@ public class ShipCabinListActivity extends BaseActivity {
             case R.id.btn_complete://结束卸船
                 showSetShipStatusPopup(1);
                 break;
+            case R.id.btn_progress://卸船进度
+                if (mListData != null) {
+                    ArrayList<ShipCabinListEntity.DataBean> list = new ArrayList<>();
+                    for (ShipCabinListEntity.DataBean bean : mListData) {
+                        String cargoName = bean.getCargoName();
+                        if (contains(list, bean)) {
+                            for (ShipCabinListEntity.DataBean dataBean : list) {
+                                if ((cargoName + "").equals(dataBean.getCargoName() + "")) {
+                                    dataBean.setTotal(dataBean.getTotal() + bean.getTotal());
+                                    dataBean.setFinished(dataBean.getFinished() + bean.getFinished());
+                                    dataBean.setRemainder(dataBean.getRemainder() + bean.getRemainder());
+                                    dataBean.setClearance(dataBean.getClearance() + bean.getClearance());
+                                    break;
+                                }
+                            }
+                        } else {
+                            list.add(bean);
+                        }
+                    }
+                    ShipCabinListEntity.DataBean dataBean = new ShipCabinListEntity.DataBean();
+                    dataBean.setCargoName("总计");
+                    for (ShipCabinListEntity.DataBean bean : list) {
+                        dataBean.setTotal(dataBean.getTotal() + bean.getTotal());
+                        dataBean.setFinished(dataBean.getFinished() + bean.getFinished());
+                        dataBean.setRemainder(dataBean.getRemainder() + bean.getRemainder());
+                        dataBean.setClearance(dataBean.getClearance() + bean.getClearance());
+                    }
+                    list.add(dataBean);
+                    startActivity(ShipCabinTotalActivity.getIntent(activity, list));
+                } else {
+                    ToastUtils.show(activity, "请先刷新获取船舱列表");
+                }
+                break;
         }
+    }
+
+    /**
+     * 判断集合中是否包含该条舱的信息
+     */
+    private boolean contains(ArrayList<ShipCabinListEntity.DataBean> list, ShipCabinListEntity.DataBean containObj) {
+        String cargoName = containObj.getCargoName();
+        for (ShipCabinListEntity.DataBean dataBean : list) {
+            if ((cargoName + "").equals(dataBean.getCargoName() + "")) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private Popup setShipStatusPopup;

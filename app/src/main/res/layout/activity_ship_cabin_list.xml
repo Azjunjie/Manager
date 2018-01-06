@@ -248,6 +248,18 @@
             android:visibility="gone" />
 
         <Button
+            android:id="@+id/btn_progress"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/d40"
+            android:layout_marginLeft="@dimen/d15"
+            android:layout_weight="1"
+            android:background="@drawable/shape_corner_btn_bg"
+            android:text="卸船进度"
+            android:textColor="@color/white"
+            android:textSize="@dimen/f15"
+            android:visibility="gone" />
+
+        <Button
             android:id="@+id/btn_complete"
             android:layout_width="0dp"
             android:layout_height="@dimen/d40"

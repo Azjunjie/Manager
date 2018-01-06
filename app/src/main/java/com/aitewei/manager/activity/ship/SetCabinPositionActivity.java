@@ -163,19 +163,19 @@ public class SetCabinPositionActivity extends BaseActivity {
             tvCabinNo.setText(dataBean.getCabinNo() + "");
             String startPosition = dataBean.getStartPosition();
             if (!TextUtils.isEmpty(startPosition) && Double.valueOf(startPosition) > 0) {
-                etStart.setText(startPosition + "");
-                etStart.setSelection(etStart.length());
+                etEnd.setText(startPosition + "");
+                etEnd.setSelection(etStart.length());
             } else {
-                etStart.setText("");
+                etEnd.setText("");
                 dataBean.setStartPosition("");
             }
 
             String endPosition = dataBean.getEndPosition();
             if (!TextUtils.isEmpty(endPosition) && Double.valueOf(endPosition) > 0) {
-                etEnd.setText(endPosition + "");
-                etEnd.setSelection(etEnd.length());
+                etStart.setText(endPosition + "");
+                etStart.setSelection(etEnd.length());
             } else {
-                etEnd.setText("");
+                etStart.setText("");
                 dataBean.setEndPosition("");
             }
 
@@ -192,7 +192,7 @@ public class SetCabinPositionActivity extends BaseActivity {
 
                 @Override
                 public void afterTextChanged(Editable editable) {
-                    dataBean.setStartPosition(editable.toString() + "");
+                    dataBean.setEndPosition(editable.toString() + "");
                 }
             });
             etEnd.addTextChangedListener(new TextWatcher() {
@@ -208,7 +208,7 @@ public class SetCabinPositionActivity extends BaseActivity {
 
                 @Override
                 public void afterTextChanged(Editable editable) {
-                    dataBean.setEndPosition(editable.toString() + "");
+                    dataBean.setStartPosition(editable.toString() + "");
 
 //                        View childView = container.getChildAt(1);
 //                        if (childView != null) {
@@ -293,7 +293,7 @@ public class SetCabinPositionActivity extends BaseActivity {
                             //不做处理
                         } else {
                             if (dStart >= dEnd) {
-                                showSetPositionFailurePopup(bean.getCabinNo() + "舱舱位起点位置应小于终点位置");
+                                showSetPositionFailurePopup(bean.getCabinNo() + "舱舱位起点位置应大于终点位置");
                                 return;
                             }
                         }

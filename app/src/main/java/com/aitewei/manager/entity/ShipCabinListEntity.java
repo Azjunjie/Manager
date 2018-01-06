@@ -2,6 +2,7 @@ package com.aitewei.manager.entity;
 
 import com.aitewei.manager.base.BaseEntity;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -9,7 +10,7 @@ import java.util.List;
  * Created by zhangjunjie on 2017/11/12.
  */
 
-public class ShipCabinListEntity extends BaseEntity {
+public class ShipCabinListEntity extends BaseEntity implements Serializable {
 
 
     /**
@@ -36,7 +37,7 @@ public class ShipCabinListEntity extends BaseEntity {
         this.data = data;
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable {
         /**
          * cargoType : 钢缆
          * preunloading : 99.82

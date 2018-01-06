@@ -60,6 +60,9 @@
         <activity
             android:name=".activity.statistics.StatisticsResult2Activity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ship.ShipCabinTotalActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

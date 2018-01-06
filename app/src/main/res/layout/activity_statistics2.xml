@@ -31,16 +31,24 @@
                 android:textSize="@dimen/f14" />
 
             <TextView
+                android:id="@+id/tv_ship_name"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/d45"
                 android:layout_marginLeft="@dimen/d60"
                 android:background="@drawable/shape_stroke_corner_bg"
                 android:gravity="center_vertical"
-                android:hint="xxx船名"
+                android:hint="船舶一"
                 android:paddingLeft="@dimen/d10"
                 android:textColor="@color/text_31"
                 android:textColorHint="@color/text_c0"
                 android:textSize="@dimen/f14" />
+
+            <ImageView
+                android:layout_width="@dimen/d8"
+                android:layout_height="@dimen/d16"
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginRight="@dimen/d10"
+                android:background="@mipmap/icon_more_btn" />
         </FrameLayout>
 
         <FrameLayout
