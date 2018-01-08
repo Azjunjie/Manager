@@ -15,6 +15,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.aitewei.manager.R;
+import com.aitewei.manager.activity.statistics.StatisticsResult1Activity;
 import com.aitewei.manager.base.BaseActivity;
 import com.aitewei.manager.base.BaseEntity;
 import com.aitewei.manager.common.PermissionsCode;
@@ -71,12 +72,15 @@ public class ShipCabinListActivity extends BaseActivity {
     FrameLayout btnRefresh;
     @BindView(R.id.btn_modify_location)
     Button btnModifyLocation;
-    @BindView(R.id.btn_progress)
-    Button btnProgress;
     @BindView(R.id.btn_begin)
     Button btnBegin;
     @BindView(R.id.btn_complete)
     Button btnComplete;
+
+    @BindView(R.id.btn_menu)
+    FrameLayout btnMenu;
+//    @BindView(R.id.btn_progress)
+//    Button btnProgress;
 
     private LeftAdapter mLeftAdapter;
     private DataAdapter mDataAdapter;
@@ -111,7 +115,7 @@ public class ShipCabinListActivity extends BaseActivity {
         type = getIntent().getIntExtra("type", -1);
         if (type == ShipListFragment.TYPE_WORKING) {
             btnBegin.setVisibility(View.GONE);
-            btnProgress.setVisibility(View.VISIBLE);
+            btnMenu.setVisibility(View.VISIBLE);
             if (PermissionsCode.isHasPermission(PermissionsCode.clearStatus)) {
                 tvOperation.setVisibility(View.VISIBLE);
             } else {
@@ -130,7 +134,7 @@ public class ShipCabinListActivity extends BaseActivity {
         } else if (type == ShipListFragment.TYPE_COMING) {
             tvOperation.setVisibility(View.GONE);
             btnComplete.setVisibility(View.GONE);
-            btnProgress.setVisibility(View.GONE);
+            btnMenu.setVisibility(View.GONE);
             if (PermissionsCode.isHasPermission(PermissionsCode.setLocation)) {
                 btnModifyLocation.setVisibility(View.VISIBLE);
             } else {
@@ -146,7 +150,7 @@ public class ShipCabinListActivity extends BaseActivity {
             btnModifyLocation.setVisibility(View.GONE);
             btnBegin.setVisibility(View.GONE);
             btnComplete.setVisibility(View.GONE);
-            btnProgress.setVisibility(View.GONE);
+            btnMenu.setVisibility(View.GONE);
         }
     }
 
@@ -327,7 +331,7 @@ public class ShipCabinListActivity extends BaseActivity {
     }
 
     @OnClick({R.id.btn_refresh, R.id.btn_ship_info, R.id.btn_modify_location, R.id.btn_begin
-            , R.id.btn_complete, R.id.btn_progress})
+            , R.id.btn_complete, R.id.btn_menu})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_refresh://刷新
@@ -359,40 +363,86 @@ public class ShipCabinListActivity extends BaseActivity {
             case R.id.btn_complete://结束卸船
                 showSetShipStatusPopup(1);
                 break;
-            case R.id.btn_progress://卸船进度
-                if (mListData != null) {
-                    ArrayList<ShipCabinListEntity.DataBean> list = new ArrayList<>();
-                    for (ShipCabinListEntity.DataBean bean : mListData) {
-                        String cargoName = bean.getCargoName();
-                        if (contains(list, bean)) {
-                            for (ShipCabinListEntity.DataBean dataBean : list) {
-                                if ((cargoName + "").equals(dataBean.getCargoName() + "")) {
-                                    dataBean.setTotal(dataBean.getTotal() + bean.getTotal());
-                                    dataBean.setFinished(dataBean.getFinished() + bean.getFinished());
-                                    dataBean.setRemainder(dataBean.getRemainder() + bean.getRemainder());
-                                    dataBean.setClearance(dataBean.getClearance() + bean.getClearance());
-                                    break;
-                                }
-                            }
-                        } else {
-                            list.add(bean);
-                        }
-                    }
-                    ShipCabinListEntity.DataBean dataBean = new ShipCabinListEntity.DataBean();
-                    dataBean.setCargoName("总计");
-                    for (ShipCabinListEntity.DataBean bean : list) {
-                        dataBean.setTotal(dataBean.getTotal() + bean.getTotal());
-                        dataBean.setFinished(dataBean.getFinished() + bean.getFinished());
-                        dataBean.setRemainder(dataBean.getRemainder() + bean.getRemainder());
-                        dataBean.setClearance(dataBean.getClearance() + bean.getClearance());
-                    }
-                    list.add(dataBean);
-                    startActivity(ShipCabinTotalActivity.getIntent(activity, list));
-                } else {
-                    ToastUtils.show(activity, "请先刷新获取船舱列表");
-                }
+            case R.id.btn_menu://菜单
+                showMenuPopup();
                 break;
         }
+    }
+
+    /**
+     * 以获货物为主查看卸船进度
+     */
+    private void onCargoTotalProgress() {
+        if (mListData != null) {
+            ArrayList<ShipCabinListEntity.DataBean> list = new ArrayList<>();
+            for (ShipCabinListEntity.DataBean bean : mListData) {
+                String cargoName = bean.getCargoName();
+                if (contains(list, bean)) {
+                    for (ShipCabinListEntity.DataBean dataBean : list) {
+                        if ((cargoName + "").equals(dataBean.getCargoName() + "")) {
+                            dataBean.setTotal(dataBean.getTotal() + bean.getTotal());
+                            dataBean.setFinished(dataBean.getFinished() + bean.getFinished());
+                            dataBean.setRemainder(dataBean.getRemainder() + bean.getRemainder());
+                            dataBean.setClearance(dataBean.getClearance() + bean.getClearance());
+                            break;
+                        }
+                    }
+                } else {
+                    list.add(bean);
+                }
+            }
+            ShipCabinListEntity.DataBean dataBean = new ShipCabinListEntity.DataBean();
+            dataBean.setCargoName("总计");
+            for (ShipCabinListEntity.DataBean bean : list) {
+                dataBean.setTotal(dataBean.getTotal() + bean.getTotal());
+                dataBean.setFinished(dataBean.getFinished() + bean.getFinished());
+                dataBean.setRemainder(dataBean.getRemainder() + bean.getRemainder());
+                dataBean.setClearance(dataBean.getClearance() + bean.getClearance());
+            }
+            list.add(dataBean);
+            startActivity(ShipCabinTotalActivity.getIntent(activity, list));
+        } else {
+            ToastUtils.show(activity, "请先刷新获取船舱列表");
+        }
+    }
+
+    private Popup menuPopup;
+
+    /**
+     * 菜单弹窗
+     */
+    private void showMenuPopup() {
+        if (menuPopup == null) {
+            View view = LayoutInflater.from(activity).inflate(R.layout.popup_cabin_list_menu, null);
+            view.findViewById(R.id.btn_progress).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //获货物为主查看卸船进度
+                    menuPopup.dismiss();
+                    onCargoTotalProgress();
+                }
+            });
+            view.findViewById(R.id.btn_progress1).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //以卸船机为主查看总进度
+                    menuPopup.dismiss();
+                    startActivity(new Intent(activity, ShipCabinTotal2Activity.class));
+                }
+            });
+            view.findViewById(R.id.btn_cancle).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    menuPopup.dismiss();
+                }
+            });
+            menuPopup = new Popup.Builder()
+                    .setLayoutParam(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                    .setmContentView(view)
+                    .setmBackgroundAlpha(activity, 0.5f)
+                    .build();
+        }
+        menuPopup.showAtLocation(activity, findViewById(R.id.parent_layout), Gravity.BOTTOM, 0, 0);
     }
 
     /**

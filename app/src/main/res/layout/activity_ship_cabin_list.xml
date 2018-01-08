@@ -55,14 +55,35 @@
 
     </FrameLayout>
 
-    <TextView
-        android:id="@+id/btn_ship_info"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/d45"
-        android:gravity="center"
-        android:text="xxx船"
-        android:textColor="@color/blue"
-        android:textSize="@dimen/f20" />
+        android:layout_height="@dimen/d45">
+
+        <TextView
+            android:id="@+id/btn_ship_info"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/d45"
+            android:gravity="center"
+            android:text="xxx船"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/f20" />
+
+        <FrameLayout
+            android:id="@+id/btn_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="@dimen/d25"
+                android:layout_height="@dimen/d25"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/d15"
+                android:layout_marginRight="@dimen/d15"
+                android:background="@mipmap/icon_cabin_list_more_btn" />
+        </FrameLayout>
+    </FrameLayout>
 
     <View
         android:layout_width="match_parent"

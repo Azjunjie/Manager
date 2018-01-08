@@ -62,7 +62,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.ship.ShipCabinTotalActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.ship.ShipCabinTotal2Activity"></activity>
     </application>
 
 </manifest>

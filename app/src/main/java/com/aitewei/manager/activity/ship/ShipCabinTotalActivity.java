@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 
 /**
- * 每船的卸货总进度
+ * 以货物为主的每船的卸货总进度
  */
 public class ShipCabinTotalActivity extends BaseActivity {
     @BindView(R.id.list_view)
