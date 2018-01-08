@@ -1,8 +1,5 @@
 package com.aitewei.manager.activity.ship;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-
 import com.aitewei.manager.R;
 import com.aitewei.manager.base.BaseActivity;
 import com.aitewei.manager.utils.ToolBarUtil;

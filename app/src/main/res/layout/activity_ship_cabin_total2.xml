@@ -83,7 +83,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="卸船机1"
-                android:textColor="@color/blue"
+                android:textColor="@color/text_89"
                 android:textSize="@dimen/f14" />
 
             <TextView
@@ -135,7 +135,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="卸船机2"
-                android:textColor="@color/blue"
+                android:textColor="@color/text_89"
                 android:textSize="@dimen/f14" />
 
             <TextView
@@ -187,7 +187,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="卸船机3"
-                android:textColor="@color/blue"
+                android:textColor="@color/text_89"
                 android:textSize="@dimen/f14" />
 
             <TextView
@@ -239,7 +239,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="总计"
-                android:textColor="@color/blue"
+                android:textColor="@color/text_89"
                 android:textSize="@dimen/f14" />
 
             <TextView
