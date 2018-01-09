@@ -13,7 +13,7 @@
         android:layout_marginRight="@dimen/d15"
         android:layout_marginTop="@dimen/d5"
         android:background="@drawable/shape_corner_btn_bg"
-        android:text="卸船进度"
+        android:text="货物进度"
         android:textColor="@color/white"
         android:textSize="@dimen/f15" />
 
