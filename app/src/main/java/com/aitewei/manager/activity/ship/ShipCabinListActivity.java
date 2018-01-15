@@ -15,7 +15,6 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.aitewei.manager.R;
-import com.aitewei.manager.activity.statistics.StatisticsResult1Activity;
 import com.aitewei.manager.base.BaseActivity;
 import com.aitewei.manager.base.BaseEntity;
 import com.aitewei.manager.common.PermissionsCode;
@@ -56,8 +55,6 @@ public class ShipCabinListActivity extends BaseActivity {
     TextView btnShipInfo;
     @BindView(R.id.tv_operation)
     TextView tvOperation;
-//    @BindView(R.id.line_operation)
-//    View lineOperation;
 
     @BindView(R.id.lv_left)
     NoscrollListView mLeft;
@@ -79,8 +76,6 @@ public class ShipCabinListActivity extends BaseActivity {
 
     @BindView(R.id.btn_menu)
     FrameLayout btnMenu;
-//    @BindView(R.id.btn_progress)
-//    Button btnProgress;
 
     private LeftAdapter mLeftAdapter;
     private DataAdapter mDataAdapter;
@@ -382,7 +377,7 @@ public class ShipCabinListActivity extends BaseActivity {
                 public void onClick(View v) {
                     //获货物为主查看卸船进度
                     menuPopup.dismiss();
-                    startActivity(ShipCabinTotalActivity.getIntent(activity, taskId));
+                    startActivity(CargoProgressActivity.getIntent(activity, taskId));
                 }
             });
             view.findViewById(R.id.btn_progress1).setOnClickListener(new View.OnClickListener() {
@@ -390,7 +385,7 @@ public class ShipCabinListActivity extends BaseActivity {
                 public void onClick(View v) {
                     //以卸船机为主查看总进度
                     menuPopup.dismiss();
-                    startActivity(new Intent(activity, ShipCabinTotal2Activity.class));
+                    startActivity(new Intent(activity, ShipUnloaderProgressActivity.class));
                 }
             });
             view.findViewById(R.id.btn_cancle).setOnClickListener(new View.OnClickListener() {
@@ -406,56 +401,6 @@ public class ShipCabinListActivity extends BaseActivity {
                     .build();
         }
         menuPopup.showAtLocation(activity, findViewById(R.id.parent_layout), Gravity.BOTTOM, 0, 0);
-    }
-
-    /**
-     * 以获货物为主查看卸船进度
-     */
-    private void onCargoTotalProgress() {
-        if (mListData != null) {
-            ArrayList<ShipCabinListEntity.DataBean> list = new ArrayList<>();
-            for (ShipCabinListEntity.DataBean bean : mListData) {
-                String cargoName = bean.getCargoName();
-                if (contains(list, bean)) {
-                    for (ShipCabinListEntity.DataBean dataBean : list) {
-                        if ((cargoName + "").equals(dataBean.getCargoName() + "")) {
-                            dataBean.setTotal(dataBean.getTotal() + bean.getTotal());
-                            dataBean.setFinished(dataBean.getFinished() + bean.getFinished());
-                            dataBean.setRemainder(dataBean.getRemainder() + bean.getRemainder());
-                            dataBean.setClearance(dataBean.getClearance() + bean.getClearance());
-                            break;
-                        }
-                    }
-                } else {
-                    list.add(bean);
-                }
-            }
-            ShipCabinListEntity.DataBean dataBean = new ShipCabinListEntity.DataBean();
-            dataBean.setCargoName("总计");
-            for (ShipCabinListEntity.DataBean bean : list) {
-                dataBean.setTotal(dataBean.getTotal() + bean.getTotal());
-                dataBean.setFinished(dataBean.getFinished() + bean.getFinished());
-                dataBean.setRemainder(dataBean.getRemainder() + bean.getRemainder());
-                dataBean.setClearance(dataBean.getClearance() + bean.getClearance());
-            }
-            list.add(dataBean);
-//            startActivity(ShipCabinTotalActivity.getIntent(activity, list));
-        } else {
-            ToastUtils.show(activity, "请先刷新获取船舱列表");
-        }
-    }
-
-    /**
-     * 判断集合中是否包含该条舱的信息
-     */
-    private boolean contains(ArrayList<ShipCabinListEntity.DataBean> list, ShipCabinListEntity.DataBean containObj) {
-        String cargoName = containObj.getCargoName();
-        for (ShipCabinListEntity.DataBean dataBean : list) {
-            if ((cargoName + "").equals(dataBean.getCargoName() + "")) {
-                return true;
-            }
-        }
-        return false;
     }
 
     private Popup setShipStatusPopup;
@@ -648,7 +593,7 @@ public class ShipCabinListActivity extends BaseActivity {
             holder.tvCabinType.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    startActivity(ShipGoodsDetailActivity.getIntent(activity, taskId, dataBean.getCabinNo()));
+                    startActivity(ShipCargoDetailActivity.getIntent(activity, taskId, dataBean.getCabinNo()));
                 }
             });
             holder.tvTotal.setText(dataBean.getTotal() + "");

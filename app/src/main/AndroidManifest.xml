@@ -31,7 +31,7 @@
             android:name=".activity.ship.ShipCabinListActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.ship.ShipGoodsDetailActivity"
+            android:name=".activity.ship.ShipCargoDetailActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.ship.SetCabinPositionActivity"
@@ -61,9 +61,9 @@
             android:name=".activity.statistics.StatisticsResult2Activity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.ship.ShipCabinTotalActivity"
+            android:name=".activity.ship.CargoProgressActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.ship.ShipCabinTotal2Activity"></activity>
+        <activity android:name=".activity.ship.ShipUnloaderProgressActivity"></activity>
     </application>
 
 </manifest>

@@ -242,7 +242,7 @@ public class ShipCabinDetailActivity extends BaseActivity {
     public void onClickView(View v) {
         switch (v.getId()) {
             case R.id.tv_cargoType://种类
-                startActivity(ShipGoodsDetailActivity.getIntent(activity, taskId, cabinNo));
+                startActivity(ShipCargoDetailActivity.getIntent(activity, taskId, cabinNo));
                 break;
             case R.id.btn_refresh:
                 btnRefresh.setClickable(false);

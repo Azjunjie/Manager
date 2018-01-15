@@ -4,19 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.aitewei.manager.R;
 import com.aitewei.manager.adapter.CabinProgressListAdapter;
 import com.aitewei.manager.base.BaseActivity;
-import com.aitewei.manager.common.Popup;
 import com.aitewei.manager.common.User;
 import com.aitewei.manager.entity.GetCargoUnshipInfoEntity;
-import com.aitewei.manager.entity.ShipCabinListEntity;
 import com.aitewei.manager.retrofit.RetrofitFactory;
 import com.aitewei.manager.rxjava.BaseObserver;
 import com.aitewei.manager.rxjava.RxSchedulers;
@@ -24,16 +18,14 @@ import com.aitewei.manager.utils.LogUtil;
 import com.aitewei.manager.utils.ToolBarUtil;
 import com.aitewei.manager.view.LoadGroupView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import retrofit2.Retrofit;
 
 /**
- * 以货物为主的每船的卸货总进度
+ * 以货物为主卸货总进度
  */
-public class ShipCabinTotalActivity extends BaseActivity {
+public class CargoProgressActivity extends BaseActivity {
     @BindView(R.id.load_view)
     LoadGroupView loadView;
     @BindView(R.id.list_view)
@@ -43,14 +35,14 @@ public class ShipCabinTotalActivity extends BaseActivity {
     private String taskId;
 
     public static Intent getIntent(Context context, String taskId) {
-        Intent intent = new Intent(context, ShipCabinTotalActivity.class);
+        Intent intent = new Intent(context, CargoProgressActivity.class);
         intent.putExtra("taskId", taskId);
         return intent;
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_ship_cabin_total;
+        return R.layout.activity_cargo_progress;
     }
 
     @Override

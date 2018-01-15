@@ -24,7 +24,7 @@ import butterknife.OnClick;
 /**
  * 以卸船机为主的总进度
  */
-public class ShipCabinTotal2Activity extends BaseActivity {
+public class ShipUnloaderProgressActivity extends BaseActivity {
 
     @BindView(R.id.tv_time)
     TextView tvTime;
@@ -37,14 +37,14 @@ public class ShipCabinTotal2Activity extends BaseActivity {
     private String currentDate;
 
     public static Intent getIntent(Context context, String taskId) {
-        Intent intent = new Intent(context, ShipCabinTotal2Activity.class);
+        Intent intent = new Intent(context, ShipUnloaderProgressActivity.class);
         intent.putExtra("taskId", taskId);
         return intent;
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_ship_cabin_total2;
+        return R.layout.activity_ship_unloader_progress;
     }
 
     @Override

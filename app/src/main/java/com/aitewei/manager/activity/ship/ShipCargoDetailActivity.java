@@ -22,7 +22,7 @@ import butterknife.BindView;
 /**
  * 船舱货物信息
  */
-public class ShipGoodsDetailActivity extends BaseActivity {
+public class ShipCargoDetailActivity extends BaseActivity {
     @BindView(R.id.load_view)
     LoadGroupView loadView;
     @BindView(R.id.content_view)
@@ -49,7 +49,7 @@ public class ShipGoodsDetailActivity extends BaseActivity {
     private int cabinNo;
 
     public static Intent getIntent(Context context, String taskId, int cabinNo) {
-        Intent intent = new Intent(context, ShipGoodsDetailActivity.class);
+        Intent intent = new Intent(context, ShipCargoDetailActivity.class);
         intent.putExtra("taskId", taskId);
         intent.putExtra("cabinNo", cabinNo);
         return intent;
@@ -57,7 +57,7 @@ public class ShipGoodsDetailActivity extends BaseActivity {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_ship_goods;
+        return R.layout.activity_ship_cargo_detail;
     }
 
     @Override
