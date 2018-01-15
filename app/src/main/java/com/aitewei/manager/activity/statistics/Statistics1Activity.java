@@ -3,12 +3,18 @@ package com.aitewei.manager.activity.statistics;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
 import com.aitewei.manager.R;
 import com.aitewei.manager.base.BaseActivity;
 import com.aitewei.manager.utils.ToolBarUtil;
+import com.aitewei.manager.view.CustomDatePicker;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -16,8 +22,12 @@ import butterknife.OnClick;
 public class Statistics1Activity extends BaseActivity {
     @BindView(R.id.tv_ship_name)
     TextView tvShipName;
+    @BindView(R.id.tv_time)
+    TextView tvTime;
     @BindView(R.id.tv_team)
     TextView tvTeam;
+
+    private String currentDate;
 
     @Override
     protected int getLayoutId() {
@@ -31,14 +41,21 @@ public class Statistics1Activity extends BaseActivity {
 
     @Override
     protected void initData() {
-
+        initDatePicker();
     }
 
-    @OnClick({R.id.tv_ship_name, R.id.tv_team, R.id.btn_search})
+    @OnClick({R.id.tv_ship_name, R.id.tv_time, R.id.tv_team, R.id.btn_search})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_ship_name:
                 showShipListDialog();
+                break;
+            case R.id.tv_time:
+                String time = tvTime.getText().toString();
+                if (TextUtils.isEmpty(time)) {
+                    time = currentDate;
+                }
+                datePicker.show(time);
                 break;
             case R.id.tv_team:
                 showTeamListDialog();
@@ -47,6 +64,21 @@ public class Statistics1Activity extends BaseActivity {
                 startActivity(new Intent(activity, StatisticsResult1Activity.class));
                 break;
         }
+    }
+
+    private CustomDatePicker datePicker;
+
+    private void initDatePicker() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
+        currentDate = sdf.format(new Date());
+        datePicker = new CustomDatePicker(this, new CustomDatePicker.ResultHandler() {
+            @Override
+            public void handle(String time) { // 回调接口，获得选中的时间
+                tvTime.setText(time.split(" ")[0]);
+            }
+        }, "1970-01-01 00:00", currentDate); // 初始化日期格式请用：yyyy-MM-dd HH:mm，否则不能正常运行
+        datePicker.showSpecificTime(false); // 不显示时和分
+        datePicker.setIsLoop(false); // 不允许循环滚动
     }
 
     private String[] ships = new String[]{"船舶一", "船舶二", "船舶三", "船舶四"};

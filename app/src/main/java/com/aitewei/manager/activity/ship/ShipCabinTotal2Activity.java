@@ -1,17 +1,22 @@
 package com.aitewei.manager.activity.ship;
 
+import android.content.Context;
 import android.content.DialogInterface;
-import android.os.Bundle;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.view.View;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.aitewei.manager.R;
 import com.aitewei.manager.base.BaseActivity;
-import com.aitewei.manager.utils.ToastUtils;
 import com.aitewei.manager.utils.ToolBarUtil;
+import com.aitewei.manager.view.CustomDatePicker;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -20,12 +25,22 @@ import butterknife.OnClick;
  * 以卸船机为主的总进度
  */
 public class ShipCabinTotal2Activity extends BaseActivity {
-    @BindView(R.id.checkbox)
-    CheckBox checkbox;
+
+    @BindView(R.id.tv_time)
+    TextView tvTime;
     @BindView(R.id.tv_team)
     TextView tvTeam;
+    @BindView(R.id.popup_container)
+    LinearLayout popupContainer;
 
-    private boolean isChecked;//是否筛选
+    private String taskId;
+    private String currentDate;
+
+    public static Intent getIntent(Context context, String taskId) {
+        Intent intent = new Intent(context, ShipCabinTotal2Activity.class);
+        intent.putExtra("taskId", taskId);
+        return intent;
+    }
 
     @Override
     protected int getLayoutId() {
@@ -39,32 +54,53 @@ public class ShipCabinTotal2Activity extends BaseActivity {
 
     @Override
     protected void initData() {
-        checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                ShipCabinTotal2Activity.this.isChecked = isChecked;
-            }
-        });
+        taskId = getIntent().getStringExtra("taskId");
+
+        initDatePicker();
     }
 
-    @OnClick({R.id.tv_time, R.id.tv_team})
+    @OnClick({R.id.btn_popup, R.id.tv_time, R.id.tv_team
+            , R.id.btn_clear, R.id.btn_confirm, R.id.btn_empty})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.tv_time:
-                if (isChecked) {
-
-                } else {
-                    ToastUtils.show(activity, "请先确认是否筛选");
-                }
+            case R.id.btn_popup://显示筛选弹窗
+                popupContainer.setVisibility(View.VISIBLE);
                 break;
-            case R.id.tv_team:
-                if (isChecked) {
-                    showTeamListDialog();
-                } else {
-                    ToastUtils.show(activity, "请先确认是否筛选");
+            case R.id.tv_time://选择日期
+                String time = tvTime.getText().toString();
+                if (TextUtils.isEmpty(time)) {
+                    time = currentDate;
                 }
+                datePicker.show(time);
+                break;
+            case R.id.tv_team://选择班次
+                showTeamListDialog();
+                break;
+            case R.id.btn_clear://清空筛选
+                popupContainer.setVisibility(View.GONE);
+                break;
+            case R.id.btn_confirm://确认筛选
+                popupContainer.setVisibility(View.GONE);
+                break;
+            case R.id.btn_empty://隐藏弹窗
+                popupContainer.setVisibility(View.GONE);
                 break;
         }
+    }
+
+    private CustomDatePicker datePicker;
+
+    private void initDatePicker() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
+        currentDate = sdf.format(new Date());
+        datePicker = new CustomDatePicker(this, new CustomDatePicker.ResultHandler() {
+            @Override
+            public void handle(String time) { // 回调接口，获得选中的时间
+                tvTime.setText(time.split(" ")[0]);
+            }
+        }, "1970-01-01 00:00", currentDate); // 初始化日期格式请用：yyyy-MM-dd HH:mm，否则不能正常运行
+        datePicker.showSpecificTime(false); // 不显示时和分
+        datePicker.setIsLoop(false); // 不允许循环滚动
     }
 
     private String[] teams = new String[]{"白班", "夜班"};

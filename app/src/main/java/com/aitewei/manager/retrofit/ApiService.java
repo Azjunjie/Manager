@@ -2,6 +2,7 @@ package com.aitewei.manager.retrofit;
 
 import com.aitewei.manager.base.BaseEntity;
 import com.aitewei.manager.entity.CabinPositionEntity;
+import com.aitewei.manager.entity.GetCargoUnshipInfoEntity;
 import com.aitewei.manager.entity.GetPrivilegeEntity;
 import com.aitewei.manager.entity.GetUploaderDetailEntity;
 import com.aitewei.manager.entity.ShipBaseInfoEntity;
@@ -109,5 +110,12 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("ship/doSetCabinStatus")
     Observable<BaseEntity> doSetCabinStatus(@Field("json") String json);
+
+    /**
+     * 获取货物卸船情况列表
+     */
+    @FormUrlEncoded
+    @POST("ship/doGetCargoUnshipInfo")
+    Observable<GetCargoUnshipInfoEntity> doGetCargoUnshipInfo(@Field("json") String json);
 
 }

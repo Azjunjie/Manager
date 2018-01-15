@@ -369,6 +369,45 @@ public class ShipCabinListActivity extends BaseActivity {
         }
     }
 
+    private Popup menuPopup;
+
+    /**
+     * 菜单弹窗
+     */
+    private void showMenuPopup() {
+        if (menuPopup == null) {
+            View view = LayoutInflater.from(activity).inflate(R.layout.popup_cabin_list_menu, null);
+            view.findViewById(R.id.btn_progress).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //获货物为主查看卸船进度
+                    menuPopup.dismiss();
+                    startActivity(ShipCabinTotalActivity.getIntent(activity, taskId));
+                }
+            });
+            view.findViewById(R.id.btn_progress1).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //以卸船机为主查看总进度
+                    menuPopup.dismiss();
+                    startActivity(new Intent(activity, ShipCabinTotal2Activity.class));
+                }
+            });
+            view.findViewById(R.id.btn_cancle).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    menuPopup.dismiss();
+                }
+            });
+            menuPopup = new Popup.Builder()
+                    .setLayoutParam(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                    .setmContentView(view)
+                    .setmBackgroundAlpha(activity, 0.5f)
+                    .build();
+        }
+        menuPopup.showAtLocation(activity, findViewById(R.id.parent_layout), Gravity.BOTTOM, 0, 0);
+    }
+
     /**
      * 以获货物为主查看卸船进度
      */
@@ -400,49 +439,10 @@ public class ShipCabinListActivity extends BaseActivity {
                 dataBean.setClearance(dataBean.getClearance() + bean.getClearance());
             }
             list.add(dataBean);
-            startActivity(ShipCabinTotalActivity.getIntent(activity, list));
+//            startActivity(ShipCabinTotalActivity.getIntent(activity, list));
         } else {
             ToastUtils.show(activity, "请先刷新获取船舱列表");
         }
-    }
-
-    private Popup menuPopup;
-
-    /**
-     * 菜单弹窗
-     */
-    private void showMenuPopup() {
-        if (menuPopup == null) {
-            View view = LayoutInflater.from(activity).inflate(R.layout.popup_cabin_list_menu, null);
-            view.findViewById(R.id.btn_progress).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //获货物为主查看卸船进度
-                    menuPopup.dismiss();
-                    onCargoTotalProgress();
-                }
-            });
-            view.findViewById(R.id.btn_progress1).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //以卸船机为主查看总进度
-                    menuPopup.dismiss();
-                    startActivity(new Intent(activity, ShipCabinTotal2Activity.class));
-                }
-            });
-            view.findViewById(R.id.btn_cancle).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    menuPopup.dismiss();
-                }
-            });
-            menuPopup = new Popup.Builder()
-                    .setLayoutParam(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-                    .setmContentView(view)
-                    .setmBackgroundAlpha(activity, 0.5f)
-                    .build();
-        }
-        menuPopup.showAtLocation(activity, findViewById(R.id.parent_layout), Gravity.BOTTOM, 0, 0);
     }
 
     /**
