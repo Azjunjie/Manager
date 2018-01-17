@@ -101,7 +101,8 @@ public class CargoProgressActivity extends BaseActivity {
                 if ("1".equals(cargoUnshipInfoEntity.getCode())
                         && "1".equals(shipUnshipInfoEntity.getCode())) {
                     List<GetCargoUnshipInfoEntity.DataBean> beanList = cargoUnshipInfoEntity.getData();
-                    GetShipUnshipInfoEntity.DataBean bean = shipUnshipInfoEntity.getData();
+                    List<GetShipUnshipInfoEntity.DataBean> list = shipUnshipInfoEntity.getData();
+                    GetShipUnshipInfoEntity.DataBean bean = list.get(0);
                     GetCargoUnshipInfoEntity.DataBean dataBean = new GetCargoUnshipInfoEntity.DataBean();
                     dataBean.setCargoName("合计");
                     dataBean.setTotal(bean.getTotal());

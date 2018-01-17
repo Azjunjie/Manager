@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.aitewei.manager.R;
 import com.aitewei.manager.base.BaseActivity;
+import com.aitewei.manager.utils.ToastUtils;
 import com.aitewei.manager.utils.ToolBarUtil;
 import com.aitewei.manager.view.CustomDatePicker;
 
@@ -26,6 +27,8 @@ import butterknife.OnClick;
  */
 public class ShipUnloaderProgressActivity extends BaseActivity {
 
+    @BindView(R.id.tv_info)
+    TextView tvInfo;
     @BindView(R.id.tv_time)
     TextView tvTime;
     @BindView(R.id.tv_team)
@@ -35,6 +38,8 @@ public class ShipUnloaderProgressActivity extends BaseActivity {
 
     private String taskId;
     private String currentDate;
+    private String selectDate;//选择的日期
+    private String selectTeam;//选择的班次
 
     public static Intent getIntent(Context context, String taskId) {
         Intent intent = new Intent(context, ShipUnloaderProgressActivity.class);
@@ -79,9 +84,19 @@ public class ShipUnloaderProgressActivity extends BaseActivity {
             case R.id.btn_clear://清空筛选
                 tvTime.setText("");
                 tvTeam.setText("");
+                tvInfo.setText("全部");
                 popupContainer.setVisibility(View.GONE);
                 break;
             case R.id.btn_confirm://确认筛选
+                if (TextUtils.isEmpty(selectDate)) {
+                    ToastUtils.show(activity, "请选择时间");
+                    return;
+                }
+                if (TextUtils.isEmpty(selectTeam)) {
+                    ToastUtils.show(activity, "请选择班次");
+                    return;
+                }
+                tvInfo.setText(selectDate + "----" + selectTeam);
                 popupContainer.setVisibility(View.GONE);
                 break;
             case R.id.btn_empty://隐藏弹窗
@@ -98,7 +113,8 @@ public class ShipUnloaderProgressActivity extends BaseActivity {
         datePicker = new CustomDatePicker(this, new CustomDatePicker.ResultHandler() {
             @Override
             public void handle(String time) { // 回调接口，获得选中的时间
-                tvTime.setText(time.split(" ")[0]);
+                selectDate = time.split(" ")[0];
+                tvTime.setText(selectDate);
             }
         }, "1970-01-01 00:00", currentDate); // 初始化日期格式请用：yyyy-MM-dd HH:mm，否则不能正常运行
         datePicker.showSpecificTime(false); // 不显示时和分
@@ -114,7 +130,8 @@ public class ShipUnloaderProgressActivity extends BaseActivity {
             builder.setSingleChoiceItems(teams, 0, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    tvTeam.setText(teams[which] + "");
+                    selectTeam = teams[which] + "";
+                    tvTeam.setText(selectTeam);
                     dialog.dismiss();
                 }
             });

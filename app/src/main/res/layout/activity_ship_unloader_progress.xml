@@ -71,6 +71,15 @@
                 android:layout_weight="1"
                 android:orientation="vertical">
 
+                <TextView
+                    android:id="@+id/tv_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/d45"
+                    android:gravity="center"
+                    android:text="全部"
+                    android:textColor="@color/text_89"
+                    android:textSize="@dimen/f16" />
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/d1"
