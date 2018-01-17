@@ -77,6 +77,8 @@ public class ShipUnloaderProgressActivity extends BaseActivity {
                 showTeamListDialog();
                 break;
             case R.id.btn_clear://清空筛选
+                tvTime.setText("");
+                tvTeam.setText("");
                 popupContainer.setVisibility(View.GONE);
                 break;
             case R.id.btn_confirm://确认筛选

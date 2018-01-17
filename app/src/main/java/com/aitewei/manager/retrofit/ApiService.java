@@ -4,6 +4,7 @@ import com.aitewei.manager.base.BaseEntity;
 import com.aitewei.manager.entity.CabinPositionEntity;
 import com.aitewei.manager.entity.GetCargoUnshipInfoEntity;
 import com.aitewei.manager.entity.GetPrivilegeEntity;
+import com.aitewei.manager.entity.GetShipUnshipInfoEntity;
 import com.aitewei.manager.entity.GetUploaderDetailEntity;
 import com.aitewei.manager.entity.ShipBaseInfoEntity;
 import com.aitewei.manager.entity.ShipCabinDetailEntity;
@@ -117,5 +118,12 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("ship/doGetCargoUnshipInfo")
     Observable<GetCargoUnshipInfoEntity> doGetCargoUnshipInfo(@Field("json") String json);
+
+    /**
+     * 获取船舶卸船情况列表
+     */
+    @FormUrlEncoded
+    @POST("ship/doGetShipUnshipInfo")
+    Observable<GetShipUnshipInfoEntity> doGetShipUnshipInfo(@Field("json") String json);
 
 }
