@@ -4,14 +4,13 @@ import android.support.annotation.Nullable;
 
 import com.aitewei.manager.R;
 import com.aitewei.manager.entity.GetCargoUnshipInfoEntity;
-import com.aitewei.manager.entity.ShipCabinListEntity;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
 import java.util.List;
 
 /**
- * 卸船进度的列表
+ * 货物卸船进度的列表
  * Created by zhangjunjie on 2018/1/6.
  */
 

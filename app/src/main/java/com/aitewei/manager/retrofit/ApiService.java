@@ -5,6 +5,8 @@ import com.aitewei.manager.entity.CabinPositionEntity;
 import com.aitewei.manager.entity.GetCargoUnshipInfoEntity;
 import com.aitewei.manager.entity.GetPrivilegeEntity;
 import com.aitewei.manager.entity.GetShipUnshipInfoEntity;
+import com.aitewei.manager.entity.GetUnloaderUnshipDetailListEntity;
+import com.aitewei.manager.entity.GetUnloaderUnshipInfoEntity;
 import com.aitewei.manager.entity.GetUploaderDetailEntity;
 import com.aitewei.manager.entity.ShipBaseInfoEntity;
 import com.aitewei.manager.entity.ShipCabinDetailEntity;
@@ -23,7 +25,7 @@ import retrofit2.http.POST;
  */
 
 public interface ApiService {
-        String BASEURL = "http://47.95.205.78/wcms/api/http/";//测试环境
+    String BASEURL = "http://47.95.205.78/wcms/api/http/";//测试环境
 //    String BASEURL = "http://60.2.201.70:8086/wcms/api/http/";//生产环境
 
     /**
@@ -125,5 +127,19 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("ship/doGetShipUnshipInfo")
     Observable<GetShipUnshipInfoEntity> doGetShipUnshipInfo(@Field("json") String json);
+
+    /**
+     * 获取卸船机卸船情况列表
+     */
+    @FormUrlEncoded
+    @POST("ship/doGetUnloaderUnshipInfo")
+    Observable<GetUnloaderUnshipInfoEntity> doGetUnloaderUnshipInfo(@Field("json") String json);
+
+    /**
+     * 卸船机卸船明细列表
+     */
+    @FormUrlEncoded
+    @POST("ship/doGetUnloaderUnshipDetailList")
+    Observable<GetUnloaderUnshipDetailListEntity> doGetUnloaderUnshipDetailList(@Field("json") String json);
 
 }

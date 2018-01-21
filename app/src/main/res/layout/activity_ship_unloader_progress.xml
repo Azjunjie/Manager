@@ -137,216 +137,34 @@
                     android:layout_height="@dimen/d1"
                     android:background="@color/line_color" />
 
-                <LinearLayout
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/d45"
-                    android:orientation="horizontal">
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="卸船机1"
-                        android:textColor="@color/text_89"
-                        android:textSize="@dimen/f14" />
+                    <com.aitewei.manager.view.LoadGroupView
+                        android:id="@+id/load_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="100"
-                        android:textColor="@color/text_89"
-                        android:textSize="@dimen/f14" />
+                    <android.support.v4.widget.SwipeRefreshLayout
+                        android:id="@+id/refreshLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="100"
-                        android:textColor="@color/text_89"
-                        android:textSize="@dimen/f14" />
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/list_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
+                    </android.support.v4.widget.SwipeRefreshLayout>
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="100"
-                        android:textColor="@color/text_89"
-                        android:textSize="@dimen/f14" />
+                </FrameLayout>
 
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/d1"
-                    android:background="@color/line_color" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/d45"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="卸船机2"
-                        android:textColor="@color/text_89"
-                        android:textSize="@dimen/f14" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="100"
-                        android:textColor="@color/text_89"
-                        android:textSize="@dimen/f14" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="100"
-                        android:textColor="@color/text_89"
-                        android:textSize="@dimen/f14" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="100"
-                        android:textColor="@color/text_89"
-                        android:textSize="@dimen/f14" />
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/d1"
-                    android:background="@color/line_color" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/d45"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="卸船机3"
-                        android:textColor="@color/text_89"
-                        android:textSize="@dimen/f14" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="100"
-                        android:textColor="@color/text_89"
-                        android:textSize="@dimen/f14" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="100"
-                        android:textColor="@color/text_89"
-                        android:textSize="@dimen/f14" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="100"
-                        android:textColor="@color/text_89"
-                        android:textSize="@dimen/f14" />
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/d1"
-                    android:background="@color/line_color" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/d45"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="总计"
-                        android:textColor="@color/text_89"
-                        android:textSize="@dimen/f14" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="300"
-                        android:textColor="@color/text_89"
-                        android:textSize="@dimen/f14" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="300"
-                        android:textColor="@color/text_89"
-                        android:textSize="@dimen/f14" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="100"
-                        android:textColor="@color/text_89"
-                        android:textSize="@dimen/f14" />
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/d1"
-                    android:background="@color/line_color" />
             </LinearLayout>
 
             <include layout="@layout/layout_bottom_tab_item" />
+
         </LinearLayout>
 
         <LinearLayout

@@ -9,6 +9,7 @@ import com.aitewei.manager.activity.ship.ShipListActivity;
 import com.aitewei.manager.activity.user.LoginActivity;
 import com.aitewei.manager.base.BaseActivity;
 import com.aitewei.manager.common.User;
+import com.tencent.bugly.crashreport.CrashReport;
 
 import java.util.concurrent.TimeUnit;
 

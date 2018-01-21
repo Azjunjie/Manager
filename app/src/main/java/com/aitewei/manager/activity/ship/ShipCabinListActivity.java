@@ -385,7 +385,7 @@ public class ShipCabinListActivity extends BaseActivity {
                 public void onClick(View v) {
                     //以卸船机为主查看总进度
                     menuPopup.dismiss();
-                    startActivity(new Intent(activity, ShipUnloaderProgressActivity.class));
+                    startActivity(ShipUnloaderProgressActivity.getIntent(activity, taskId));
                 }
             });
             view.findViewById(R.id.btn_cancle).setOnClickListener(new View.OnClickListener() {

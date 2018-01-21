@@ -69,7 +69,6 @@ public class CargoProgressActivity extends BaseActivity {
 
         listView.setLayoutManager(new LinearLayoutManager(activity));
         listView.setHasFixedSize(true);
-
     }
 
     @Override

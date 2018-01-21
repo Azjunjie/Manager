@@ -3,20 +3,34 @@ package com.aitewei.manager.activity.ship;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.aitewei.manager.R;
+import com.aitewei.manager.adapter.ShipUnloaderProgressListAdapter;
 import com.aitewei.manager.base.BaseActivity;
+import com.aitewei.manager.common.User;
+import com.aitewei.manager.entity.GetUnloaderUnshipInfoEntity;
+import com.aitewei.manager.retrofit.RetrofitFactory;
+import com.aitewei.manager.rxjava.BaseObserver;
+import com.aitewei.manager.rxjava.RxSchedulers;
+import com.aitewei.manager.utils.LogUtil;
 import com.aitewei.manager.utils.ToastUtils;
 import com.aitewei.manager.utils.ToolBarUtil;
 import com.aitewei.manager.view.CustomDatePicker;
+import com.aitewei.manager.view.LoadGroupView;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -36,10 +50,23 @@ public class ShipUnloaderProgressActivity extends BaseActivity {
     @BindView(R.id.popup_container)
     LinearLayout popupContainer;
 
+    @BindView(R.id.load_view)
+    LoadGroupView loadView;
+    @BindView(R.id.list_view)
+    RecyclerView listView;
+    @BindView(R.id.refreshLayout)
+    SwipeRefreshLayout refreshLayout;
+
     private String taskId;
     private String currentDate;
     private String selectDate;//选择的日期
     private String selectTeam;//选择的班次
+
+    private ShipUnloaderProgressListAdapter adapter;
+
+    private String startTime = "";
+    private String endTime = "";
+    private SimpleDateFormat dateFormat;
 
     public static Intent getIntent(Context context, String taskId) {
         Intent intent = new Intent(context, ShipUnloaderProgressActivity.class);
@@ -55,13 +82,90 @@ public class ShipUnloaderProgressActivity extends BaseActivity {
     @Override
     protected void initView() {
         ToolBarUtil.init(activity, "卸船机总览");
+
+        refreshLayout.setColorSchemeColors(getResources().getColor(R.color.blue));
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                requestData();
+            }
+        });
+
+        listView.setLayoutManager(new LinearLayoutManager(activity));
+        listView.setHasFixedSize(true);
     }
 
     @Override
     protected void initData() {
         taskId = getIntent().getStringExtra("taskId");
 
+        dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         initDatePicker();
+
+        adapter = new ShipUnloaderProgressListAdapter(R.layout.layout_ship_unloader_progress_list_item, null);
+        listView.setAdapter(adapter);
+        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                List<GetUnloaderUnshipInfoEntity.DataBean> list = adapter.getData();
+                GetUnloaderUnshipInfoEntity.DataBean bean = list.get(position);
+                String unloaderName = bean.getUnloaderName();
+                if (!"合计".equals(unloaderName)) {
+                    startActivity(ShipUnloaderDetailProgressActivity.getIntent(activity, taskId, bean.getUnloaderName()
+                            , bean.getUnloaderId(), startTime, endTime));
+                }
+            }
+        });
+
+        loadView.setVisibility(View.VISIBLE);
+        listView.setVisibility(View.GONE);
+        requestData();
+    }
+
+    private void requestData() {
+        String params = "{\"taskId\":" + taskId + ",\"startTime\":\"" + startTime
+                + "\",\"endTime\":\"" + endTime
+                + "\",\"userId\":\"" + User.newInstance().getUserId() + "\"}";
+        LogUtil.e("doGetUnloaderUnshipInfo json=" + params);
+        RetrofitFactory.getInstance()
+                .doGetUnloaderUnshipInfo(params)
+                .compose(RxSchedulers.<GetUnloaderUnshipInfoEntity>compose())
+                .subscribe(new BaseObserver<GetUnloaderUnshipInfoEntity>(compositeDisposable) {
+                    @Override
+                    protected void onHandleSuccess(GetUnloaderUnshipInfoEntity entity) {
+                        if (refreshLayout != null) {
+                            refreshLayout.setRefreshing(false);
+                        }
+                        List<GetUnloaderUnshipInfoEntity.DataBean> list = entity.getData();
+                        if (list != null && !list.isEmpty()) {
+                            loadView.setVisibility(View.GONE);
+                            listView.setVisibility(View.VISIBLE);
+                            GetUnloaderUnshipInfoEntity.DataBean dataBean = new GetUnloaderUnshipInfoEntity.DataBean();
+                            dataBean.setUnloaderName("合计");
+                            for (GetUnloaderUnshipInfoEntity.DataBean bean : list) {
+                                dataBean.setUsedTime(dataBean.getUsedTime() + bean.getUsedTime());
+                                dataBean.setUnloading(dataBean.getUnloading() + bean.getUnloading());
+                            }
+                            dataBean.setEfficiency(dataBean.getUnloading() / dataBean.getUsedTime());
+                            list.add(dataBean);
+                            adapter.setNewData(list);
+                        } else {
+                            loadView.setVisibility(View.VISIBLE);
+                            listView.setVisibility(View.GONE);
+                            loadView.setLoadType(LoadGroupView.TYPE_EMPTY);
+                        }
+                    }
+
+                    @Override
+                    protected void onHandleRequestError(String code, String msg) {
+                        if (refreshLayout != null) {
+                            refreshLayout.setRefreshing(false);
+                        }
+                        loadView.setVisibility(View.VISIBLE);
+                        listView.setVisibility(View.GONE);
+                        loadView.setLoadError(msg + "");
+                    }
+                });
     }
 
     @OnClick({R.id.btn_popup, R.id.tv_time, R.id.tv_team
@@ -84,8 +188,12 @@ public class ShipUnloaderProgressActivity extends BaseActivity {
             case R.id.btn_clear://清空筛选
                 tvTime.setText("");
                 tvTeam.setText("");
+                startTime = "";
+                endTime = "";
                 tvInfo.setText("全部");
                 popupContainer.setVisibility(View.GONE);
+                refreshLayout.setRefreshing(true);
+                requestData();
                 break;
             case R.id.btn_confirm://确认筛选
                 if (TextUtils.isEmpty(selectDate)) {
@@ -98,6 +206,22 @@ public class ShipUnloaderProgressActivity extends BaseActivity {
                 }
                 tvInfo.setText(selectDate + "----" + selectTeam);
                 popupContainer.setVisibility(View.GONE);
+                if ("白班".equals(selectTeam)) {
+                    startTime = selectDate + " 08:00:00";
+                    endTime = selectDate + " 20:00:00";
+                } else if ("夜班".equals(selectTeam)) {
+                    startTime = selectDate + " 20:00:00";
+                    try {
+                        Date date = dateFormat.parse(selectDate);
+                        date.setTime(date.getTime() + 24 * 60 * 60 * 1000);
+                        String secondDate = dateFormat.format(date);
+                        endTime = secondDate + " 08:00:00";
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                }
+                refreshLayout.setRefreshing(true);
+                requestData();
                 break;
             case R.id.btn_empty://隐藏弹窗
                 popupContainer.setVisibility(View.GONE);

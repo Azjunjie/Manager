@@ -60,4 +60,6 @@ dependencies {
     implementation 'com.youth.banner:banner:1.4.10'
     //eventbus
     implementation 'org.greenrobot:eventbus:3.1.1'
+    //bugly
+    implementation 'com.tencent.bugly:crashreport:2.6.6'
 }

@@ -3,6 +3,10 @@
     package="com.aitewei.manager">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
 
     <application
         android:name=".common.ManagerApplication"
@@ -63,7 +67,12 @@
         <activity
             android:name=".activity.ship.CargoProgressActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.ship.ShipUnloaderProgressActivity"></activity>
+        <activity
+            android:name=".activity.ship.ShipUnloaderProgressActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ship.ShipUnloaderDetailProgressActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
