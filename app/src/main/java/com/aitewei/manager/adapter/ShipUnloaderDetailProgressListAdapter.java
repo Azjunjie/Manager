@@ -24,6 +24,7 @@ public class ShipUnloaderDetailProgressListAdapter extends BaseQuickAdapter<GetU
     protected void convert(BaseViewHolder helper, GetUnloaderUnshipDetailListEntity.DataBean item) {
         helper.addOnClickListener(R.id.tv_name);
 
+        helper.setText(R.id.tv_cabin_no, item.getCabinNo() + "");
         helper.setText(R.id.tv_startTime, item.getStartTime() + "");
         helper.setText(R.id.tv_endTime, item.getEndTime() + "");
         helper.setText(R.id.tv_usedTime, item.getUsedTime() + "");

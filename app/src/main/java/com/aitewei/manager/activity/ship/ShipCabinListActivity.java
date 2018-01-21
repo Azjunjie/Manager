@@ -86,6 +86,7 @@ public class ShipCabinListActivity extends BaseActivity {
     private int type;
     private ShipCabinListEntity.DataBean operationBean;//当前设置船舱状态的bean
     private int cabinNum;
+    private String shipName;
 
     public static Intent getIntent(Context context, int type, String taskId, String shipName) {
         Intent intent = new Intent(context, ShipCabinListActivity.class);
@@ -152,7 +153,7 @@ public class ShipCabinListActivity extends BaseActivity {
     @Override
     protected void initData() {
         taskId = getIntent().getStringExtra("taskId");
-        String shipName = getIntent().getStringExtra("shipName");
+        shipName = getIntent().getStringExtra("shipName");
 
         btnShipInfo.setText(shipName + "");
 
@@ -377,7 +378,7 @@ public class ShipCabinListActivity extends BaseActivity {
                 public void onClick(View v) {
                     //获货物为主查看卸船进度
                     menuPopup.dismiss();
-                    startActivity(CargoProgressActivity.getIntent(activity, taskId));
+                    startActivity(CargoProgressActivity.getIntent(activity, taskId, shipName + ""));
                 }
             });
             view.findViewById(R.id.btn_progress1).setOnClickListener(new View.OnClickListener() {

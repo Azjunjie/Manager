@@ -22,6 +22,8 @@ public class CabinProgressListAdapter extends BaseQuickAdapter<GetCargoUnshipInf
 
     @Override
     protected void convert(BaseViewHolder helper, GetCargoUnshipInfoEntity.DataBean item) {
+        helper.addOnClickListener(R.id.tv_cargoType);
+
         helper.setText(R.id.tv_cargoType, item.getCargoName() + "");
         helper.setText(R.id.tv_total, item.getTotal() + "");
         helper.setText(R.id.tv_finish, item.getFinished() + "");

@@ -27,6 +27,7 @@ import com.aitewei.manager.view.CustomDatePicker;
 import com.aitewei.manager.view.LoadGroupView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -67,6 +68,7 @@ public class ShipUnloaderProgressActivity extends BaseActivity {
     private String startTime = "";
     private String endTime = "";
     private SimpleDateFormat dateFormat;
+    private DecimalFormat decimalFormat;
 
     public static Intent getIntent(Context context, String taskId) {
         Intent intent = new Intent(context, ShipUnloaderProgressActivity.class);
@@ -100,6 +102,7 @@ public class ShipUnloaderProgressActivity extends BaseActivity {
         taskId = getIntent().getStringExtra("taskId");
 
         dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        decimalFormat = new DecimalFormat(".00");
         initDatePicker();
 
         adapter = new ShipUnloaderProgressListAdapter(R.layout.layout_ship_unloader_progress_list_item, null);
@@ -147,6 +150,9 @@ public class ShipUnloaderProgressActivity extends BaseActivity {
                                 dataBean.setUnloading(dataBean.getUnloading() + bean.getUnloading());
                             }
                             dataBean.setEfficiency(dataBean.getUnloading() / dataBean.getUsedTime());
+                            dataBean.setUsedTime(Double.valueOf(decimalFormat.format(dataBean.getUsedTime())));
+                            dataBean.setUnloading(Double.valueOf(decimalFormat.format(dataBean.getUnloading())));
+                            dataBean.setEfficiency(Double.valueOf(decimalFormat.format(dataBean.getEfficiency())));
                             list.add(dataBean);
                             adapter.setNewData(list);
                         } else {

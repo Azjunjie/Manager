@@ -16,7 +16,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:text="货名"
-            android:textColor="@color/text_89"
+            android:textColor="@color/blue"
             android:textSize="@dimen/f15" />
 
         <TextView

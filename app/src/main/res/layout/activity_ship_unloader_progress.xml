@@ -106,7 +106,7 @@
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="台时"
+                        android:text="用时|h"
                         android:textColor="@color/text_31"
                         android:textSize="@dimen/f14" />
 
@@ -116,7 +116,7 @@
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="作业量"
+                        android:text="卸货量|t"
                         android:textColor="@color/text_31"
                         android:textSize="@dimen/f14" />
 

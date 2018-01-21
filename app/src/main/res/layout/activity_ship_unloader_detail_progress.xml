@@ -23,6 +23,16 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:text="船舱号"
+                android:textColor="@color/text_31"
+                android:textSize="@dimen/f14" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
                 android:layout_weight="3"
                 android:gravity="center"
                 android:text="开始时间"
@@ -45,7 +55,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="2"
                 android:gravity="center"
-                android:text="台时"
+                android:text="用时|h"
                 android:textColor="@color/text_31"
                 android:textSize="@dimen/f14" />
 
@@ -55,7 +65,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="2"
                 android:gravity="center"
-                android:text="作业量"
+                android:text="卸货量|t"
                 android:textColor="@color/text_31"
                 android:textSize="@dimen/f14" />
 
