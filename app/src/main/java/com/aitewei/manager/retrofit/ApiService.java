@@ -101,6 +101,13 @@ public interface ApiService {
     Observable<ShipGoodsDetailEntity> doGetCargoDetail(@Field("json") String json);
 
     /**
+     * 获取货物信息(通过货物ID)
+     */
+    @FormUrlEncoded
+    @POST("ship/doGetCargoDetailById")
+    Observable<ShipGoodsDetailEntity> doGetCargoDetailById(@Field("json") String json);
+
+    /**
      * 修改船舶状态
      */
     @FormUrlEncoded

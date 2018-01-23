@@ -2,6 +2,7 @@ package com.aitewei.manager.activity.ship;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -46,12 +47,20 @@ public class ShipCargoDetailActivity extends BaseActivity {
     TextView tvWarehouse;
 
     private String taskId;
+    private String cargoId;
     private int cabinNo;
 
     public static Intent getIntent(Context context, String taskId, int cabinNo) {
         Intent intent = new Intent(context, ShipCargoDetailActivity.class);
         intent.putExtra("taskId", taskId);
         intent.putExtra("cabinNo", cabinNo);
+        return intent;
+    }
+
+    public static Intent getIntent(Context context, String taskId, String cargoId) {
+        Intent intent = new Intent(context, ShipCargoDetailActivity.class);
+        intent.putExtra("taskId", taskId);
+        intent.putExtra("cargoId", cargoId);
         return intent;
     }
 
@@ -68,6 +77,7 @@ public class ShipCargoDetailActivity extends BaseActivity {
     @Override
     protected void initData() {
         taskId = getIntent().getStringExtra("taskId");
+        cargoId = getIntent().getStringExtra("cargoId");
         cabinNo = getIntent().getIntExtra("cabinNo", 0);
 
         loadView.setVisibility(View.VISIBLE);
@@ -76,26 +86,48 @@ public class ShipCargoDetailActivity extends BaseActivity {
     }
 
     private void requestDetailData() {
-        String params = "{\"taskId\":\"" + taskId + "\",\"userId\":\"" + User.newInstance().getUserId() + "\""
-                + ",\"cabinNo\":" + cabinNo + "}";
-        LogUtil.e(params + "");
-        RetrofitFactory.getInstance()
-                .doGetCargoDetail(params)
-                .compose(RxSchedulers.<ShipGoodsDetailEntity>compose())
-                .subscribe(new BaseObserver<ShipGoodsDetailEntity>(compositeDisposable) {
-                    @Override
-                    protected void onHandleSuccess(ShipGoodsDetailEntity entity) {
-                        ShipGoodsDetailEntity.DataBean detailBean = entity.getData();
-                        bindDetail(detailBean);
-                    }
+        if (TextUtils.isEmpty(cargoId)) {
+            String params = "{\"taskId\":\"" + taskId + "\",\"userId\":\"" + User.newInstance().getUserId() + "\""
+                    + ",\"cabinNo\":" + cabinNo + "}";
+            LogUtil.e(params + "");
+            RetrofitFactory.getInstance()
+                    .doGetCargoDetail(params)
+                    .compose(RxSchedulers.<ShipGoodsDetailEntity>compose())
+                    .subscribe(new BaseObserver<ShipGoodsDetailEntity>(compositeDisposable) {
+                        @Override
+                        protected void onHandleSuccess(ShipGoodsDetailEntity entity) {
+                            ShipGoodsDetailEntity.DataBean detailBean = entity.getData();
+                            bindDetail(detailBean);
+                        }
 
-                    @Override
-                    protected void onHandleRequestError(String code, String msg) {
-                        contentView.setVisibility(View.GONE);
-                        loadView.setVisibility(View.VISIBLE);
-                        loadView.setLoadError(msg + "");
-                    }
-                });
+                        @Override
+                        protected void onHandleRequestError(String code, String msg) {
+                            contentView.setVisibility(View.GONE);
+                            loadView.setVisibility(View.VISIBLE);
+                            loadView.setLoadError(msg + "");
+                        }
+                    });
+        } else {
+            String params = "{\"cargoId\":\"" + cargoId + "\",\"userId\":\"" + User.newInstance().getUserId() + "\"}";
+            LogUtil.e(params + "");
+            RetrofitFactory.getInstance()
+                    .doGetCargoDetailById(params)
+                    .compose(RxSchedulers.<ShipGoodsDetailEntity>compose())
+                    .subscribe(new BaseObserver<ShipGoodsDetailEntity>(compositeDisposable) {
+                        @Override
+                        protected void onHandleSuccess(ShipGoodsDetailEntity entity) {
+                            ShipGoodsDetailEntity.DataBean detailBean = entity.getData();
+                            bindDetail(detailBean);
+                        }
+
+                        @Override
+                        protected void onHandleRequestError(String code, String msg) {
+                            contentView.setVisibility(View.GONE);
+                            loadView.setVisibility(View.VISIBLE);
+                            loadView.setLoadError(msg + "");
+                        }
+                    });
+        }
     }
 
     private void bindDetail(ShipGoodsDetailEntity.DataBean dataBean) {

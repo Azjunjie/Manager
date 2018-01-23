@@ -93,7 +93,7 @@ public class CargoProgressActivity extends BaseActivity {
                 GetCargoUnshipInfoEntity.DataBean bean = list.get(position);
                 String cargoName = bean.getCargoName();
                 if (!"合计".equals(cargoName)) {
-                    startActivity(ShipCargoDetailActivity.getIntent(activity, taskId, bean.getCargoId()));
+                    startActivity(ShipCargoDetailActivity.getIntent(activity, taskId, bean.getCargoId() + ""));
                 }
             }
         });

@@ -35,6 +35,7 @@ import com.aitewei.manager.view.SyncHorizontalScrollView;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -87,6 +88,7 @@ public class ShipCabinListActivity extends BaseActivity {
     private ShipCabinListEntity.DataBean operationBean;//当前设置船舱状态的bean
     private int cabinNum;
     private String shipName;
+    private DecimalFormat decimalFormat;
 
     public static Intent getIntent(Context context, int type, String taskId, String shipName) {
         Intent intent = new Intent(context, ShipCabinListActivity.class);
@@ -152,6 +154,8 @@ public class ShipCabinListActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+        decimalFormat = new DecimalFormat("0.00");
+
         taskId = getIntent().getStringExtra("taskId");
         shipName = getIntent().getStringExtra("shipName");
 
@@ -509,7 +513,7 @@ public class ShipCabinListActivity extends BaseActivity {
         @Override
         public int getCount() {
             if (mListData != null) {
-                return mListData.size();
+                return mListData.size() + 1;
             }
             return 0;
         }
@@ -535,15 +539,25 @@ public class ShipCabinListActivity extends BaseActivity {
             } else {
                 holder = (ViewHolder) convertView.getTag();
             }
-            ShipCabinListEntity.DataBean dataBean = mListData.get(position);
-            final int cabinNo = dataBean.getCabinNo();
-            holder.tvCabinNo.setText(cabinNo + "");
-            holder.tvCabinNo.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    startActivity(ShipCabinDetailActivity.getIntent(activity, taskId, cabinNo));
-                }
-            });
+            int count = getCount() - 1;
+            if (position == count) {
+                holder.tvCabinNo.setText("合计");
+                holder.tvCabinNo.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                    }
+                });
+            } else {
+                ShipCabinListEntity.DataBean dataBean = mListData.get(position);
+                final int cabinNo = dataBean.getCabinNo();
+                holder.tvCabinNo.setText(cabinNo + "");
+                holder.tvCabinNo.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startActivity(ShipCabinDetailActivity.getIntent(activity, taskId, cabinNo));
+                    }
+                });
+            }
             return convertView;
         }
 
@@ -557,7 +571,7 @@ public class ShipCabinListActivity extends BaseActivity {
         @Override
         public int getCount() {
             if (mListData != null) {
-                return mListData.size();
+                return mListData.size() + 1;
             }
             return 0;
         }
@@ -589,43 +603,72 @@ public class ShipCabinListActivity extends BaseActivity {
             } else {
                 holder = (ViewHolder) convertView.getTag();
             }
-            final ShipCabinListEntity.DataBean dataBean = mListData.get(position);
-            holder.tvCabinType.setText(dataBean.getCargoName() + "");
-            holder.tvCabinType.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startActivity(ShipCargoDetailActivity.getIntent(activity, taskId, dataBean.getCabinNo()));
-                }
-            });
-            holder.tvTotal.setText(dataBean.getTotal() + "");
-            holder.tvFinish.setText(dataBean.getFinished() + "");
-            holder.tvRemainder.setText(dataBean.getRemainder() + "");
-            holder.tvClearance.setText(dataBean.getClearance() + "");
-            String status = dataBean.getStatus();//0|卸货;1|清舱;2|完成
-            if ("0".equals(status)) {
-                holder.tvStatus.setText("卸货");
-                holder.tvOperation.setText("清舱");
-            } else if ("1".equals(status)) {
-                holder.tvStatus.setText("清舱");
-                holder.tvOperation.setText("完成");
-            } else if ("2".equals(status)) {
-                holder.tvStatus.setText("完成");
-                holder.tvOperation.setText("");
-            } else {
-                holder.tvStatus.setText("未开始");
-                holder.tvOperation.setText("卸货");
-            }
-            holder.tvOperation.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    onClickOperationListener.onClickOperation(dataBean);
-                }
-            });
+
             boolean hasPermission = PermissionsCode.isHasPermission(PermissionsCode.clearStatus);
             if (type == ShipListFragment.TYPE_WORKING && hasPermission) {
                 holder.tvOperation.setVisibility(View.VISIBLE);
             } else {
                 holder.tvOperation.setVisibility(View.GONE);
+            }
+            int count = getCount() - 1;
+            if (count == position) {
+                ShipCabinListEntity.DataBean dataBean = new ShipCabinListEntity.DataBean();
+                for (ShipCabinListEntity.DataBean bean : mListData) {
+                    dataBean.setTotal(dataBean.getTotal() + bean.getTotal());
+                    dataBean.setFinished(dataBean.getFinished() + bean.getFinished());
+                    dataBean.setRemainder(dataBean.getRemainder() + bean.getRemainder());
+                    dataBean.setClearance(dataBean.getClearance() + bean.getClearance());
+                }
+                holder.tvCabinType.setText("--");
+                holder.tvCabinType.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                    }
+                });
+                holder.tvTotal.setText(decimalFormat.format(dataBean.getTotal()) + "");
+                holder.tvFinish.setText(decimalFormat.format(dataBean.getFinished()) + "");
+                holder.tvRemainder.setText(decimalFormat.format(dataBean.getRemainder()) + "");
+                holder.tvClearance.setText(decimalFormat.format(dataBean.getClearance()) + "");
+                holder.tvStatus.setText("--");
+                holder.tvOperation.setText("--");
+                holder.tvOperation.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                    }
+                });
+            } else {
+                final ShipCabinListEntity.DataBean dataBean = mListData.get(position);
+                holder.tvCabinType.setText(dataBean.getCargoName() + "");
+                holder.tvCabinType.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivity(ShipCargoDetailActivity.getIntent(activity, taskId, dataBean.getCabinNo()));
+                    }
+                });
+                holder.tvTotal.setText(dataBean.getTotal() + "");
+                holder.tvFinish.setText(dataBean.getFinished() + "");
+                holder.tvRemainder.setText(dataBean.getRemainder() + "");
+                holder.tvClearance.setText(dataBean.getClearance() + "");
+                String status = dataBean.getStatus();//0|卸货;1|清舱;2|完成
+                if ("0".equals(status)) {
+                    holder.tvStatus.setText("卸货");
+                    holder.tvOperation.setText("清舱");
+                } else if ("1".equals(status)) {
+                    holder.tvStatus.setText("清舱");
+                    holder.tvOperation.setText("完成");
+                } else if ("2".equals(status)) {
+                    holder.tvStatus.setText("完成");
+                    holder.tvOperation.setText("");
+                } else {
+                    holder.tvStatus.setText("未开始");
+                    holder.tvOperation.setText("卸货");
+                }
+                holder.tvOperation.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        onClickOperationListener.onClickOperation(dataBean);
+                    }
+                });
             }
             return convertView;
         }

@@ -102,7 +102,7 @@ public class ShipUnloaderProgressActivity extends BaseActivity {
         taskId = getIntent().getStringExtra("taskId");
 
         dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        decimalFormat = new DecimalFormat(".00");
+        decimalFormat = new DecimalFormat("0.00");
         initDatePicker();
 
         adapter = new ShipUnloaderProgressListAdapter(R.layout.layout_ship_unloader_progress_list_item, null);
