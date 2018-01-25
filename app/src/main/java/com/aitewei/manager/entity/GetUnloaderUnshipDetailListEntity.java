@@ -10,10 +10,6 @@ import java.util.List;
 
 public class GetUnloaderUnshipDetailListEntity extends BaseEntity {
 
-    /**
-     * code : 1
-     * data : [{"unloaderId":"ABB_GSU_2","unloaderName":"#2","cabinId":351,"cabinNo":2,"startTime":"2018-01-21 18:06:45","endTime":"2018-01-21 19:19:41","usedTime":1.2,"unloading":400.98,"efficiency":333.3333}]
-     */
 
     private List<DataBean> data;
 
@@ -27,33 +23,57 @@ public class GetUnloaderUnshipDetailListEntity extends BaseEntity {
 
     public static class DataBean {
         /**
-         * unloaderId : ABB_GSU_2
-         * unloaderName : #2
-         * cabinId : 351
-         * cabinNo : 2
-         * startTime : 2018-01-21 18:06:45
-         * endTime : 2018-01-21 19:19:41
-         * usedTime : 1.2
-         * unloading : 400.98
-         * efficiency : 333.3333
+         * task_id : 67
+         * cmsid : ABB_GSU_1
+         * unloaderName : #1
+         * startTime : 2018-01-21 17:51:26
+         * endTime : 2018-01-21 17:52:21
+         * usedTime : 0.02
+         * unloading : 300.09
+         * efficiency : 19607.84
          */
 
-        private String unloaderId;
+        private int task_id;
+        private int cabinNo;
+        private int cabinId;
+        private String cmsid;
         private String unloaderName;
-        private String cabinId;
-        private String cabinNo;
         private String startTime;
         private String endTime;
         private double usedTime;
         private double unloading;
         private double efficiency;
 
-        public String getUnloaderId() {
-            return unloaderId;
+        public int getCabinNo() {
+            return cabinNo;
         }
 
-        public void setUnloaderId(String unloaderId) {
-            this.unloaderId = unloaderId;
+        public void setCabinNo(int cabinNo) {
+            this.cabinNo = cabinNo;
+        }
+
+        public int getCabinId() {
+            return cabinId;
+        }
+
+        public void setCabinId(int cabinId) {
+            this.cabinId = cabinId;
+        }
+
+        public int getTask_id() {
+            return task_id;
+        }
+
+        public void setTask_id(int task_id) {
+            this.task_id = task_id;
+        }
+
+        public String getCmsid() {
+            return cmsid;
+        }
+
+        public void setCmsid(String cmsid) {
+            this.cmsid = cmsid;
         }
 
         public String getUnloaderName() {
@@ -62,22 +82,6 @@ public class GetUnloaderUnshipDetailListEntity extends BaseEntity {
 
         public void setUnloaderName(String unloaderName) {
             this.unloaderName = unloaderName;
-        }
-
-        public String getCabinId() {
-            return cabinId;
-        }
-
-        public void setCabinId(String cabinId) {
-            this.cabinId = cabinId;
-        }
-
-        public String getCabinNo() {
-            return cabinNo;
-        }
-
-        public void setCabinNo(String cabinNo) {
-            this.cabinNo = cabinNo;
         }
 
         public String getStartTime() {

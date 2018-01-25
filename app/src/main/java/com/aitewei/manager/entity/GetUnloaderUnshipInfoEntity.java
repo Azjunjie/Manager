@@ -1,6 +1,7 @@
 package com.aitewei.manager.entity;
 
 import com.aitewei.manager.base.BaseEntity;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
@@ -11,14 +12,10 @@ import java.util.List;
 
 public class GetUnloaderUnshipInfoEntity extends BaseEntity {
 
+
     /**
-     * {"data": [{
-     "unloaderId": "",
-     "unloaderName": "",
-     "usedTime": 1.01,
-     "unloading": 1.11,
-     "efficiency": 10
-     }]}
+     * code : 1
+     * data : [{"task_id":67,"cmsid":"ABB_GSU_1","unloaderName":"#1","usedTime":40.77,"unloading":1350.09,"efficiency":33.12},{"task_id":67,"cmsid":"ABB_GSU_2","unloaderName":"#2","usedTime":0,"unloading":400,"efficiency":90909.09},{"task_id":67,"cmsid":"ABB_GSU_3","unloaderName":"#3","usedTime":0.1,"unloading":365.67,"efficiency":3502.57}]
      */
     private List<DataBean> data;
 
@@ -32,25 +29,35 @@ public class GetUnloaderUnshipInfoEntity extends BaseEntity {
 
     public static class DataBean {
         /**
-         * unloaderId :
-         * unloaderName :
-         * usedTime : 1.01
-         * unloading : 1.11
-         * efficiency : 10.0
+         * task_id : 67
+         * cmsid : ABB_GSU_1
+         * unloaderName : #1
+         * usedTime : 40.77
+         * unloading : 1350.09
+         * efficiency : 33.12
          */
 
-        private String unloaderId;
+        private int task_id;
+        private String cmsid;
         private String unloaderName;
         private double usedTime;
         private double unloading;
         private double efficiency;
 
-        public String getUnloaderId() {
-            return unloaderId;
+        public int getTask_id() {
+            return task_id;
         }
 
-        public void setUnloaderId(String unloaderId) {
-            this.unloaderId = unloaderId;
+        public void setTask_id(int task_id) {
+            this.task_id = task_id;
+        }
+
+        public String getCmsid() {
+            return cmsid;
+        }
+
+        public void setCmsid(String cmsid) {
+            this.cmsid = cmsid;
         }
 
         public String getUnloaderName() {

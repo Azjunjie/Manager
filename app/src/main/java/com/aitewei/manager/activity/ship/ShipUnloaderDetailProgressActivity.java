@@ -18,6 +18,7 @@ import com.aitewei.manager.rxjava.RxSchedulers;
 import com.aitewei.manager.utils.LogUtil;
 import com.aitewei.manager.utils.ToolBarUtil;
 import com.aitewei.manager.view.LoadGroupView;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import java.util.List;
 
@@ -81,6 +82,14 @@ public class ShipUnloaderDetailProgressActivity extends BaseActivity {
         endTime = intent.getStringExtra("endTime");
 
         adapter = new ShipUnloaderDetailProgressListAdapter(R.layout.layout_ship_unloader_detail_progres_list_item, null);
+        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                List<GetUnloaderUnshipDetailListEntity.DataBean> list = adapter.getData();
+                GetUnloaderUnshipDetailListEntity.DataBean bean = list.get(position);
+                startActivity(ShipCabinDetailActivity.getIntent(activity, taskId, bean.getCabinNo()));
+            }
+        });
         listView.setAdapter(adapter);
 
         loadView.setVisibility(View.VISIBLE);

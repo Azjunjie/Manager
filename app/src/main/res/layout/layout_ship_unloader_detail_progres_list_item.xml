@@ -17,7 +17,7 @@
             android:layout_weight="2"
             android:gravity="center"
             android:text="船舱号"
-            android:textColor="@color/text_89"
+            android:textColor="@color/blue"
             android:textSize="@dimen/f14" />
 
         <TextView

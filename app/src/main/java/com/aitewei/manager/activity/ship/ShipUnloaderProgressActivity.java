@@ -115,7 +115,7 @@ public class ShipUnloaderProgressActivity extends BaseActivity {
                 String unloaderName = bean.getUnloaderName();
                 if (!"合计".equals(unloaderName)) {
                     startActivity(ShipUnloaderDetailProgressActivity.getIntent(activity, taskId, bean.getUnloaderName()
-                            , bean.getUnloaderId(), startTime, endTime));
+                            , bean.getCmsid(), startTime, endTime));
                 }
             }
         });
