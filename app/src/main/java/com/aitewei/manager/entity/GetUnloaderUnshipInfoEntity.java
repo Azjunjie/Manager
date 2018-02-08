@@ -1,7 +1,6 @@
 package com.aitewei.manager.entity;
 
 import com.aitewei.manager.base.BaseEntity;
-import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
@@ -38,7 +37,7 @@ public class GetUnloaderUnshipInfoEntity extends BaseEntity {
          */
 
         private int task_id;
-        private String cmsid;
+        private String unloaderId;
         private String unloaderName;
         private double usedTime;
         private double unloading;
@@ -52,12 +51,12 @@ public class GetUnloaderUnshipInfoEntity extends BaseEntity {
             this.task_id = task_id;
         }
 
-        public String getCmsid() {
-            return cmsid;
+        public String getUnloaderId() {
+            return unloaderId;
         }
 
-        public void setCmsid(String cmsid) {
-            this.cmsid = cmsid;
+        public void setUnloaderId(String unloaderId) {
+            this.unloaderId = unloaderId;
         }
 
         public String getUnloaderName() {
