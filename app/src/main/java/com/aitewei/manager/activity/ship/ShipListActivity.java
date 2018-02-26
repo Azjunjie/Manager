@@ -19,6 +19,7 @@ import com.aitewei.manager.base.BaseFragment;
 import com.aitewei.manager.common.GlideImageLoader;
 import com.aitewei.manager.fragment.ShipListFragment;
 import com.aitewei.manager.utils.ScreenUtils;
+import com.tencent.bugly.beta.Beta;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 

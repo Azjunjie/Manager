@@ -14,6 +14,8 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class Statistics2Activity extends BaseActivity {
+    private static final int REQUEST_SHIP_LIST = 1;
+
     @BindView(R.id.tv_ship_name)
     TextView tvShipName;
     @BindView(R.id.tv_cabin_no)
@@ -38,7 +40,8 @@ public class Statistics2Activity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_ship_name:
-                showShipListDialog();
+//                showShipListDialog();
+                startActivityForResult(AllShipListActivity.getIntent(activity), REQUEST_SHIP_LIST);
                 break;
             case R.id.tv_cabin_no:
                 showCabinListDialog();
@@ -46,6 +49,17 @@ public class Statistics2Activity extends BaseActivity {
             case R.id.btn_search:
                 startActivity(new Intent(activity, StatisticsResult2Activity.class));
                 break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (REQUEST_SHIP_LIST == requestCode && resultCode == RESULT_OK) {
+            if (data != null) {
+                String shipName = data.getStringExtra("shipName");
+                tvShipName.setText(shipName + "");
+            }
         }
     }
 

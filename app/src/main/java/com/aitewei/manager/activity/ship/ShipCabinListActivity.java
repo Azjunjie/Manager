@@ -239,7 +239,7 @@ public class ShipCabinListActivity extends BaseActivity {
                         showSetCabinStatusPopup(1);
                     } else if ("1".equals(status)) {
                         //完成操作提示
-                        showSetCabinStatusPopup(2);
+//                        showSetCabinStatusPopup(2);
                     } else if ("2".equals(status)) {
                     } else {
                         //卸货操作提示
@@ -655,9 +655,9 @@ public class ShipCabinListActivity extends BaseActivity {
                     holder.tvOperation.setText("清舱");
                 } else if ("1".equals(status)) {
                     holder.tvStatus.setText("清舱");
-                    holder.tvOperation.setText("完成");
+                    holder.tvOperation.setText("");
                 } else if ("2".equals(status)) {
-                    holder.tvStatus.setText("完成");
+                    holder.tvStatus.setText("");
                     holder.tvOperation.setText("");
                 } else {
                     holder.tvStatus.setText("未开始");

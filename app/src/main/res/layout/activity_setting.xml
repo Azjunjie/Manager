@@ -87,6 +87,24 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="京唐港首钢码头有限公司"
+        android:textColor="@color/text_c0"
+        android:textSize="@dimen/f13" />
+
+    <TextView
+        android:id="@+id/tv_version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/d5"
+        android:text="版本号  1.0.0"
+        android:textColor="@color/text_c0"
+        android:textSize="@dimen/f13" />
+
     <include layout="@layout/layout_bottom_tab_item" />
 
 </LinearLayout>

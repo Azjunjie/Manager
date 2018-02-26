@@ -9,6 +9,7 @@ import com.aitewei.manager.activity.ship.ShipListActivity;
 import com.aitewei.manager.activity.user.LoginActivity;
 import com.aitewei.manager.base.BaseActivity;
 import com.aitewei.manager.common.User;
+import com.tencent.bugly.beta.Beta;
 import com.tencent.bugly.crashreport.CrashReport;
 
 import java.util.concurrent.TimeUnit;
@@ -44,7 +45,7 @@ public class SplashActivity extends BaseActivity {
                         if (User.isLogin()) {
                             startActivity(ShipListActivity.getIntent(activity));
                         } else {
-                            startActivity(new Intent(activity, LoginActivity.class));
+                            startActivity(LoginActivity.getIntent(activity));
                         }
                         finish();
                     }

@@ -12,6 +12,7 @@ import com.aitewei.manager.R;
 import com.aitewei.manager.base.BaseActivity;
 import com.aitewei.manager.common.Popup;
 import com.aitewei.manager.common.User;
+import com.aitewei.manager.utils.AppInfoUtils;
 import com.aitewei.manager.utils.ToolBarUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -30,6 +31,8 @@ public class SettingActivity extends BaseActivity {
     TextView tvName;
     @BindView(R.id.tv_type)
     TextView tvType;
+    @BindView(R.id.tv_version)
+    TextView tvVersion;
 
     public static Intent getIntent(Context context) {
         Intent intent = new Intent(context, SettingActivity.class);
@@ -59,6 +62,7 @@ public class SettingActivity extends BaseActivity {
         } else {
             tvType.setText("类别：计划员");
         }
+        tvVersion.setText("版本号" + AppInfoUtils.getVersionName(activity));
     }
 
     @OnClick({R.id.btn_exit})

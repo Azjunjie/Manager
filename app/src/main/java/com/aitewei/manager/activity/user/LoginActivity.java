@@ -21,6 +21,7 @@ import com.aitewei.manager.utils.LogUtil;
 import com.aitewei.manager.utils.Md5Utils;
 import com.aitewei.manager.utils.ScreenUtils;
 import com.aitewei.manager.utils.ToastUtils;
+import com.tencent.bugly.beta.Beta;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -67,7 +68,6 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-
     }
 
     @OnClick({R.id.btn_login})
