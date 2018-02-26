@@ -287,7 +287,7 @@
             android:layout_marginLeft="@dimen/d15"
             android:layout_weight="1"
             android:background="@drawable/shape_corner_btn_bg"
-            android:text="船舶到岗"
+            android:text="船舶到港"
             android:textColor="@color/white"
             android:textSize="@dimen/f15"
             android:visibility="gone" />

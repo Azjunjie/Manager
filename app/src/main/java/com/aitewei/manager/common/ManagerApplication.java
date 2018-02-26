@@ -31,7 +31,7 @@ public class ManagerApplication extends Application {
         /**
          * 设置启动延时为1s（默认延时3s），APP启动1s后初始化SDK，避免影响APP启动速度;
          */
-        Beta.initDelay = 1 * 1000;
+//        Beta.initDelay = 1 * 1000;
         /**
          * 设置升级检查周期为60s(默认检查周期为0s)，60s内SDK不重复向后台请求策略);
          */
