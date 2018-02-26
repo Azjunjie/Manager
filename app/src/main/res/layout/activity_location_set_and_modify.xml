@@ -102,7 +102,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:gravity="center"
-                                android:text="船舱名"
+                                android:text="船舱号"
                                 android:textColor="@color/blue"
                                 android:textSize="@dimen/f18" />
 
@@ -116,7 +116,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:gravity="center"
-                                android:text="起点"
+                                android:text="终点"
                                 android:textColor="@color/text_31"
                                 android:textSize="@dimen/f18" />
 
@@ -130,7 +130,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:gravity="center"
-                                android:text="终点"
+                                android:text="起点"
                                 android:textColor="@color/text_31"
                                 android:textSize="@dimen/f18" />
 

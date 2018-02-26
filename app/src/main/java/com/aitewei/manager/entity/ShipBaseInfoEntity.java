@@ -47,6 +47,7 @@ public class ShipBaseInfoEntity extends BaseEntity {
          * cabintype : blablalba
          */
 
+        private String enterPortTime;
         private String departureTime;
         private String breadth;
         private String hatch;
@@ -66,6 +67,14 @@ public class ShipBaseInfoEntity extends BaseEntity {
         private String freeboardHeight;
         private String cable;
         private String cabintype;
+
+        public String getEnterPortTime() {
+            return enterPortTime;
+        }
+
+        public void setEnterPortTime(String enterPortTime) {
+            this.enterPortTime = enterPortTime;
+        }
 
         public String getDepartureTime() {
             return departureTime;

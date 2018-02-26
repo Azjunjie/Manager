@@ -153,7 +153,7 @@ public class SetCabinPositionActivity extends BaseActivity {
         LayoutInflater inflater = LayoutInflater.from(activity);
         container.removeAllViews();
         int size = positionList.size();
-        for (int i = 0; i < size; i++) {
+        for (int i = size-1; i >=0; i--) {
             final CabinPositionEntity.DataBean dataBean = positionList.get(i);
             View view = inflater.inflate(R.layout.layout_cabin_position_set_item1, null);
             TextView tvCabinNo = view.findViewById(R.id.tv_cabin_no);
@@ -293,7 +293,7 @@ public class SetCabinPositionActivity extends BaseActivity {
                             //不做处理
                         } else {
                             if (dStart >= dEnd) {
-                                showSetPositionFailurePopup(bean.getCabinNo() + "舱舱位起点位置应大于终点位置");
+                                showSetPositionFailurePopup(bean.getCabinNo() + "舱舱号起点位置应大于终点位置");
                                 return;
                             }
                         }

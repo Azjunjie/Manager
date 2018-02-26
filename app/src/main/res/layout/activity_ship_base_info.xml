@@ -47,10 +47,11 @@
                             android:textSize="@dimen/f15" />
 
                         <TextView
+                            android:id="@+id/tv_enterPortTime"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/d100"
-                            android:text="——"
+                            android:text="--"
                             android:textColor="@color/text_89"
                             android:textSize="@dimen/f15" />
 

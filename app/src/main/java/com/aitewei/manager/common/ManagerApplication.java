@@ -8,7 +8,6 @@ import com.aitewei.manager.activity.user.LoginActivity;
 import com.aitewei.manager.utils.LogUtil;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
-import com.tencent.bugly.crashreport.CrashReport;
 
 /**
  * Created by zhangjunjie on 2017/10/31.

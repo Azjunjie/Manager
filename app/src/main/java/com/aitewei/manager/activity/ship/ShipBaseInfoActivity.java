@@ -29,6 +29,8 @@ public class ShipBaseInfoActivity extends BaseActivity {
     @BindView(R.id.content_view)
     ScrollView contentView;
 
+    @BindView(R.id.tv_enterPortTime)
+    TextView tvEnterPortTime;
     @BindView(R.id.tv_berthingTime)
     TextView tvBerthingTime;
     @BindView(R.id.tv_departureTime)
@@ -119,6 +121,7 @@ public class ShipBaseInfoActivity extends BaseActivity {
         loadView.setVisibility(View.GONE);
         contentView.setVisibility(View.VISIBLE);
 
+        tvEnterPortTime.setText(dataBean.getEnterPortTime() + "");
         tvBerthingTime.setText(dataBean.getBerthingTime() + "");
         tvDepartureTime.setText(dataBean.getDepartureTime() + "");
         tvBeginTime.setText(dataBean.getBeginTime() + "");
