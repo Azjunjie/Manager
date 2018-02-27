@@ -414,7 +414,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/d15"
-                            android:text="仓："
+                            android:text="口："
                             android:textColor="@color/text_31"
                             android:textSize="@dimen/f15" />
 
@@ -445,7 +445,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/d15"
-                            android:text="口："
+                            android:text="仓："
                             android:textColor="@color/text_31"
                             android:textSize="@dimen/f15" />
 

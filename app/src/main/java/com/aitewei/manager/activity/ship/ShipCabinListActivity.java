@@ -165,7 +165,6 @@ public class ShipCabinListActivity extends BaseActivity {
         loadView.setVisibility(View.VISIBLE);
         contentView.setVisibility(View.GONE);
         initAdapter();
-        handler.sendEmptyMessageDelayed(1, 1000 * 60 * 3);
     }
 
     @Override
@@ -175,14 +174,15 @@ public class ShipCabinListActivity extends BaseActivity {
             showLoadingPopup();
         }
         requestCabinListData();
+        handler.sendEmptyMessageDelayed(1, 1000 * 60 * 3);
     }
 
     @Override
-    protected void onDestroy() {
+    protected void onPause() {
+        super.onPause();
         if (handler != null) {
             handler.removeMessages(1);
         }
-        super.onDestroy();
     }
 
     private Handler handler = new Handler() {
