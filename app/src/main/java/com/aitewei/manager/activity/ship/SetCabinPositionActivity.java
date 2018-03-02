@@ -293,7 +293,7 @@ public class SetCabinPositionActivity extends BaseActivity {
                             //不做处理
                         } else {
                             if (dStart >= dEnd) {
-                                showSetPositionFailurePopup(bean.getCabinNo() + "舱舱号起点位置应大于终点位置");
+                                showSetPositionFailurePopup(bean.getCabinNo() + "舱舱号前橄位置应大于后橄位置");
                                 return;
                             }
                         }
