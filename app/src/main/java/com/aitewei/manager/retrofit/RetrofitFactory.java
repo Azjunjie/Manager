@@ -1,5 +1,6 @@
 package com.aitewei.manager.retrofit;
 
+import com.aitewei.manager.common.Config;
 import com.aitewei.manager.utils.LogUtil;
 
 import java.util.concurrent.TimeUnit;
@@ -36,7 +37,7 @@ public class RetrofitFactory {
             .build();
 
     private static ApiService apiService = new Retrofit.Builder()
-            .baseUrl(ApiService.BASEURL)
+            .baseUrl(Config.BASEURL)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(okHttpClient)

@@ -19,7 +19,7 @@ public class ManagerApplication extends Application {
     public void onCreate() {
         super.onCreate();
         //日志管理
-        LogUtil.init(Constant.isDebug);
+        LogUtil.init(Config.isDebug);
         //获取缓存的用户信息
         User.onReadUser(getApplicationContext());
         //初始化bugly
@@ -58,6 +58,6 @@ public class ManagerApplication extends Application {
          * 第三个参数为SDK调试模式开关，调试模式的行为特性如下：输出详细的Bugly SDK的Log；每一条Crash都会被立即上报
          * ；自定义日志将会在Logcat中输出。是否开启debug模式，true表示打开debug模式，false表示关闭调试模式
          */
-        Bugly.init(getApplicationContext(), Constant.BUGLY_APP_ID, Constant.isDebug);
+        Bugly.init(getApplicationContext(), Config.BUGLY_APP_ID, Config.isDebug);
     }
 }
