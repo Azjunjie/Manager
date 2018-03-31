@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.aitewei.manager.R;
 import com.aitewei.manager.activity.statistics.StatisticsActivity;
@@ -17,9 +16,8 @@ import com.aitewei.manager.adapter.FragmentViewPagerAdapter;
 import com.aitewei.manager.base.BaseActivity;
 import com.aitewei.manager.base.BaseFragment;
 import com.aitewei.manager.common.GlideImageLoader;
-import com.aitewei.manager.fragment.ShipListFragment;
+import com.aitewei.manager.fragment.FragmentListNewFragment;
 import com.aitewei.manager.utils.ScreenUtils;
-import com.tencent.bugly.beta.Beta;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 
@@ -42,14 +40,7 @@ public class ShipListActivity extends BaseActivity {
     FrameLayout toolBar;
     @BindView(R.id.banner)
     Banner banner;
-    @BindView(R.id.line_working)
-    TextView lineWorking;
-    @BindView(R.id.btn_working)
-    FrameLayout btnWorking;
-    @BindView(R.id.line_coming)
-    TextView lineComing;
-    @BindView(R.id.btn_coming)
-    FrameLayout btnComing;
+
     @BindView(R.id.view_pager)
     ViewPager viewPager;
     @BindView(R.id.btn_task)
@@ -84,36 +75,14 @@ public class ShipListActivity extends BaseActivity {
         initBanner();
 
         List<BaseFragment> fragments = new ArrayList<>();
-        fragments.add(ShipListFragment.newInstance(ShipListFragment.TYPE_WORKING));
-        fragments.add(ShipListFragment.newInstance(ShipListFragment.TYPE_COMING));
+        fragments.add(FragmentListNewFragment.newInstance());
 
         FragmentViewPagerAdapter adapter = new FragmentViewPagerAdapter(getSupportFragmentManager(), fragments);
         viewPager.setAdapter(adapter);
-        viewPager.setOffscreenPageLimit(2);
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                selectedPos(position);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-
-        selectedPos(0);
     }
 
     private void initBanner() {
         List<Integer> imgList = new ArrayList<>();
-//        imgList.add(R.drawable.bg_banner1);
-//        imgList.add(R.drawable.bg_banner3);
         imgList.add(R.drawable.bg_banner2);
         imgList.add(R.drawable.bg_banner4);
         banner.setImageLoader(new GlideImageLoader());
@@ -126,40 +95,16 @@ public class ShipListActivity extends BaseActivity {
         banner.start();
     }
 
-    @OnClick({R.id.btn_mine, R.id.btn_working, R.id.btn_coming, R.id.btn_statistics})
+    @OnClick({R.id.btn_mine, R.id.btn_statistics})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_mine:
                 startActivity(SettingActivity.getIntent(activity));
                 break;
-            case R.id.btn_working:
-                selectedPos(0);
-                break;
-            case R.id.btn_coming:
-                selectedPos(1);
-                break;
             case R.id.btn_statistics://统计
                 startActivity(StatisticsActivity.getIntent(activity));
                 break;
         }
-    }
-
-    private void selectedPos(int position) {
-        switch (position) {
-            case 0:
-                btnWorking.setSelected(true);
-                lineWorking.setVisibility(View.VISIBLE);
-                btnComing.setSelected(false);
-                lineComing.setVisibility(View.INVISIBLE);
-                break;
-            case 1:
-                btnWorking.setSelected(false);
-                lineWorking.setVisibility(View.GONE);
-                btnComing.setSelected(true);
-                lineComing.setVisibility(View.VISIBLE);
-                break;
-        }
-        viewPager.setCurrentItem(position);
     }
 
     @Override
@@ -180,9 +125,6 @@ public class ShipListActivity extends BaseActivity {
     public void onEventMainThread(String tag) {
         if ("ExitLogin".equals(tag)) {//用户点击退出登录
             finish();
-        }
-        if ("BeginShip".equals(tag)) {
-            selectedPos(0);
         }
     }
 

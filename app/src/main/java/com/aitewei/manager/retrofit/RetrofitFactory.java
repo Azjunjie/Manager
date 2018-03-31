@@ -19,7 +19,7 @@ public class RetrofitFactory {
 
     private static final String TAG = RetrofitFactory.class.getName();
 
-    private static final int DEFAULT_TIMEOUT = 30;//单位：s
+    private static final int DEFAULT_TIMEOUT = 60;//单位：s
 
     private RetrofitFactory() {
     }

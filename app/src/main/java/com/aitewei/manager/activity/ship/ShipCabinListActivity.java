@@ -17,12 +17,12 @@ import android.widget.TextView;
 import com.aitewei.manager.R;
 import com.aitewei.manager.base.BaseActivity;
 import com.aitewei.manager.base.BaseEntity;
+import com.aitewei.manager.common.Constant;
 import com.aitewei.manager.common.PermissionsCode;
 import com.aitewei.manager.common.Popup;
 import com.aitewei.manager.common.User;
 import com.aitewei.manager.entity.CabinPositionEntity;
 import com.aitewei.manager.entity.ShipCabinListEntity;
-import com.aitewei.manager.fragment.ShipListFragment;
 import com.aitewei.manager.retrofit.RetrofitFactory;
 import com.aitewei.manager.rxjava.BaseObserver;
 import com.aitewei.manager.rxjava.RxSchedulers;
@@ -111,7 +111,7 @@ public class ShipCabinListActivity extends BaseActivity {
         mHeaderHorizontal.setScrollView(mDataHorizontal);
 
         type = getIntent().getIntExtra("type", -1);
-        if (type == ShipListFragment.TYPE_WORKING) {
+        if (type == Constant.TYPE_WORKING) {
             btnBegin.setVisibility(View.GONE);
             btnMenu.setVisibility(View.VISIBLE);
             if (PermissionsCode.isHasPermission(PermissionsCode.clearStatus)) {
@@ -129,7 +129,7 @@ public class ShipCabinListActivity extends BaseActivity {
             } else {
                 btnComplete.setVisibility(View.GONE);
             }
-        } else if (type == ShipListFragment.TYPE_COMING) {
+        } else if (type == Constant.TYPE_COMING) {
             tvOperation.setVisibility(View.GONE);
             btnComplete.setVisibility(View.GONE);
             btnMenu.setVisibility(View.GONE);
@@ -605,7 +605,7 @@ public class ShipCabinListActivity extends BaseActivity {
             }
 
             boolean hasPermission = PermissionsCode.isHasPermission(PermissionsCode.clearStatus);
-            if (type == ShipListFragment.TYPE_WORKING && hasPermission) {
+            if (type == Constant.TYPE_WORKING && hasPermission) {
                 holder.tvOperation.setVisibility(View.VISIBLE);
             } else {
                 holder.tvOperation.setVisibility(View.GONE);

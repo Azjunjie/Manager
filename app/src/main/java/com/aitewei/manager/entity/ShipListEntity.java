@@ -45,10 +45,19 @@ public class ShipListEntity extends BaseEntity {
          */
 
         private String shipEname;
+        private int shipType;
         private String imoNo;
         private String id;
         private String shipName;
         private String berthName;
+
+        public int getShipType() {
+            return shipType;
+        }
+
+        public void setShipType(int shipType) {
+            this.shipType = shipType;
+        }
 
         public String getShipEname() {
             return shipEname;

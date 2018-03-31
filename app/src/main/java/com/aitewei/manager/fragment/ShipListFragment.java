@@ -11,6 +11,7 @@ import com.aitewei.manager.R;
 import com.aitewei.manager.activity.ship.ShipCabinListActivity;
 import com.aitewei.manager.adapter.ShipListAdapter;
 import com.aitewei.manager.base.BaseFragment;
+import com.aitewei.manager.common.Constant;
 import com.aitewei.manager.common.User;
 import com.aitewei.manager.entity.ShipListEntity;
 import com.aitewei.manager.retrofit.RetrofitFactory;
@@ -32,9 +33,6 @@ import butterknife.BindView;
  * "作业船舶"、"预靠船舶"列表
  */
 public class ShipListFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
-    public static final int TYPE_WORKING = 1;//作业船舶
-    public static final int TYPE_COMING = 2;//预靠船舶
-    public static final int TYPE_FINISH = 3;//完成船舶
 
     @BindView(R.id.load_view)
     LoadGroupView loadView;
@@ -93,11 +91,11 @@ public class ShipListFragment extends BaseFragment implements SwipeRefreshLayout
 
     private void requestListData() {
         int status = 0;//0|预靠船舶，1|作业船舶，2|离港船舶
-        if (type == TYPE_COMING) {
+        if (type == Constant.TYPE_COMING) {
             status = 0;
-        } else if (type == TYPE_WORKING) {
+        } else if (type == Constant.TYPE_WORKING) {
             status = 1;
-        } else if (type == TYPE_FINISH) {
+        } else if (type == Constant.TYPE_FINISH) {
             status = 2;
         }
         String params = "{\"shipStatus\":" + status + ",\"userId\":\"" + User.newInstance().getUserId() + "\"}";
