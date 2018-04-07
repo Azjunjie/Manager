@@ -2,6 +2,8 @@ package com.aitewei.manager.retrofit;
 
 import com.aitewei.manager.base.BaseEntity;
 import com.aitewei.manager.entity.CabinPositionEntity;
+import com.aitewei.manager.entity.CarbinInfoStatisticsEntity;
+import com.aitewei.manager.entity.CargoInfoStatisticsEntity;
 import com.aitewei.manager.entity.GetCargoUnshipInfoEntity;
 import com.aitewei.manager.entity.GetPrivilegeEntity;
 import com.aitewei.manager.entity.GetShipUnshipInfoEntity;
@@ -13,6 +15,7 @@ import com.aitewei.manager.entity.ShipCabinDetailEntity;
 import com.aitewei.manager.entity.ShipCabinListEntity;
 import com.aitewei.manager.entity.ShipGoodsDetailEntity;
 import com.aitewei.manager.entity.ShipListEntity;
+import com.aitewei.manager.entity.UnloaderInfoStatisticsEntity;
 
 import io.reactivex.Observable;
 import retrofit2.http.Field;
@@ -146,5 +149,26 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("ship/doGetUnloaderUnshipDetailList")
     Observable<GetUnloaderUnshipDetailListEntity> doGetUnloaderUnshipDetailList(@Field("json") String json);
+
+    /**
+     * 货物统计表
+     */
+    @FormUrlEncoded
+    @POST("ship/doCargoInfoStatistics")
+    Observable<CargoInfoStatisticsEntity> doCargoInfoStatistics(@Field("json") String json);
+
+    /**
+     * 船舱统计表
+     */
+    @FormUrlEncoded
+    @POST("ship/doCabinInfoStatistics")
+    Observable<CarbinInfoStatisticsEntity> doCabinInfoStatistics(@Field("json") String json);
+
+    /**
+     * 卸船机统计表
+     */
+    @FormUrlEncoded
+    @POST("ship/doUnloaderInfoStatistics")
+    Observable<UnloaderInfoStatisticsEntity> doUnloaderInfoStatistics(@Field("json") String json);
 
 }

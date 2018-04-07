@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <!--*****************第三方 begin******************-->
+        <!-- *****************第三方 begin****************** -->
         <activity
             android:name="com.tencent.bugly.beta.ui.BetaActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale"
@@ -33,7 +33,7 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
-        <!--*****************第三方 end******************-->
+        <!-- *****************第三方 end****************** -->
 
         <activity
             android:name=".activity.SplashActivity"
@@ -73,16 +73,7 @@
             android:name=".activity.statistics.StatisticsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.statistics.Statistics1Activity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.statistics.StatisticsResult1Activity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.statistics.Statistics2Activity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.statistics.StatisticsResult2Activity"
+            android:name=".activity.statistics.UnloaderTeamActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.ship.CargoProgressActivity"
@@ -94,8 +85,16 @@
             android:name=".activity.ship.ShipUnloaderDetailProgressActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.statistics.AllShipListActivity"
-            android:screenOrientation="portrait"></activity>
+            android:name=".activity.statistics.ShipListChoiceActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.statistics.CargoProgressStatisticsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.statistics.CargoProgressStatisticsDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.statistics.UnloaderStatisticsActivity" />
+        <activity android:name=".activity.statistics.CabinStatisticsActivity"></activity>
     </application>
 
 </manifest>

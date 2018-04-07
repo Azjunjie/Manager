@@ -172,36 +172,6 @@ public class CargoProgressActivity extends BaseActivity {
                     }
                 });
         compositeDisposable.add(disposable);
-
-//        RetrofitFactory.getInstance()
-//                .doGetCargoUnshipInfo(params)
-//                .compose(RxSchedulers.<GetCargoUnshipInfoEntity>compose())
-//                .subscribe(new BaseObserver<GetCargoUnshipInfoEntity>(compositeDisposable) {
-//                    @Override
-//                    protected void onHandleSuccess(GetCargoUnshipInfoEntity entity) {
-//                        loadView.setVisibility(View.GONE);
-//                        listView.setVisibility(View.VISIBLE);
-//
-//                        List<GetCargoUnshipInfoEntity.DataBean> beanList = entity.getData();
-//                        GetCargoUnshipInfoEntity.DataBean dataBean = new GetCargoUnshipInfoEntity.DataBean();
-//                        dataBean.setCargoName("合计");
-//                        for (GetCargoUnshipInfoEntity.DataBean bean : beanList) {
-//                            dataBean.setTotal(dataBean.getTotal() + bean.getTotal());
-//                            dataBean.setFinished(dataBean.getFinished() + bean.getFinished());
-//                            dataBean.setRemainder(dataBean.getRemainder() + bean.getRemainder());
-//                            dataBean.setClearance(dataBean.getClearance() + bean.getClearance());
-//                        }
-//                        beanList.add(dataBean);
-//                        adapter.setNewData(beanList);
-//                    }
-//
-//                    @Override
-//                    protected void onHandleRequestError(String code, String msg) {
-//                        loadView.setVisibility(View.VISIBLE);
-//                        listView.setVisibility(View.GONE);
-//                        loadView.setLoadError(msg + "");
-//                    }
-//                });
     }
 
     @OnClick(R.id.btn_ship_info)

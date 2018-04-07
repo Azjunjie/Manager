@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/btn_1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/d40"
+        android:layout_marginLeft="@dimen/d15"
+        android:layout_marginRight="@dimen/d15"
+        android:layout_marginTop="@dimen/d5"
+        android:background="@drawable/shape_corner_btn_bg"
+        android:text="最近一周"
+        android:textColor="@color/white"
+        android:textSize="@dimen/f15" />
+
+    <Button
+        android:id="@+id/btn_2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/d40"
+        android:layout_marginBottom="@dimen/d5"
+        android:layout_marginLeft="@dimen/d15"
+        android:layout_marginRight="@dimen/d15"
+        android:layout_marginTop="@dimen/d5"
+        android:background="@drawable/shape_corner_btn_bg"
+        android:text="最近两周"
+        android:textColor="@color/white"
+        android:textSize="@dimen/f15" />
+
+    <Button
+        android:id="@+id/btn_3"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/d40"
+        android:layout_marginBottom="@dimen/d5"
+        android:layout_marginLeft="@dimen/d15"
+        android:layout_marginRight="@dimen/d15"
+        android:background="@drawable/shape_corner_btn_bg"
+        android:text="自定义"
+        android:textColor="@color/white"
+        android:textSize="@dimen/f15" />
+
+    <Button
+        android:id="@+id/btn_cancle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/d40"
+        android:layout_marginBottom="@dimen/d5"
+        android:layout_marginLeft="@dimen/d15"
+        android:layout_marginRight="@dimen/d15"
+        android:background="@drawable/shape_corner_btn_bg"
+        android:text="取消"
+        android:textColor="@color/white"
+        android:textSize="@dimen/f15" />
+</LinearLayout>

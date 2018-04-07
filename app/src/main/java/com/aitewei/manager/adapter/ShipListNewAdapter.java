@@ -69,7 +69,7 @@ public class ShipListNewAdapter extends BaseQuickAdapter<ShipListEntity.DataBean
                 ShipListEntity.DataBean bean = list.get(i);
                 int shipType = bean.getShipType();
                 if (type == shipType) {
-                    return i;
+                    return i + 1;
                 }
             }
         }

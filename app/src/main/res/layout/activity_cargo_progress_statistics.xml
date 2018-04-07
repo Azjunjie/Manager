@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.aitewei.manager.activity.statistics.CargoProgressStatisticsActivity">
+
+    <FrameLayout
+        android:id="@+id/tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tool_bar_height"
+        android:background="@color/blue">
+
+        <FrameLayout
+            android:id="@+id/btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="@dimen/d25"
+                android:layout_height="@dimen/d25"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/d10"
+                android:layout_marginRight="@dimen/d10"
+                android:background="@mipmap/icon_back_btn_white" />
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/tv_tool_bar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="标题"
+            android:textColor="@color/white"
+            android:textSize="@dimen/f18" />
+
+        <FrameLayout
+            android:id="@+id/btn_refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="right">
+
+            <ImageView
+                android:layout_width="@dimen/d20"
+                android:layout_height="@dimen/d20"
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginLeft="@dimen/d15"
+                android:layout_marginRight="@dimen/d15"
+                android:background="@mipmap/icon_ship_detail_refresh_btn" />
+
+        </FrameLayout>
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/btn_ship_info"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/d45"
+        android:gravity="center"
+        android:text="xxx船"
+        android:textColor="@color/blue"
+        android:textSize="@dimen/f20" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/d1"
+        android:background="@color/line_color" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/d45"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/d60"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="货名"
+                android:textColor="@color/text_31"
+                android:textSize="@dimen/f15" />
+
+            <com.aitewei.manager.view.SyncHorizontalScrollView
+                android:id="@+id/header_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:overScrollMode="never"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/d45"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="@dimen/d70"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="总量"
+                        android:textColor="@color/text_31"
+                        android:textSize="@dimen/f15" />
+
+                    <TextView
+                        android:layout_width="@dimen/d70"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="已完成"
+                        android:textColor="@color/text_31"
+                        android:textSize="@dimen/f15" />
+
+                    <TextView
+                        android:layout_width="@dimen/d70"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="作业台时"
+                        android:textColor="@color/text_31"
+                        android:textSize="@dimen/f15" />
+
+                    <TextView
+                        android:layout_width="@dimen/d70"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="清舱量"
+                        android:textColor="@color/text_31"
+                        android:textSize="@dimen/f15" />
+
+                    <TextView
+                        android:layout_width="@dimen/d70"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="清舱时间"
+                        android:textColor="@color/text_31"
+                        android:textSize="@dimen/f15" />
+
+                    <TextView
+                        android:layout_width="@dimen/d70"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="卸载效率"
+                        android:textColor="@color/text_31"
+                        android:textSize="@dimen/f15" />
+
+                    <TextView
+                        android:layout_width="@dimen/d70"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="清舱效率"
+                        android:textColor="@color/text_31"
+                        android:textSize="@dimen/f15" />
+
+                </LinearLayout>
+
+            </com.aitewei.manager.view.SyncHorizontalScrollView>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/d1"
+            android:background="@color/line_color" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.aitewei.manager.view.LoadGroupView
+                android:id="@+id/load_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <ScrollView
+                android:id="@+id/content_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:overScrollMode="never"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <com.aitewei.manager.view.NoscrollListView
+                        android:id="@+id/lv_left"
+                        android:layout_width="@dimen/d60"
+                        android:layout_height="match_parent"
+                        android:divider="@color/line_color"
+                        android:dividerHeight="0dp"
+                        android:overScrollMode="never"
+                        android:scrollbars="none" />
+
+                    <com.aitewei.manager.view.SyncHorizontalScrollView
+                        android:id="@+id/data_horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:overScrollMode="never"
+                        android:scrollbars="none">
+
+                        <com.aitewei.manager.view.NoscrollListView
+                            android:id="@+id/lv_data"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:divider="@color/line_color"
+                            android:dividerHeight="0dp"
+                            android:overScrollMode="never"
+                            android:scrollbars="none" />
+
+                    </com.aitewei.manager.view.SyncHorizontalScrollView>
+
+                </LinearLayout>
+            </ScrollView>
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <include layout="@layout/layout_bottom_tab_item" />
+
+</LinearLayout>

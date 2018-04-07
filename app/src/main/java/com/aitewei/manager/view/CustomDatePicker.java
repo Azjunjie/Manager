@@ -544,12 +544,24 @@ public class CustomDatePicker {
             month.clear();
             int selectedYear = selectedCalender.get(Calendar.YEAR);
             if (selectedYear == startYear) {
-                for (int i = startMonth; i <= MAX_MONTH; i++) {
-                    month.add(formatTimeUnit(i));
+                if (startYear == endYear) {
+                    for (int i = startMonth; i <= endMonth; i++) {
+                        month.add(formatTimeUnit(i));
+                    }
+                } else {
+                    for (int i = startMonth; i <= MAX_MONTH; i++) {
+                        month.add(formatTimeUnit(i));
+                    }
                 }
             } else if (selectedYear == endYear) {
-                for (int i = 1; i <= endMonth; i++) {
-                    month.add(formatTimeUnit(i));
+                if (startYear == endYear) {
+                    for (int i = startMonth; i <= endMonth; i++) {
+                        month.add(formatTimeUnit(i));
+                    }
+                } else {
+                    for (int i = 1; i <= endMonth; i++) {
+                        month.add(formatTimeUnit(i));
+                    }
                 }
             } else {
                 for (int i = 1; i <= MAX_MONTH; i++) {
@@ -564,12 +576,24 @@ public class CustomDatePicker {
             day.clear();
             int selectedMonth = selectedCalender.get(Calendar.MONTH) + 1;
             if (selectedYear == startYear && selectedMonth == startMonth) {
-                for (int i = startDay; i <= selectedCalender.getActualMaximum(Calendar.DAY_OF_MONTH); i++) {
-                    day.add(formatTimeUnit(i));
+                if (startYear == endYear && startMonth == endMonth) {
+                    for (int i = startDay; i <= endDay; i++) {
+                        day.add(formatTimeUnit(i));
+                    }
+                } else {
+                    for (int i = startDay; i <= selectedCalender.getActualMaximum(Calendar.DAY_OF_MONTH); i++) {
+                        day.add(formatTimeUnit(i));
+                    }
                 }
             } else if (selectedYear == endYear && selectedMonth == endMonth) {
-                for (int i = 1; i <= endDay; i++) {
-                    day.add(formatTimeUnit(i));
+                if (startYear == endYear && startMonth == endMonth) {
+                    for (int i = startDay; i <= endDay; i++) {
+                        day.add(formatTimeUnit(i));
+                    }
+                } else {
+                    for (int i = 1; i <= endDay; i++) {
+                        day.add(formatTimeUnit(i));
+                    }
                 }
             } else {
                 for (int i = 1; i <= selectedCalender.getActualMaximum(Calendar.DAY_OF_MONTH); i++) {

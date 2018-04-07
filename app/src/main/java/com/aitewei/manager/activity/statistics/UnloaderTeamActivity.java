@@ -1,5 +1,6 @@
 package com.aitewei.manager.activity.statistics;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
@@ -9,6 +10,8 @@ import android.widget.TextView;
 
 import com.aitewei.manager.R;
 import com.aitewei.manager.base.BaseActivity;
+import com.aitewei.manager.common.Constant;
+import com.aitewei.manager.utils.ToastUtils;
 import com.aitewei.manager.utils.ToolBarUtil;
 import com.aitewei.manager.view.CustomDatePicker;
 
@@ -19,7 +22,10 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class Statistics1Activity extends BaseActivity {
+/**
+ * 卸船机班组查看
+ */
+public class UnloaderTeamActivity extends BaseActivity {
     private static final int REQUEST_SHIP_LIST = 1;
 
     @BindView(R.id.tv_ship_name)
@@ -31,14 +37,23 @@ public class Statistics1Activity extends BaseActivity {
 
     private String currentDate;
 
+    private String taskId;
+    private String selectDate;
+    private int teamType = -1;//0-白班  1-夜班
+
+    public static Intent getIntent(Context context) {
+        Intent intent = new Intent(context, UnloaderTeamActivity.class);
+        return intent;
+    }
+
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_statistics1;
+        return R.layout.activity_unloader_team;
     }
 
     @Override
     protected void initView() {
-        ToolBarUtil.init(activity, "班组信息");
+        ToolBarUtil.init(activity, "选择班组信息");
     }
 
     @Override
@@ -50,8 +65,8 @@ public class Statistics1Activity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_ship_name:
-//                showShipListDialog();
-                startActivityForResult(AllShipListActivity.getIntent(activity), REQUEST_SHIP_LIST);
+                startActivityForResult(ShipListChoiceActivity.getIntent(activity,
+                        Constant.TYPE_STATISTICS_UNLOADER_TEAM_PROGRESS), REQUEST_SHIP_LIST);
                 break;
             case R.id.tv_time:
                 String time = tvTime.getText().toString();
@@ -64,7 +79,20 @@ public class Statistics1Activity extends BaseActivity {
                 showTeamListDialog();
                 break;
             case R.id.btn_search:
-                startActivity(new Intent(activity, StatisticsResult1Activity.class));
+                if (TextUtils.isEmpty(taskId)) {
+                    ToastUtils.show(this, "请选择要查询的船舶");
+                    return;
+                }
+                if (TextUtils.isEmpty(selectDate)) {
+                    ToastUtils.show(this, "请选择要查询的日期");
+                    return;
+                }
+                if (teamType == -1) {
+                    ToastUtils.show(this, "请选择要查询的班次");
+                    return;
+                }
+                startActivity(UnloaderStatisticsActivity.getIntent(this,
+                        taskId, selectDate, teamType, UnloaderStatisticsActivity.TYPE_TEAM));
                 break;
         }
     }
@@ -74,6 +102,7 @@ public class Statistics1Activity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (REQUEST_SHIP_LIST == requestCode && resultCode == RESULT_OK) {
             if (data != null) {
+                taskId = data.getStringExtra("taskId");
                 String shipName = data.getStringExtra("shipName");
                 tvShipName.setText(shipName + "");
             }
@@ -88,31 +117,12 @@ public class Statistics1Activity extends BaseActivity {
         datePicker = new CustomDatePicker(this, new CustomDatePicker.ResultHandler() {
             @Override
             public void handle(String time) { // 回调接口，获得选中的时间
-                tvTime.setText(time.split(" ")[0]);
+                selectDate = time.split(" ")[0];
+                tvTime.setText(selectDate);
             }
         }, "1970-01-01 00:00", currentDate); // 初始化日期格式请用：yyyy-MM-dd HH:mm，否则不能正常运行
         datePicker.showSpecificTime(false); // 不显示时和分
         datePicker.setIsLoop(false); // 不允许循环滚动
-    }
-
-    private String[] ships = new String[]{"船舶一", "船舶二", "船舶三", "船舶四"};
-    private AlertDialog shipDialog;
-
-    private void showShipListDialog() {
-        if (shipDialog == null) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-            builder.setSingleChoiceItems(ships, 0, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    tvShipName.setText(ships[which] + "");
-                    dialog.dismiss();
-                }
-            });
-            shipDialog = builder.setTitle("请选择查询的船舶")
-                    .setIcon(R.mipmap.ic_launcher)
-                    .create();
-        }
-        shipDialog.show();
     }
 
     private String[] teams = new String[]{"白班", "夜班"};
@@ -124,6 +134,7 @@ public class Statistics1Activity extends BaseActivity {
             builder.setSingleChoiceItems(teams, 0, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
+                    teamType = which;
                     tvTeam.setText(teams[which] + "");
                     dialog.dismiss();
                 }

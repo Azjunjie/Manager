@@ -18,22 +18,62 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/btn_1"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/d45"
-            android:layout_marginTop="@dimen/d15"
-            android:background="@drawable/shape_corner_btn_bg"
-            android:text="船舶信息实时查询"
-            android:textColor="@color/white"
-            android:textSize="@dimen/f15" />
-
-        <Button
-            android:id="@+id/btn_2"
+            android:id="@+id/btn_cargo_progress"
             android:layout_width="match_parent"
             android:layout_height="@dimen/d45"
             android:layout_marginTop="@dimen/d5"
             android:background="@drawable/shape_corner_btn_bg"
-            android:text="船舱信息实时查询"
+            android:text="船舱货物进度统计"
+            android:textColor="@color/white"
+            android:textSize="@dimen/f15" />
+
+        <Button
+            android:id="@+id/btn_cabin_progress"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/d45"
+            android:layout_marginTop="@dimen/d5"
+            android:background="@drawable/shape_corner_btn_bg"
+            android:text="船舶舱口卸船统计"
+            android:textColor="@color/white"
+            android:textSize="@dimen/f15" />
+
+        <Button
+            android:id="@+id/btn_unloader_statistics"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/d45"
+            android:layout_marginTop="@dimen/d5"
+            android:background="@drawable/shape_corner_btn_bg"
+            android:text="船舶卸船机作业量统计"
+            android:textColor="@color/white"
+            android:textSize="@dimen/f15" />
+
+        <Button
+            android:id="@+id/btn_unloader_team_statistics"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/d45"
+            android:layout_marginTop="@dimen/d5"
+            android:background="@drawable/shape_corner_btn_bg"
+            android:text="船舶班次作业量统计"
+            android:textColor="@color/white"
+            android:textSize="@dimen/f15" />
+
+        <Button
+            android:id="@+id/btn_carbin_efficiency"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/d45"
+            android:layout_marginTop="@dimen/d5"
+            android:background="@drawable/shape_corner_btn_bg"
+            android:text="船舶舱口效率统计"
+            android:textColor="@color/white"
+            android:textSize="@dimen/f15" />
+
+        <Button
+            android:id="@+id/btn_cargo_efficiency"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/d45"
+            android:layout_marginTop="@dimen/d5"
+            android:background="@drawable/shape_corner_btn_bg"
+            android:text="船舶货物效率统计"
             android:textColor="@color/white"
             android:textSize="@dimen/f15" />
 

@@ -5,20 +5,26 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.aitewei.manager.R;
 import com.aitewei.manager.activity.ship.ShipCabinListActivity;
 import com.aitewei.manager.adapter.ShipListNewAdapter;
 import com.aitewei.manager.base.BaseFragment;
 import com.aitewei.manager.common.Constant;
+import com.aitewei.manager.common.GlideImageLoader;
 import com.aitewei.manager.common.User;
 import com.aitewei.manager.entity.ShipListEntity;
 import com.aitewei.manager.retrofit.RetrofitFactory;
 import com.aitewei.manager.utils.LogUtil;
+import com.aitewei.manager.utils.ScreenUtils;
 import com.aitewei.manager.utils.ToastUtils;
 import com.aitewei.manager.view.LoadGroupView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.youth.banner.Banner;
+import com.youth.banner.BannerConfig;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -45,6 +51,7 @@ public class FragmentListNewFragment extends BaseFragment implements SwipeRefres
     @BindView(R.id.list_view)
     RecyclerView listView;
     private ShipListNewAdapter adapter;
+    private Banner banner;
 
     public static FragmentListNewFragment newInstance() {
         FragmentListNewFragment shipListFragment = new FragmentListNewFragment();
@@ -81,9 +88,48 @@ public class FragmentListNewFragment extends BaseFragment implements SwipeRefres
                 startActivity(ShipCabinListActivity.getIntent(activity, bean.getShipType(), bean.getId(), bean.getShipName()));
             }
         });
+        View view = LayoutInflater.from(activity).inflate(R.layout.layout_ship_list_head_item, null);
+        banner = view.findViewById(R.id.banner);
+        ViewGroup.LayoutParams layoutParams = banner.getLayoutParams();
+        layoutParams.height = (int) (ScreenUtils.getScreenWidth(activity) / 16f * 9);
+        banner.setLayoutParams(layoutParams);
+        initBanner();
+        adapter.addHeaderView(view);
         listView.setAdapter(adapter);
 
         requestListData();
+    }
+
+    private void initBanner() {
+        List<Integer> imgList = new ArrayList<>();
+        imgList.add(R.drawable.bg_banner2);
+        imgList.add(R.drawable.bg_banner4);
+        banner.setImageLoader(new GlideImageLoader());
+        //设置轮播时间
+        banner.setDelayTime(3000);
+        //设置指示器位置（当banner模式中有指示器时）
+        banner.setIndicatorGravity(BannerConfig.RIGHT);
+        banner.setImages(imgList);
+        //banner设置方法全部调用完毕时最后调用
+        banner.start();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        //开始轮播
+        if (banner != null) {
+            banner.startAutoPlay();
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        //结束轮播
+        if (banner != null) {
+            banner.stopAutoPlay();
+        }
     }
 
     private void requestListData() {

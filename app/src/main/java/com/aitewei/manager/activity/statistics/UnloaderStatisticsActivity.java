@@ -1,4 +1,4 @@
-package com.aitewei.manager.activity.ship;
+package com.aitewei.manager.activity.statistics;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -9,14 +9,17 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.aitewei.manager.R;
-import com.aitewei.manager.adapter.ShipUnloaderProgressListAdapter;
+import com.aitewei.manager.activity.ship.ShipBaseInfoActivity;
+import com.aitewei.manager.activity.ship.ShipUnloaderDetailProgressActivity;
+import com.aitewei.manager.adapter.UnloaderStatisticsListAdapter;
 import com.aitewei.manager.base.BaseActivity;
 import com.aitewei.manager.common.User;
-import com.aitewei.manager.entity.GetUnloaderUnshipInfoEntity;
+import com.aitewei.manager.entity.UnloaderInfoStatisticsEntity;
 import com.aitewei.manager.retrofit.RetrofitFactory;
 import com.aitewei.manager.rxjava.BaseObserver;
 import com.aitewei.manager.rxjava.RxSchedulers;
@@ -38,10 +41,16 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
- * 以卸船机为主的总进度
+ * 卸船机统计
  */
-public class ShipUnloaderProgressActivity extends BaseActivity {
+public class UnloaderStatisticsActivity extends BaseActivity {
+    public static final int TYPE_ALL = 0;//查看全部
+    public static final int TYPE_TEAM = 1;//班次查询
 
+    @BindView(R.id.btn_popup)
+    FrameLayout btnPopup;
+    @BindView(R.id.btn_ship_info)
+    TextView btnShipInfo;
     @BindView(R.id.tv_info)
     TextView tvInfo;
     @BindView(R.id.tv_time)
@@ -63,27 +72,38 @@ public class ShipUnloaderProgressActivity extends BaseActivity {
     private String selectDate;//选择的日期
     private String selectTeam;//选择的班次
 
-    private ShipUnloaderProgressListAdapter adapter;
+    private UnloaderStatisticsListAdapter adapter;
 
     private String startTime = "";
     private String endTime = "";
     private SimpleDateFormat dateFormat;
     private DecimalFormat decimalFormat;
 
-    public static Intent getIntent(Context context, String taskId) {
-        Intent intent = new Intent(context, ShipUnloaderProgressActivity.class);
+    public static Intent getIntent(Context context, String taskId, String shipName, int type) {
+        Intent intent = new Intent(context, UnloaderStatisticsActivity.class);
         intent.putExtra("taskId", taskId);
+        intent.putExtra("shipName", shipName);
+        intent.putExtra("type", type);
+        return intent;
+    }
+
+    public static Intent getIntent(Context context, String taskId, String selectDate, int teamType, int type) {
+        Intent intent = new Intent(context, UnloaderStatisticsActivity.class);
+        intent.putExtra("taskId", taskId);
+        intent.putExtra("selectDate", selectDate);
+        intent.putExtra("teamType", teamType);
+        intent.putExtra("type", type);
         return intent;
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_ship_unloader_progress;
+        return R.layout.activity_unloader_statistics;
     }
 
     @Override
     protected void initView() {
-        ToolBarUtil.init(activity, "卸船机总览");
+        ToolBarUtil.init(this, "卸船机作业量统计");
 
         refreshLayout.setColorSchemeColors(getResources().getColor(R.color.blue));
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -99,19 +119,53 @@ public class ShipUnloaderProgressActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        taskId = getIntent().getStringExtra("taskId");
-
         dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         decimalFormat = new DecimalFormat("0.00");
+
+        taskId = getIntent().getStringExtra("taskId");
+        int type = getIntent().getIntExtra("type", 0);
+        switch (type) {
+            case TYPE_ALL://查看全部
+                btnShipInfo.setVisibility(View.VISIBLE);
+                tvInfo.setVisibility(View.GONE);
+                String shipName = getIntent().getStringExtra("shipName");
+                btnShipInfo.setText(shipName + "");
+                break;
+            case TYPE_TEAM://班次
+                String selectDate = getIntent().getStringExtra("selectDate");
+                int teamType = getIntent().getIntExtra("teamType", 0);
+                btnShipInfo.setVisibility(View.GONE);
+                tvInfo.setVisibility(View.VISIBLE);
+
+                if (teamType == 0) {
+                    startTime = selectDate + " 08:00:00";
+                    endTime = selectDate + " 20:00:00";
+
+                    tvInfo.setText(selectDate + "----白班");
+                } else if (teamType == 1) {
+                    tvInfo.setText(selectDate + "----夜班");
+                    startTime = selectDate + " 20:00:00";
+                    try {
+                        Date date = dateFormat.parse(selectDate);
+                        date.setTime(date.getTime() + 24 * 60 * 60 * 1000);
+                        String secondDate = dateFormat.format(date);
+                        endTime = secondDate + " 08:00:00";
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                }
+                break;
+        }
+
         initDatePicker();
 
-        adapter = new ShipUnloaderProgressListAdapter(R.layout.layout_ship_unloader_progress_list_item, null);
+        adapter = new UnloaderStatisticsListAdapter(R.layout.layout_ship_unloader_progress_list_item, null);
         listView.setAdapter(adapter);
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                List<GetUnloaderUnshipInfoEntity.DataBean> list = adapter.getData();
-                GetUnloaderUnshipInfoEntity.DataBean bean = list.get(position);
+                List<UnloaderInfoStatisticsEntity.DataBean> list = adapter.getData();
+                UnloaderInfoStatisticsEntity.DataBean bean = list.get(position);
                 String unloaderName = bean.getUnloaderName();
                 if (!"合计".equals(unloaderName)) {
                     startActivity(ShipUnloaderDetailProgressActivity.getIntent(activity, taskId, bean.getUnloaderName()
@@ -131,21 +185,21 @@ public class ShipUnloaderProgressActivity extends BaseActivity {
                 + "\",\"userId\":\"" + User.newInstance().getUserId() + "\"}";
         LogUtil.e("doGetUnloaderUnshipInfo json=" + params);
         RetrofitFactory.getInstance()
-                .doGetUnloaderUnshipInfo(params)
-                .compose(RxSchedulers.<GetUnloaderUnshipInfoEntity>compose())
-                .subscribe(new BaseObserver<GetUnloaderUnshipInfoEntity>(compositeDisposable) {
+                .doUnloaderInfoStatistics(params)
+                .compose(RxSchedulers.<UnloaderInfoStatisticsEntity>compose())
+                .subscribe(new BaseObserver<UnloaderInfoStatisticsEntity>(compositeDisposable) {
                     @Override
-                    protected void onHandleSuccess(GetUnloaderUnshipInfoEntity entity) {
+                    protected void onHandleSuccess(UnloaderInfoStatisticsEntity entity) {
                         if (refreshLayout != null) {
                             refreshLayout.setRefreshing(false);
                         }
-                        List<GetUnloaderUnshipInfoEntity.DataBean> list = entity.getData();
+                        List<UnloaderInfoStatisticsEntity.DataBean> list = entity.getData();
                         if (list != null && !list.isEmpty()) {
                             loadView.setVisibility(View.GONE);
                             listView.setVisibility(View.VISIBLE);
-                            GetUnloaderUnshipInfoEntity.DataBean dataBean = new GetUnloaderUnshipInfoEntity.DataBean();
+                            UnloaderInfoStatisticsEntity.DataBean dataBean = new UnloaderInfoStatisticsEntity.DataBean();
                             dataBean.setUnloaderName("合计");
-                            for (GetUnloaderUnshipInfoEntity.DataBean bean : list) {
+                            for (UnloaderInfoStatisticsEntity.DataBean bean : list) {
                                 dataBean.setUsedTime(dataBean.getUsedTime() + bean.getUsedTime());
                                 dataBean.setUnloading(dataBean.getUnloading() + bean.getUnloading());
                             }
@@ -181,10 +235,13 @@ public class ShipUnloaderProgressActivity extends BaseActivity {
                 });
     }
 
-    @OnClick({R.id.btn_popup, R.id.tv_time, R.id.tv_team
+    @OnClick({R.id.btn_ship_info, R.id.btn_popup, R.id.tv_time, R.id.tv_team
             , R.id.btn_clear, R.id.btn_confirm, R.id.btn_empty})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.btn_ship_info://船舶详情
+                startActivity(ShipBaseInfoActivity.getIntent(activity, taskId));
+                break;
             case R.id.btn_popup://显示筛选弹窗
                 popupContainer.setVisibility(View.VISIBLE);
                 break;
