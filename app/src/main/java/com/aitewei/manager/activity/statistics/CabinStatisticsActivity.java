@@ -58,9 +58,10 @@ public class CabinStatisticsActivity extends BaseActivity {
     private CabinProgressStatisticsListAdapter leftAdapter;
     private CabinProgressStatisticsListAdapter rightAdapter;
 
+    private List<CarbinInfoStatisticsEntity.DataBean> list;
+
     private String taskId;
     private String cargoId;
-    private List<CarbinInfoStatisticsEntity.DataBean> list;
     private int showType;
 
     public static Intent getIntent(Context context, int type, String taskId, String shipName) {

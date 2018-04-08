@@ -40,7 +40,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
- * 筛选要查看的船舶
+ * 选择查看的船舶
  */
 public class ShipListChoiceActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener {
 
@@ -65,9 +65,11 @@ public class ShipListChoiceActivity extends BaseActivity implements SwipeRefresh
     private String selectStartTime = "";
     private String selectEndTime = "";
 
-    private ShipListAdapter adapter;
-    private int type;
     private SimpleDateFormat sdf;
+
+    private ShipListAdapter adapter;
+
+    private int type;
 
     public static Intent getIntent(Context context, int type) {
         Intent intent = new Intent(context, ShipListChoiceActivity.class);

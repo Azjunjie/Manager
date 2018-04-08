@@ -56,8 +56,9 @@ public class CargoProgressStatisticsActivity extends BaseActivity {
     private CargoProgressStatisticsListAdapter leftAdapter;
     private CargoProgressStatisticsListAdapter rightAdapter;
 
-    private String taskId;
     private List<CargoInfoStatisticsEntity.DataBean> list;
+
+    private String taskId;
     private int showType;
 
     public static Intent getIntent(Context context, int type, String taskId, String shipName) {

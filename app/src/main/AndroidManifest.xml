@@ -93,8 +93,12 @@
         <activity
             android:name=".activity.statistics.CargoProgressStatisticsDetailActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.statistics.UnloaderStatisticsActivity" />
-        <activity android:name=".activity.statistics.CabinStatisticsActivity"></activity>
+        <activity
+            android:name=".activity.statistics.UnloaderStatisticsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.statistics.CabinStatisticsActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
