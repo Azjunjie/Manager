@@ -126,7 +126,7 @@ public class CabinStatisticsActivity extends BaseActivity {
                 CarbinInfoStatisticsEntity.DataBean bean = list.get(position);
 
                 startActivity(CargoProgressStatisticsDetailActivity.getIntent(activity,
-                        taskId, bean.getCabinNo(),bean.getCargoId(), bean.getCargoName()));
+                        taskId, bean.getCabinNo(), bean.getCargoId(), bean.getCargoName()));
             }
         });
         mLeft.setAdapter(leftAdapter);

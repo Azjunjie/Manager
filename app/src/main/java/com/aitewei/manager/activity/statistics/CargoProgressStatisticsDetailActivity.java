@@ -107,7 +107,7 @@ public class CargoProgressStatisticsDetailActivity extends BaseActivity {
         listView.setAdapter(adapter);
 
         loadView.setVisibility(View.VISIBLE);
-        listView.setVisibility(View.GONE);
+        contentView.setVisibility(View.GONE);
         requestData();
     }
 
@@ -166,7 +166,7 @@ public class CargoProgressStatisticsDetailActivity extends BaseActivity {
 
 
     private void bindDetail(CarbinInfoStatisticsEntity.DataBean data) {
-        tvCabinNo.setText(data.getCabinNo() + "");
+        tvCabinNo.setText(data.getCabinNo() + "#舱");
         tvCargoType.setText(data.getCargoName() + "");
         tvTotal.setText(data.getTotal() + "");
         tvRemainder.setText(data.getRemainder() + "");

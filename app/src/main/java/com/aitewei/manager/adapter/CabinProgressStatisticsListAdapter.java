@@ -40,7 +40,7 @@ public class CabinProgressStatisticsListAdapter extends AbsBaseListViewAdapter<C
         CarbinInfoStatisticsEntity.DataBean dataBean = list.get(position);
         if (dataType == LEFT) {
             TextView tvName = (TextView) viewHolder.findView(R.id.tv_cabin_no);
-            viewHolder.setViewText(R.id.tv_cabin_no, dataBean.getCargoName() + "");
+            viewHolder.setViewText(R.id.tv_cabin_no, dataBean.getCabinNo() + "");
 
             tvName.setOnClickListener(new View.OnClickListener() {
                 @Override

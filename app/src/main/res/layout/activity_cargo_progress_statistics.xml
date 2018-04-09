@@ -132,6 +132,15 @@
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
                         android:gravity="center"
+                        android:text="剩余量"
+                        android:textColor="@color/text_31"
+                        android:textSize="@dimen/f15" />
+
+                    <TextView
+                        android:layout_width="@dimen/d70"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:gravity="center"
                         android:text="清舱量"
                         android:textColor="@color/text_31"
                         android:textSize="@dimen/f15" />

@@ -188,7 +188,6 @@ public class ShipListChoiceActivity extends BaseActivity implements SwipeRefresh
                                 Constant.TYPE_EFFICAIENCY, taskId, shipName));
                         break;
                 }
-                finish();
             }
         });
         listView.setAdapter(adapter);
@@ -197,7 +196,7 @@ public class ShipListChoiceActivity extends BaseActivity implements SwipeRefresh
     }
 
     private void requestListData() {
-        int status = 1;//0|预靠船舶，1|作业船舶，2|离港船舶，3|所有船舶
+        int status = 3;//0|预靠船舶，1|作业船舶，2|离港船舶，3|所有船舶
         String params = "{\"shipStatus\":" + status + ",\"userId\":\"" + User.newInstance().getUserId() +
                 "\",\"startTime\":\"" + selectStartTime + "\",\"endTime\":\"" + selectEndTime + "\"}";
         LogUtil.e("params=" + params);
