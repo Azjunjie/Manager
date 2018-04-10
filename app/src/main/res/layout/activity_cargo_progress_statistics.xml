@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -88,6 +89,54 @@
                 android:textColor="@color/text_31"
                 android:textSize="@dimen/f15" />
 
+            <LinearLayout
+                android:id="@+id/ll_progress_contianer"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/d45"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="总量"
+                    android:textColor="@color/text_31"
+                    android:textSize="@dimen/f15" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="已完成"
+                    android:textColor="@color/text_31"
+                    android:textSize="@dimen/f15" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="剩余量"
+                    android:textColor="@color/text_31"
+                    android:textSize="@dimen/f15" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="清舱量"
+                    android:textColor="@color/text_31"
+                    android:textSize="@dimen/f15" />
+
+            </LinearLayout>
+
             <com.aitewei.manager.view.SyncHorizontalScrollView
                 android:id="@+id/header_horizontal"
                 android:layout_width="match_parent"
@@ -119,6 +168,7 @@
                         android:textSize="@dimen/f15" />
 
                     <TextView
+                        android:id="@+id/tv_finishedUsedTime"
                         android:layout_width="@dimen/d70"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
@@ -146,6 +196,7 @@
                         android:textSize="@dimen/f15" />
 
                     <TextView
+                        android:id="@+id/tv_clearanceUsedTime"
                         android:layout_width="@dimen/d70"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
@@ -155,6 +206,7 @@
                         android:textSize="@dimen/f15" />
 
                     <TextView
+                        android:id="@+id/tv_finishedEfficiency"
                         android:layout_width="@dimen/d70"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
@@ -164,6 +216,7 @@
                         android:textSize="@dimen/f15" />
 
                     <TextView
+                        android:id="@+id/tv_clearanceEfficiency"
                         android:layout_width="@dimen/d70"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
@@ -207,6 +260,15 @@
                     <com.aitewei.manager.view.NoscrollListView
                         android:id="@+id/lv_left"
                         android:layout_width="@dimen/d60"
+                        android:layout_height="match_parent"
+                        android:divider="@color/line_color"
+                        android:dividerHeight="0dp"
+                        android:overScrollMode="never"
+                        android:scrollbars="none" />
+
+                    <com.aitewei.manager.view.NoscrollListView
+                        android:id="@+id/lv_progress_data"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:divider="@color/line_color"
                         android:dividerHeight="0dp"

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -11,6 +12,7 @@ import com.aitewei.manager.R;
 import com.aitewei.manager.activity.ship.ShipBaseInfoActivity;
 import com.aitewei.manager.adapter.CargoProgressStatisticsListAdapter;
 import com.aitewei.manager.base.BaseActivity;
+import com.aitewei.manager.common.Constant;
 import com.aitewei.manager.common.User;
 import com.aitewei.manager.entity.CargoInfoStatisticsEntity;
 import com.aitewei.manager.retrofit.RetrofitFactory;
@@ -43,6 +45,8 @@ public class CargoProgressStatisticsActivity extends BaseActivity {
 
     @BindView(R.id.lv_left)
     NoscrollListView mLeft;
+    @BindView(R.id.lv_progress_data)
+    NoscrollListView mLvProgressData;
     @BindView(R.id.lv_data)
     NoscrollListView mData;
     @BindView(R.id.header_horizontal)
@@ -52,6 +56,9 @@ public class CargoProgressStatisticsActivity extends BaseActivity {
 
     @BindView(R.id.btn_refresh)
     FrameLayout btnRefresh;
+
+    @BindView(R.id.ll_progress_contianer)
+    LinearLayout llProgressContianer;
 
     private CargoProgressStatisticsListAdapter leftAdapter;
     private CargoProgressStatisticsListAdapter rightAdapter;
@@ -85,6 +92,17 @@ public class CargoProgressStatisticsActivity extends BaseActivity {
     @Override
     protected void initData() {
         showType = getIntent().getIntExtra("type", 0);
+        if (showType == Constant.TYPE_PROGRESS) {
+            llProgressContianer.setVisibility(View.VISIBLE);
+            mLvProgressData.setVisibility(View.VISIBLE);
+            mHeaderHorizontal.setVisibility(View.GONE);
+            mDataHorizontal.setVisibility(View.GONE);
+        } else {
+            llProgressContianer.setVisibility(View.GONE);
+            mLvProgressData.setVisibility(View.GONE);
+            mHeaderHorizontal.setVisibility(View.VISIBLE);
+            mDataHorizontal.setVisibility(View.VISIBLE);
+        }
 
         taskId = getIntent().getStringExtra("taskId");
         String shipName = getIntent().getStringExtra("shipName");
@@ -113,9 +131,15 @@ public class CargoProgressStatisticsActivity extends BaseActivity {
         });
         mLeft.setAdapter(leftAdapter);
 
-        rightAdapter = new CargoProgressStatisticsListAdapter(this, CargoProgressStatisticsListAdapter.RIGHT
-                , showType, list, R.layout.item_cargo_statistics_right);
-        mData.setAdapter(rightAdapter);
+        if (showType == Constant.TYPE_PROGRESS) {
+            rightAdapter = new CargoProgressStatisticsListAdapter(this, CargoProgressStatisticsListAdapter.RIGHT
+                    , showType, list, R.layout.item_cargo_progress_statistics_right);
+            mLvProgressData.setAdapter(rightAdapter);
+        } else {
+            rightAdapter = new CargoProgressStatisticsListAdapter(this, CargoProgressStatisticsListAdapter.RIGHT
+                    , showType, list, R.layout.item_cargo_statistics_right);
+            mData.setAdapter(rightAdapter);
+        }
     }
 
     private void requestData() {
@@ -127,6 +151,8 @@ public class CargoProgressStatisticsActivity extends BaseActivity {
                 .subscribe(new BaseObserver<CargoInfoStatisticsEntity>(compositeDisposable) {
                     @Override
                     protected void onHandleSuccess(CargoInfoStatisticsEntity entity) {
+                        dismissLoadingPopup();
+                        btnRefresh.setClickable(true);
                         loadView.setVisibility(View.GONE);
                         contentView.setVisibility(View.VISIBLE);
 
@@ -138,6 +164,8 @@ public class CargoProgressStatisticsActivity extends BaseActivity {
 
                     @Override
                     protected void onHandleRequestError(String code, String msg) {
+                        dismissLoadingPopup();
+                        btnRefresh.setClickable(true);
                         loadView.setVisibility(View.VISIBLE);
                         contentView.setVisibility(View.GONE);
                         loadView.setLoadError(msg + "");
@@ -145,9 +173,18 @@ public class CargoProgressStatisticsActivity extends BaseActivity {
                 });
     }
 
-    @OnClick(R.id.btn_ship_info)
-    public void onViewClicked() {
-        startActivity(ShipBaseInfoActivity.getIntent(activity, taskId));
+    @OnClick({R.id.btn_refresh, R.id.btn_ship_info})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.btn_refresh:
+                btnRefresh.setClickable(false);
+                showLoadingPopup();
+                requestData();
+                break;
+            case R.id.btn_ship_info:
+                startActivity(ShipBaseInfoActivity.getIntent(activity, taskId));
+                break;
+        }
     }
 
 }
