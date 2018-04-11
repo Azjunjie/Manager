@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.aitewei.manager.R;
+import com.aitewei.manager.activity.ship.ShipCabinListActivity;
 import com.aitewei.manager.adapter.ShipListAdapter;
 import com.aitewei.manager.base.BaseActivity;
 import com.aitewei.manager.common.Constant;
@@ -180,8 +181,8 @@ public class ShipListChoiceActivity extends BaseActivity implements SwipeRefresh
                         finish();
                         break;
                     case Constant.TYPE_STATISTICS_CABIN_PROGRESS://舱口统计
-                        startActivity(CabinStatisticsActivity.getIntent(activity,
-                                Constant.TYPE_PROGRESS, taskId, shipName));
+                        startActivity(ShipCabinListActivity.getIntent(activity,
+                                Constant.TYPE_FINISH, taskId, shipName));
                         break;
                     case Constant.TYPE_STATISTICS_CABIN_EFFICAIENCY://舱口效率统计
                         startActivity(CabinStatisticsActivity.getIntent(activity,

@@ -168,7 +168,6 @@
                         android:textSize="@dimen/f15" />
 
                     <TextView
-                        android:id="@+id/tv_finishedUsedTime"
                         android:layout_width="@dimen/d70"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
@@ -196,7 +195,6 @@
                         android:textSize="@dimen/f15" />
 
                     <TextView
-                        android:id="@+id/tv_clearanceUsedTime"
                         android:layout_width="@dimen/d70"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
@@ -206,7 +204,6 @@
                         android:textSize="@dimen/f15" />
 
                     <TextView
-                        android:id="@+id/tv_finishedEfficiency"
                         android:layout_width="@dimen/d70"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
@@ -216,7 +213,6 @@
                         android:textSize="@dimen/f15" />
 
                     <TextView
-                        android:id="@+id/tv_clearanceEfficiency"
                         android:layout_width="@dimen/d70"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"

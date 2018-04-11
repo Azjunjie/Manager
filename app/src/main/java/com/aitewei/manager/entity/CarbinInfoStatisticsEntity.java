@@ -39,14 +39,14 @@ public class CarbinInfoStatisticsEntity extends BaseEntity{
         private String cabinId;
         private String cargoId;
         private String cargoName;
-        private String total;
-        private String finished;
-        private String finishedUsedTime;
-        private String finishedEfficiency;
-        private String remainder;
-        private String clearance;
-        private String clearanceUsedTime;
-        private String clearanceEfficiency;
+        private double total;
+        private double finished;
+        private double finishedUsedTime;
+        private double finishedEfficiency;
+        private double remainder;
+        private double clearance;
+        private double clearanceUsedTime;
+        private double clearanceEfficiency;
         private String status;
         private String clearTime;
 
@@ -98,67 +98,67 @@ public class CarbinInfoStatisticsEntity extends BaseEntity{
             this.cargoName = cargoName;
         }
 
-        public String getTotal() {
+        public double getTotal() {
             return total;
         }
 
-        public void setTotal(String total) {
+        public void setTotal(double total) {
             this.total = total;
         }
 
-        public String getFinished() {
+        public double getFinished() {
             return finished;
         }
 
-        public void setFinished(String finished) {
+        public void setFinished(double finished) {
             this.finished = finished;
         }
 
-        public String getFinishedUsedTime() {
+        public double getFinishedUsedTime() {
             return finishedUsedTime;
         }
 
-        public void setFinishedUsedTime(String finishedUsedTime) {
+        public void setFinishedUsedTime(double finishedUsedTime) {
             this.finishedUsedTime = finishedUsedTime;
         }
 
-        public String getFinishedEfficiency() {
+        public double getFinishedEfficiency() {
             return finishedEfficiency;
         }
 
-        public void setFinishedEfficiency(String finishedEfficiency) {
+        public void setFinishedEfficiency(double finishedEfficiency) {
             this.finishedEfficiency = finishedEfficiency;
         }
 
-        public String getRemainder() {
+        public double getRemainder() {
             return remainder;
         }
 
-        public void setRemainder(String remainder) {
+        public void setRemainder(double remainder) {
             this.remainder = remainder;
         }
 
-        public String getClearance() {
+        public double getClearance() {
             return clearance;
         }
 
-        public void setClearance(String clearance) {
+        public void setClearance(double clearance) {
             this.clearance = clearance;
         }
 
-        public String getClearanceUsedTime() {
+        public double getClearanceUsedTime() {
             return clearanceUsedTime;
         }
 
-        public void setClearanceUsedTime(String clearanceUsedTime) {
+        public void setClearanceUsedTime(double clearanceUsedTime) {
             this.clearanceUsedTime = clearanceUsedTime;
         }
 
-        public String getClearanceEfficiency() {
+        public double getClearanceEfficiency() {
             return clearanceEfficiency;
         }
 
-        public void setClearanceEfficiency(String clearanceEfficiency) {
+        public void setClearanceEfficiency(double clearanceEfficiency) {
             this.clearanceEfficiency = clearanceEfficiency;
         }
     }
