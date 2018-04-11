@@ -140,7 +140,6 @@ public class UnloaderStatisticsActivity extends BaseActivity {
                 if (teamType == 0) {
                     startTime = selectDate + " 08:00:00";
                     endTime = selectDate + " 20:00:00";
-
                     tvInfo.setText(selectDate + "----白班");
                 } else if (teamType == 1) {
                     tvInfo.setText(selectDate + "----夜班");

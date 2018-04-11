@@ -164,7 +164,6 @@ public class CargoProgressStatisticsDetailActivity extends BaseActivity {
                 });
     }
 
-
     private void bindDetail(CarbinInfoStatisticsEntity.DataBean data) {
         tvCabinNo.setText(data.getCabinNo() + "#舱");
         tvCargoType.setText(data.getCargoName() + "");
