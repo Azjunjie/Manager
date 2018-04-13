@@ -103,7 +103,7 @@ public class CargoProgressStatisticsDetailActivity extends BaseActivity {
         String cargoName = getIntent().getStringExtra("cargoName");
         tvCargoType.setText(cargoName + "");
 
-        adapter = new UnloaderStatisticsListAdapter(R.layout.layout_cabin_progress_list_item, null);
+        adapter = new UnloaderStatisticsListAdapter(R.layout.layout_ship_unloader_progress_list_item, null);
         listView.setAdapter(adapter);
 
         loadView.setVisibility(View.VISIBLE);
