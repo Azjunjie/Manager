@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.aitewei.manager.activity.statistics.CabinStatisticsActivity">
 
     <FrameLayout
@@ -96,9 +96,9 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
+                    android:layout_weight="1"
                     android:gravity="center"
                     android:text="总量"
                     android:textColor="@color/text_31"
@@ -106,9 +106,9 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
+                    android:layout_weight="1"
                     android:gravity="center"
                     android:text="已完成"
                     android:textColor="@color/text_31"
@@ -116,9 +116,9 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
+                    android:layout_weight="1"
                     android:gravity="center"
                     android:text="剩余量"
                     android:textColor="@color/text_31"
@@ -126,9 +126,9 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
+                    android:layout_weight="1"
                     android:gravity="center"
                     android:text="清舱量"
                     android:textColor="@color/text_31"
@@ -180,6 +180,15 @@
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
                         android:gravity="center"
+                        android:text="卸载效率"
+                        android:textColor="@color/text_31"
+                        android:textSize="@dimen/f15" />
+
+                    <TextView
+                        android:layout_width="@dimen/d70"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:gravity="center"
                         android:text="剩余量"
                         android:textColor="@color/text_31"
                         android:textSize="@dimen/f15" />
@@ -199,15 +208,6 @@
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:text="清舱时间"
-                        android:textColor="@color/text_31"
-                        android:textSize="@dimen/f15" />
-
-                    <TextView
-                        android:layout_width="@dimen/d70"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:text="卸载效率"
                         android:textColor="@color/text_31"
                         android:textSize="@dimen/f15" />
 

@@ -83,8 +83,6 @@ public class CargoProgressStatisticsActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        ToolBarUtil.init(activity, "船舶货物进度统计");
-
         mDataHorizontal.setScrollView(mHeaderHorizontal);
         mHeaderHorizontal.setScrollView(mDataHorizontal);
     }
@@ -97,11 +95,13 @@ public class CargoProgressStatisticsActivity extends BaseActivity {
             mLvProgressData.setVisibility(View.VISIBLE);
             mHeaderHorizontal.setVisibility(View.GONE);
             mDataHorizontal.setVisibility(View.GONE);
+            ToolBarUtil.init(activity, "船舶货物进度统计");
         } else {
             llProgressContianer.setVisibility(View.GONE);
             mLvProgressData.setVisibility(View.GONE);
             mHeaderHorizontal.setVisibility(View.VISIBLE);
             mDataHorizontal.setVisibility(View.VISIBLE);
+            ToolBarUtil.init(activity, "船舶货物效率统计");
         }
 
         taskId = getIntent().getStringExtra("taskId");

@@ -46,7 +46,7 @@ public class ShipListNewAdapter extends BaseQuickAdapter<ShipListEntity.DataBean
                 } else {
                     tvType.setVisibility(View.GONE);
                 }
-                helper.setText(R.id.tv_extra_time, "预靠时间：" + item.getEnterPortTime());
+                helper.setText(R.id.tv_extra_time, "预靠时间：" + item.getEnter_port_time());
                 break;
             case Constant.TYPE_WORKING:
                 int workingPosition = onGetTypeFristPosition(Constant.TYPE_WORKING);

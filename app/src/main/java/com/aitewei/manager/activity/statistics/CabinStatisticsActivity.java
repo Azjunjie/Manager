@@ -95,8 +95,6 @@ public class CabinStatisticsActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        ToolBarUtil.init(activity, "船舶舱口进度统计");
-
         mDataHorizontal.setScrollView(mHeaderHorizontal);
         mHeaderHorizontal.setScrollView(mDataHorizontal);
     }
@@ -121,9 +119,19 @@ public class CabinStatisticsActivity extends BaseActivity {
         if (TextUtils.isEmpty(cargoId)) {
             String shipName = getIntent().getStringExtra("shipName");
             btnShipInfo.setText(shipName + "");
+            if (showType == Constant.TYPE_PROGRESS) {
+                ToolBarUtil.init(activity, "船舶舱口进度统计");
+            }else {
+                ToolBarUtil.init(activity, "船舶舱口效率统计");
+            }
         } else {
             String cargoName = getIntent().getStringExtra("cargoName");
             btnShipInfo.setText(cargoName + "");
+            if (showType == Constant.TYPE_PROGRESS) {
+                ToolBarUtil.init(activity, "船舶货物进度统计");
+            }else {
+                ToolBarUtil.init(activity, "船舶货物效率统计");
+            }
         }
 
         btnRefresh.setClickable(false);

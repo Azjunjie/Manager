@@ -81,7 +81,7 @@ public class CargoProgressStatisticsDetailActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        ToolBarUtil.init(this, "舱口详情");
+        ToolBarUtil.init(this, "舱舱详情");
 
         refreshLayout.setColorSchemeColors(getResources().getColor(R.color.blue));
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

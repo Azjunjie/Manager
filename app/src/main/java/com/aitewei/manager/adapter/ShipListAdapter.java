@@ -30,6 +30,7 @@ public class ShipListAdapter extends BaseQuickAdapter<ShipListEntity.DataBean, B
         } else {
             helper.setText(R.id.tv_time, "");
         }
+        helper.setText(R.id.tv_extra_time, "预靠时间：" + item.getEnter_port_time());
     }
 
 }

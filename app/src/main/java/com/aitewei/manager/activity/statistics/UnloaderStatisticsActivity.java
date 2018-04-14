@@ -105,8 +105,6 @@ public class UnloaderStatisticsActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        ToolBarUtil.init(this, "卸船机作业量统计");
-
         refreshLayout.setColorSchemeColors(getResources().getColor(R.color.blue));
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -133,6 +131,7 @@ public class UnloaderStatisticsActivity extends BaseActivity {
                 btnPopup.setVisibility(View.GONE);
                 String shipName = getIntent().getStringExtra("shipName");
                 btnShipInfo.setText(shipName + "");
+                ToolBarUtil.init(this, "卸船机作业量统计");
                 break;
             case TYPE_TEAM://班次
                 String beginDate = getIntent().getStringExtra("beginDate");
@@ -141,6 +140,7 @@ public class UnloaderStatisticsActivity extends BaseActivity {
                 btnPopup.setVisibility(View.VISIBLE);
                 tvInfo.setVisibility(View.VISIBLE);
                 tvInfo.setText("全部");
+                ToolBarUtil.init(this, "卸船机班次作业量统计");
 
                 initDatePicker(beginDate, endDate);
                 break;
