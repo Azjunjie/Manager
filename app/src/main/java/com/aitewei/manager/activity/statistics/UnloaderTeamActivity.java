@@ -91,8 +91,6 @@ public class UnloaderTeamActivity extends BaseActivity {
                     ToastUtils.show(this, "请选择要查询的班次");
                     return;
                 }
-                startActivity(UnloaderStatisticsActivity.getIntent(this,
-                        taskId, selectDate, teamType, UnloaderStatisticsActivity.TYPE_TEAM));
                 break;
         }
     }

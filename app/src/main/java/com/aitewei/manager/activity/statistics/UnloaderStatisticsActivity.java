@@ -87,12 +87,14 @@ public class UnloaderStatisticsActivity extends BaseActivity {
         return intent;
     }
 
-    public static Intent getIntent(Context context, String taskId, String selectDate, int teamType, int type) {
+    public static Intent getIntent(Context context, String taskId, String shipName, int type
+            , String beginDate, String endDate) {
         Intent intent = new Intent(context, UnloaderStatisticsActivity.class);
         intent.putExtra("taskId", taskId);
-        intent.putExtra("selectDate", selectDate);
-        intent.putExtra("teamType", teamType);
+        intent.putExtra("shipName", shipName);
         intent.putExtra("type", type);
+        intent.putExtra("beginDate", beginDate);
+        intent.putExtra("endDate", endDate);
         return intent;
     }
 
@@ -128,35 +130,21 @@ public class UnloaderStatisticsActivity extends BaseActivity {
             case TYPE_ALL://查看全部
                 btnShipInfo.setVisibility(View.VISIBLE);
                 tvInfo.setVisibility(View.GONE);
+                btnPopup.setVisibility(View.GONE);
                 String shipName = getIntent().getStringExtra("shipName");
                 btnShipInfo.setText(shipName + "");
                 break;
             case TYPE_TEAM://班次
-                String selectDate = getIntent().getStringExtra("selectDate");
-                int teamType = getIntent().getIntExtra("teamType", 0);
+                String beginDate = getIntent().getStringExtra("beginDate");
+                String endDate = getIntent().getStringExtra("endDate");
                 btnShipInfo.setVisibility(View.GONE);
+                btnPopup.setVisibility(View.VISIBLE);
                 tvInfo.setVisibility(View.VISIBLE);
+                tvInfo.setText("全部");
 
-                if (teamType == 0) {
-                    startTime = selectDate + " 08:00:00";
-                    endTime = selectDate + " 20:00:00";
-                    tvInfo.setText(selectDate + "----白班");
-                } else if (teamType == 1) {
-                    tvInfo.setText(selectDate + "----夜班");
-                    startTime = selectDate + " 20:00:00";
-                    try {
-                        Date date = dateFormat.parse(selectDate);
-                        date.setTime(date.getTime() + 24 * 60 * 60 * 1000);
-                        String secondDate = dateFormat.format(date);
-                        endTime = secondDate + " 08:00:00";
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                }
+                initDatePicker(beginDate, endDate);
                 break;
         }
-
-        initDatePicker();
 
         adapter = new UnloaderStatisticsListAdapter(R.layout.layout_ship_unloader_progress_list_item, null);
         listView.setAdapter(adapter);
@@ -182,6 +170,10 @@ public class UnloaderStatisticsActivity extends BaseActivity {
         String params = "{\"taskId\":" + taskId + ",\"startTime\":\"" + startTime
                 + "\",\"endTime\":\"" + endTime
                 + "\",\"userId\":\"" + User.newInstance().getUserId() + "\"}";
+        if (TextUtils.isEmpty(startTime)) {
+            params = "{\"taskId\":" + taskId
+                    + ",\"userId\":\"" + User.newInstance().getUserId() + "\"}";
+        }
         LogUtil.e("doGetUnloaderUnshipInfo json=" + params);
         RetrofitFactory.getInstance()
                 .doUnloaderInfoStatistics(params)
@@ -301,16 +293,21 @@ public class UnloaderStatisticsActivity extends BaseActivity {
 
     private CustomDatePicker datePicker;
 
-    private void initDatePicker() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
-        currentDate = sdf.format(new Date());
+    private void initDatePicker(String beginDate, String endDate) {
+        if (TextUtils.isEmpty(endDate)) {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
+            currentDate = sdf.format(new Date());
+            endDate = currentDate;
+        } else {
+            currentDate = endDate;
+        }
         datePicker = new CustomDatePicker(this, new CustomDatePicker.ResultHandler() {
             @Override
             public void handle(String time) { // 回调接口，获得选中的时间
                 selectDate = time.split(" ")[0];
                 tvTime.setText(selectDate);
             }
-        }, "1970-01-01 00:00", currentDate); // 初始化日期格式请用：yyyy-MM-dd HH:mm，否则不能正常运行
+        }, beginDate, endDate); // 初始化日期格式请用：yyyy-MM-dd HH:mm，否则不能正常运行
         datePicker.showSpecificTime(false); // 不显示时和分
         datePicker.setIsLoop(false); // 不允许循环滚动
     }

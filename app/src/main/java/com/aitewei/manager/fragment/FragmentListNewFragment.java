@@ -88,6 +88,7 @@ public class FragmentListNewFragment extends BaseFragment implements SwipeRefres
                 startActivity(ShipCabinListActivity.getIntent(activity, bean.getShipType(), bean.getId(), bean.getShipName()));
             }
         });
+
         View view = LayoutInflater.from(activity).inflate(R.layout.layout_ship_list_head_item, null);
         banner = view.findViewById(R.id.banner);
         ViewGroup.LayoutParams layoutParams = banner.getLayoutParams();
@@ -95,6 +96,7 @@ public class FragmentListNewFragment extends BaseFragment implements SwipeRefres
         banner.setLayoutParams(layoutParams);
         initBanner();
         adapter.addHeaderView(view);
+
         listView.setAdapter(adapter);
 
         requestListData();
@@ -188,7 +190,7 @@ public class FragmentListNewFragment extends BaseFragment implements SwipeRefres
                             if (refreshLayout != null) {
                                 refreshLayout.setRefreshing(false);
                             }
-                            listView.setVisibility(View.GONE);
+                            listView.setVisibility(View.VISIBLE);
                             loadView.setVisibility(View.VISIBLE);
                             loadView.setLoadError(throwable.getMessage() + "");
                         } else {
@@ -212,7 +214,7 @@ public class FragmentListNewFragment extends BaseFragment implements SwipeRefres
             adapter.setNewData(dataList);
         } else {
             adapter.loadMoreEnd();
-            listView.setVisibility(View.GONE);
+            listView.setVisibility(View.VISIBLE);
             loadView.setVisibility(View.VISIBLE);
             loadView.setLoadType(LoadGroupView.TYPE_EMPTY);
         }

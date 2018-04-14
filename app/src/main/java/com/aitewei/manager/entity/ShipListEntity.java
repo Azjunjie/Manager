@@ -50,6 +50,51 @@ public class ShipListEntity extends BaseEntity {
         private String id;
         private String shipName;
         private String berthName;
+        private String enterPortTime;//预靠时间
+        private String berthingTime;//靠泊时间
+        private String beginTime;//开工时间
+        private String endTime;//完工时间
+        private String departureTime;//离泊时间
+
+        public String getEnterPortTime() {
+            return enterPortTime;
+        }
+
+        public void setEnterPortTime(String enterPortTime) {
+            this.enterPortTime = enterPortTime;
+        }
+
+        public String getBerthingTime() {
+            return berthingTime;
+        }
+
+        public void setBerthingTime(String berthingTime) {
+            this.berthingTime = berthingTime;
+        }
+
+        public String getBeginTime() {
+            return beginTime;
+        }
+
+        public void setBeginTime(String beginTime) {
+            this.beginTime = beginTime;
+        }
+
+        public String getEndTime() {
+            return endTime;
+        }
+
+        public void setEndTime(String endTime) {
+            this.endTime = endTime;
+        }
+
+        public String getDepartureTime() {
+            return departureTime;
+        }
+
+        public void setDepartureTime(String departureTime) {
+            this.departureTime = departureTime;
+        }
 
         public int getShipType() {
             return shipType;

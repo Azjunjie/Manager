@@ -174,11 +174,26 @@ public class ShipListChoiceActivity extends BaseActivity implements SwipeRefresh
                                 taskId, shipName, UnloaderStatisticsActivity.TYPE_ALL));
                         break;
                     case Constant.TYPE_STATISTICS_UNLOADER_TEAM_PROGRESS://卸船机班次统计
-                        Intent intent = new Intent();
-                        intent.putExtra("taskId", taskId);
-                        intent.putExtra("shipName", shipName);
-                        setResult(RESULT_OK, intent);
-                        finish();
+                        try {
+                            String beginTime = bean.getBeginTime();
+                            String endTime = bean.getEndTime();
+                            if (!TextUtils.isEmpty(beginTime)) {
+                                beginTime = beginTime.substring(0, 10) + " 00:00";
+                            } else {
+                                beginTime = "2017-01-01 00:00";
+                            }
+                            if (!TextUtils.isEmpty(endTime)) {
+                                endTime = endTime.substring(0, 10) + " 00:00";
+                            }
+                            startActivity(UnloaderStatisticsActivity.getIntent(activity,
+                                    taskId, shipName, UnloaderStatisticsActivity.TYPE_TEAM,
+                                    beginTime, endTime));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            startActivity(UnloaderStatisticsActivity.getIntent(activity,
+                                    taskId, shipName, UnloaderStatisticsActivity.TYPE_TEAM,
+                                    "2017-01-01 00:00", ""));
+                        }
                         break;
                     case Constant.TYPE_STATISTICS_CABIN_PROGRESS://舱口统计
                         startActivity(ShipCabinListActivity.getIntent(activity,

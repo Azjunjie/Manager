@@ -61,7 +61,7 @@ public class StatisticsActivity extends BaseActivity {
                 startActivity(ShipListChoiceActivity.getIntent(this, Constant.TYPE_STATISTICS_UNLOADER_PROGRESS));
                 break;
             case R.id.btn_unloader_team_statistics://卸船机班次统计
-                startActivity(UnloaderTeamActivity.getIntent(this));
+                startActivity(ShipListChoiceActivity.getIntent(this, Constant.TYPE_STATISTICS_UNLOADER_TEAM_PROGRESS));
                 break;
             case R.id.btn_cargo_efficiency://船舱货物效率统计
                 startActivity(ShipListChoiceActivity.getIntent(this, Constant.TYPE_STATISTICS_CARGO_EFFICAIENCY));

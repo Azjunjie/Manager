@@ -46,7 +46,7 @@ public class ShipListNewAdapter extends BaseQuickAdapter<ShipListEntity.DataBean
                 } else {
                     tvType.setVisibility(View.GONE);
                 }
-                helper.setText(R.id.tv_extra_time, "预靠时间：2018-04-01 12:00");
+                helper.setText(R.id.tv_extra_time, "预靠时间：" + item.getEnterPortTime());
                 break;
             case Constant.TYPE_WORKING:
                 int workingPosition = onGetTypeFristPosition(Constant.TYPE_WORKING);
@@ -56,7 +56,7 @@ public class ShipListNewAdapter extends BaseQuickAdapter<ShipListEntity.DataBean
                 } else {
                     tvType.setVisibility(View.GONE);
                 }
-                helper.setText(R.id.tv_extra_time, "靠泊时间：2018-04-01 12:00");
+                helper.setText(R.id.tv_extra_time, "靠泊时间：" + item.getBerthingTime());
                 break;
         }
     }
