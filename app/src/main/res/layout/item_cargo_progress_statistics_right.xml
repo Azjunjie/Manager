@@ -17,7 +17,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:text="总量"
-            android:textColor="@color/text_31"
+            android:textColor="@color/text_89"
             android:textSize="@dimen/f15" />
 
         <TextView
@@ -28,7 +28,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:text="已完成"
-            android:textColor="@color/text_31"
+            android:textColor="@color/text_89"
             android:textSize="@dimen/f15" />
 
         <TextView
@@ -39,7 +39,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:text="剩余量"
-            android:textColor="@color/text_31"
+            android:textColor="@color/text_89"
             android:textSize="@dimen/f15" />
 
         <TextView
@@ -50,7 +50,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:text="清舱量"
-            android:textColor="@color/text_31"
+            android:textColor="@color/text_89"
             android:textSize="@dimen/f15" />
 
     </LinearLayout>

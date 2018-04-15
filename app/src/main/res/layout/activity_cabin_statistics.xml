@@ -203,15 +203,6 @@
                         android:textSize="@dimen/f15" />
 
                     <TextView
-                        android:layout_width="@dimen/d100"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:text="清舱时间"
-                        android:textColor="@color/text_31"
-                        android:textSize="@dimen/f15" />
-
-                    <TextView
                         android:layout_width="@dimen/d70"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
@@ -226,6 +217,15 @@
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:text="清舱效率"
+                        android:textColor="@color/text_31"
+                        android:textSize="@dimen/f15" />
+
+                    <TextView
+                        android:layout_width="@dimen/d70"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="状态"
                         android:textColor="@color/text_31"
                         android:textSize="@dimen/f15" />
 

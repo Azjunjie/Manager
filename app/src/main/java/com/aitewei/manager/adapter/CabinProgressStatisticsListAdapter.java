@@ -56,10 +56,21 @@ public class CabinProgressStatisticsListAdapter extends AbsBaseListViewAdapter<C
                     break;
                 case Constant.TYPE_EFFICAIENCY://查看效率
                     viewHolder.setViewText(R.id.tv_finishedUsedTime, dataBean.getFinishedUsedTime() + "");
-                    viewHolder.setViewText(R.id.tv_clearanceTime, dataBean.getClearTime() + "");
                     viewHolder.setViewText(R.id.tv_clearanceUsedTime, dataBean.getClearanceUsedTime() + "");
                     viewHolder.setViewText(R.id.tv_finishedEfficiency, dataBean.getFinishedEfficiency() + "");
                     viewHolder.setViewText(R.id.tv_clearanceEfficiency, dataBean.getClearanceEfficiency() + "");
+                    String status = dataBean.getStatus();
+                    TextView tvStatus = (TextView) viewHolder.findView(R.id.tv_status);
+                    tvStatus.setVisibility(View.VISIBLE);
+                    if ("0".equals(status)) {
+                        tvStatus.setText("卸货");
+                    } else if ("1".equals(status)) {
+                        tvStatus.setText("清舱");
+                    } else if ("2".equals(status)) {
+                        tvStatus.setText("");
+                    } else {
+                        tvStatus.setText("--");
+                    }
                     break;
             }
             viewHolder.setViewText(R.id.tv_total, dataBean.getTotal() + "");

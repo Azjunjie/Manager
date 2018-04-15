@@ -54,6 +54,8 @@ public class ShipCabinListActivity extends BaseActivity {
 
     @BindView(R.id.btn_ship_info)
     TextView btnShipInfo;
+    @BindView(R.id.tv_clearTime)
+    TextView tvClearTime;
     @BindView(R.id.tv_operation)
     TextView tvOperation;
 
@@ -112,6 +114,7 @@ public class ShipCabinListActivity extends BaseActivity {
 
         type = getIntent().getIntExtra("type", -1);
         if (type == Constant.TYPE_WORKING) {
+            tvClearTime.setVisibility(View.GONE);
             btnBegin.setVisibility(View.GONE);
             btnMenu.setVisibility(View.VISIBLE);
             if (PermissionsCode.isHasPermission(PermissionsCode.clearStatus)) {
@@ -130,6 +133,7 @@ public class ShipCabinListActivity extends BaseActivity {
                 btnComplete.setVisibility(View.GONE);
             }
         } else if (type == Constant.TYPE_COMING) {
+            tvClearTime.setVisibility(View.GONE);
             tvOperation.setVisibility(View.GONE);
             btnComplete.setVisibility(View.GONE);
             btnMenu.setVisibility(View.GONE);
@@ -144,6 +148,7 @@ public class ShipCabinListActivity extends BaseActivity {
                 btnBegin.setVisibility(View.GONE);
             }
         } else {
+            tvClearTime.setVisibility(View.VISIBLE);
             tvOperation.setVisibility(View.GONE);
             btnModifyLocation.setVisibility(View.GONE);
             btnBegin.setVisibility(View.GONE);
@@ -597,6 +602,7 @@ public class ShipCabinListActivity extends BaseActivity {
                 holder.tvFinish = convertView.findViewById(R.id.tv_finish);
                 holder.tvRemainder = convertView.findViewById(R.id.tv_remainder);
                 holder.tvClearance = convertView.findViewById(R.id.tv_clearance);
+                holder.tvClearTime = convertView.findViewById(R.id.tv_clearTime);
                 holder.tvStatus = convertView.findViewById(R.id.tv_status);
                 holder.tvOperation = convertView.findViewById(R.id.tv_operation);
                 convertView.setTag(holder);
@@ -610,6 +616,11 @@ public class ShipCabinListActivity extends BaseActivity {
             } else {
                 holder.tvOperation.setVisibility(View.GONE);
             }
+            if (type == Constant.TYPE_FINISH) {
+                holder.tvClearTime.setVisibility(View.VISIBLE);
+            } else {
+                holder.tvClearTime.setVisibility(View.GONE);
+            }
             int count = getCount() - 1;
             if (count == position) {
                 ShipCabinListEntity.DataBean dataBean = new ShipCabinListEntity.DataBean();
@@ -620,6 +631,7 @@ public class ShipCabinListActivity extends BaseActivity {
                     dataBean.setClearance(dataBean.getClearance() + bean.getClearance());
                 }
                 holder.tvCabinType.setText("--");
+                holder.tvClearTime.setText("--");
                 holder.tvCabinType.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -629,6 +641,7 @@ public class ShipCabinListActivity extends BaseActivity {
                 holder.tvFinish.setText(decimalFormat.format(dataBean.getFinished()) + "");
                 holder.tvRemainder.setText(decimalFormat.format(dataBean.getRemainder()) + "");
                 holder.tvClearance.setText(decimalFormat.format(dataBean.getClearance()) + "");
+                holder.tvClearTime.setText("--");
                 holder.tvStatus.setText("--");
                 holder.tvOperation.setText("--");
                 holder.tvOperation.setOnClickListener(new View.OnClickListener() {
@@ -649,6 +662,7 @@ public class ShipCabinListActivity extends BaseActivity {
                 holder.tvFinish.setText(dataBean.getFinished() + "");
                 holder.tvRemainder.setText(dataBean.getRemainder() + "");
                 holder.tvClearance.setText(dataBean.getClearance() + "");
+                holder.tvClearTime.setText(dataBean.getClearTime() + "");
                 String status = dataBean.getStatus();//0|卸货;1|清舱;2|完成
                 if ("0".equals(status)) {
                     holder.tvStatus.setText("卸货");
@@ -679,6 +693,7 @@ public class ShipCabinListActivity extends BaseActivity {
             TextView tvFinish;
             TextView tvRemainder;
             TextView tvClearance;
+            TextView tvClearTime;
             TextView tvStatus;
             TextView tvOperation;
         }

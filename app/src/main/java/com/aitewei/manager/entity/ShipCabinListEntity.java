@@ -54,9 +54,18 @@ public class ShipCabinListEntity extends BaseEntity implements Serializable {
         private double finished;
         private double remainder;
         private double clearance;
+        private String clearTime;
         private double startPosition;
         private double endPosition;
         private String status;
+
+        public String getClearTime() {
+            return clearTime;
+        }
+
+        public void setClearTime(String clearTime) {
+            this.clearTime = clearTime;
+        }
 
         public int getCabinNo() {
             return cabinNo;

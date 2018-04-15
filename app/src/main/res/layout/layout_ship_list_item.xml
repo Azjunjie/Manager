@@ -26,15 +26,32 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_ship_name"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:singleLine="true"
-                android:text="船舶名称"
-                android:textColor="@color/blue"
-                android:textSize="@dimen/f16" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_ship_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="船舶名称"
+                    android:textColor="@color/blue"
+                    android:textSize="@dimen/f16" />
+
+                <TextView
+                    android:id="@+id/tv_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/d10"
+                    android:text="已完成"
+                    android:textColor="@color/text_89"
+                    android:textSize="@dimen/f13" />
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/tv_extra_time"
