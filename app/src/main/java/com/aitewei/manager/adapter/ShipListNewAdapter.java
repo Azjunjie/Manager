@@ -1,7 +1,9 @@
 package com.aitewei.manager.adapter;
 
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.aitewei.manager.R;
@@ -34,6 +36,18 @@ public class ShipListNewAdapter extends BaseQuickAdapter<ShipListEntity.DataBean
             helper.setText(R.id.tv_time, "");
         }
 
+        TextView tvMsg = helper.getView(R.id.tv_msg);
+        LinearLayout llContainer = helper.getView(R.id.ll_container);
+        String id = item.getId();
+        if (TextUtils.isEmpty(id)) {
+            tvMsg.setText(item.getShipName() + "");
+            tvMsg.setVisibility(View.VISIBLE);
+            llContainer.setVisibility(View.GONE);
+        } else {
+            tvMsg.setVisibility(View.GONE);
+            llContainer.setVisibility(View.VISIBLE);
+        }
+
         int layoutPosition = helper.getLayoutPosition();
         TextView tvType = helper.getView(R.id.tv_type);
         int shipType = item.getShipType();
@@ -46,7 +60,7 @@ public class ShipListNewAdapter extends BaseQuickAdapter<ShipListEntity.DataBean
                 } else {
                     tvType.setVisibility(View.GONE);
                 }
-                helper.setText(R.id.tv_extra_time, "预靠时间：" + item.getEnter_port_time());
+                helper.setText(R.id.tv_extra_time, "预靠时间：" + item.getEnterPortTime());
                 break;
             case Constant.TYPE_WORKING:
                 int workingPosition = onGetTypeFristPosition(Constant.TYPE_WORKING);

@@ -45,6 +45,15 @@ public class CargoInfoStatisticsEntity extends BaseEntity{
         private String clearance;
         private String clearanceUsedTime;
         private String clearanceEfficiency;
+        private String clearTime;
+
+        public String getClearTime() {
+            return clearTime;
+        }
+
+        public void setClearTime(String clearTime) {
+            this.clearTime = clearTime;
+        }
 
         public String getCargoId() {
             return cargoId;

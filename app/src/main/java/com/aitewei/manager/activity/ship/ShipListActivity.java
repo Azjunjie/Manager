@@ -14,7 +14,7 @@ import com.aitewei.manager.activity.user.SettingActivity;
 import com.aitewei.manager.adapter.FragmentViewPagerAdapter;
 import com.aitewei.manager.base.BaseActivity;
 import com.aitewei.manager.base.BaseFragment;
-import com.aitewei.manager.fragment.FragmentListNewFragment;
+import com.aitewei.manager.fragment.ShipListNewFragment;
 import com.aitewei.manager.utils.ScreenUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -71,7 +71,7 @@ public class ShipListActivity extends BaseActivity {
 //        initBanner();
 
         List<BaseFragment> fragments = new ArrayList<>();
-        fragments.add(FragmentListNewFragment.newInstance());
+        fragments.add(ShipListNewFragment.newInstance());
 
         FragmentViewPagerAdapter adapter = new FragmentViewPagerAdapter(getSupportFragmentManager(), fragments);
         viewPager.setAdapter(adapter);

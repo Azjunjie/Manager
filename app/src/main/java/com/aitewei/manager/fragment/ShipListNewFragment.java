@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +44,7 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * 新的船舶列表页--作业船舶和预靠船舶放在一起
  */
-public class FragmentListNewFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
+public class ShipListNewFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
     @BindView(R.id.load_view)
     LoadGroupView loadView;
     @BindView(R.id.refreshLayout)
@@ -53,8 +54,8 @@ public class FragmentListNewFragment extends BaseFragment implements SwipeRefres
     private ShipListNewAdapter adapter;
     private Banner banner;
 
-    public static FragmentListNewFragment newInstance() {
-        FragmentListNewFragment shipListFragment = new FragmentListNewFragment();
+    public static ShipListNewFragment newInstance() {
+        ShipListNewFragment shipListFragment = new ShipListNewFragment();
         return shipListFragment;
     }
 
@@ -85,14 +86,17 @@ public class FragmentListNewFragment extends BaseFragment implements SwipeRefres
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 List<ShipListEntity.DataBean> dataList = adapter.getData();
                 ShipListEntity.DataBean bean = dataList.get(position);
-                startActivity(ShipCabinListActivity.getIntent(activity, bean.getShipType(), bean.getId(), bean.getShipName()));
+                String id = bean.getId();
+                if (!TextUtils.isEmpty(id)) {
+                    startActivity(ShipCabinListActivity.getIntent(activity, bean.getShipType(), id, bean.getShipName()));
+                }
             }
         });
 
         View view = LayoutInflater.from(activity).inflate(R.layout.layout_ship_list_head_item, null);
         banner = view.findViewById(R.id.banner);
         ViewGroup.LayoutParams layoutParams = banner.getLayoutParams();
-        layoutParams.height = (int) (ScreenUtils.getScreenWidth(activity) / 16f * 9);
+        layoutParams.height = (int) (ScreenUtils.getScreenWidth(activity) / 16f * 7);
         banner.setLayoutParams(layoutParams);
         initBanner();
         adapter.addHeaderView(view);
@@ -152,27 +156,78 @@ public class FragmentListNewFragment extends BaseFragment implements SwipeRefres
                 String code2 = shipListEntity2.getCode();
                 if ("1".equals(code1) && "1".equals(code2)) {
                     List<ShipListEntity.DataBean> beanList1 = shipListEntity1.getData();
-                    dealList(Constant.TYPE_COMING, beanList1);
                     List<ShipListEntity.DataBean> beanList2 = shipListEntity2.getData();
-                    dealList(Constant.TYPE_WORKING, beanList2);
+
                     List<ShipListEntity.DataBean> beanList = new ArrayList<>();
-                    beanList.addAll(beanList2);
-                    beanList.addAll(beanList1);
+                    if (beanList2 != null && !beanList2.isEmpty()) {
+                        dealList(Constant.TYPE_WORKING, beanList2);
+                        beanList.addAll(beanList2);
+                    } else {
+                        ShipListEntity.DataBean bean = new ShipListEntity.DataBean();
+                        bean.setShipType(Constant.TYPE_WORKING);
+                        bean.setShipName("暂无数据");
+                        beanList.add(bean);
+                    }
+                    if (beanList1 != null && !beanList1.isEmpty()) {
+                        dealList(Constant.TYPE_COMING, beanList1);
+                        beanList.addAll(beanList1);
+                    } else {
+                        ShipListEntity.DataBean bean = new ShipListEntity.DataBean();
+                        bean.setShipType(Constant.TYPE_COMING);
+                        bean.setShipName("暂无数据");
+                        beanList.add(bean);
+                    }
                     return beanList;
                 } else if (!"1".equals(code1) && !"1".equals(code2)) {
-                    throw new Exception("数据加载失败，请稍后重试！");
+                    List<ShipListEntity.DataBean> beanList = new ArrayList<>();
+                    ShipListEntity.DataBean bean1 = new ShipListEntity.DataBean();
+                    bean1.setShipType(Constant.TYPE_WORKING);
+                    bean1.setShipName("数据加载失败，请稍后重试！");
+                    beanList.add(bean1);
+
+                    ShipListEntity.DataBean bean2 = new ShipListEntity.DataBean();
+                    bean2.setShipType(Constant.TYPE_COMING);
+                    bean2.setShipName("数据加载失败，请稍后重试！");
+                    beanList.add(bean2);
+                    return beanList;
                 } else if ("1".equals(code1)) {//作业船舶获取失败
-                    shipListEntity2.setMsg("作业船舶>>" + shipListEntity2.getMsg());
-                    EventBus.getDefault().post(shipListEntity2);
                     List<ShipListEntity.DataBean> beanList1 = shipListEntity1.getData();
-                    dealList(Constant.TYPE_COMING, beanList1);
-                    return beanList1;
+
+                    List<ShipListEntity.DataBean> beanList = new ArrayList<>();
+                    ShipListEntity.DataBean bean1 = new ShipListEntity.DataBean();
+                    bean1.setShipType(Constant.TYPE_WORKING);
+                    bean1.setShipName("数据加载失败，请稍后重试！");
+                    beanList.add(bean1);
+
+                    if (beanList1 != null && !beanList1.isEmpty()) {
+                        dealList(Constant.TYPE_COMING, beanList1);
+                        beanList.addAll(beanList1);
+                    } else {
+                        ShipListEntity.DataBean bean = new ShipListEntity.DataBean();
+                        bean.setShipType(Constant.TYPE_COMING);
+                        bean.setShipName("暂无数据");
+                        beanList.add(bean);
+                    }
+                    return beanList;
                 } else {//预靠船舶获取失败
-                    shipListEntity2.setMsg("预靠船舶>>" + shipListEntity2.getMsg());
-                    EventBus.getDefault().post(shipListEntity1);
+                    List<ShipListEntity.DataBean> beanList = new ArrayList<>();
+
                     List<ShipListEntity.DataBean> beanList2 = shipListEntity2.getData();
-                    dealList(Constant.TYPE_WORKING, beanList2);
-                    return beanList2;
+                    if (beanList2 != null && !beanList2.isEmpty()) {
+                        dealList(Constant.TYPE_WORKING, beanList2);
+                        beanList.addAll(beanList2);
+                    } else {
+                        ShipListEntity.DataBean bean = new ShipListEntity.DataBean();
+                        bean.setShipType(Constant.TYPE_WORKING);
+                        bean.setShipName("暂无数据");
+                        beanList.add(bean);
+                    }
+
+                    ShipListEntity.DataBean bean1 = new ShipListEntity.DataBean();
+                    bean1.setShipType(Constant.TYPE_COMING);
+                    bean1.setShipName("数据加载失败，请稍后重试！");
+                    beanList.add(bean1);
+                    return beanList;
                 }
             }
         }).subscribeOn(Schedulers.io())

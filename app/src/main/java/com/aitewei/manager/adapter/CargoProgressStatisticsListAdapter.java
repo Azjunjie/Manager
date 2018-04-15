@@ -55,7 +55,10 @@ public class CargoProgressStatisticsListAdapter extends AbsBaseListViewAdapter<C
                 case Constant.TYPE_PROGRESS://查看进度
                     break;
                 case Constant.TYPE_EFFICAIENCY://查看效率
+                    TextView tvClearanceTime = (TextView) viewHolder.findView(R.id.tv_clearanceTime);
+                    tvClearanceTime.setVisibility(View.GONE);
                     viewHolder.setViewText(R.id.tv_finishedUsedTime, dataBean.getFinishedUsedTime() + "");
+                    viewHolder.setViewText(R.id.tv_clearanceTime, dataBean.getClearTime() + "");
                     viewHolder.setViewText(R.id.tv_clearanceUsedTime, dataBean.getClearanceUsedTime() + "");
                     viewHolder.setViewText(R.id.tv_finishedEfficiency, dataBean.getFinishedEfficiency() + "");
                     viewHolder.setViewText(R.id.tv_clearanceEfficiency, dataBean.getClearanceEfficiency() + "");

@@ -177,12 +177,12 @@ public class ShipListChoiceActivity extends BaseActivity implements SwipeRefresh
                         try {
                             String beginTime = bean.getBeginTime();
                             String endTime = bean.getEndTime();
-                            if (!TextUtils.isEmpty(beginTime)) {
+                            if (!TextUtils.isEmpty(beginTime) && !"--".equals(beginTime)) {
                                 beginTime = beginTime.substring(0, 10) + " 00:00";
                             } else {
                                 beginTime = "2017-01-01 00:00";
                             }
-                            if (!TextUtils.isEmpty(endTime)) {
+                            if (!TextUtils.isEmpty(endTime) && !"--".equals(endTime)) {
                                 endTime = endTime.substring(0, 10) + " 00:00";
                             }
                             startActivity(UnloaderStatisticsActivity.getIntent(activity,
@@ -301,6 +301,11 @@ public class ShipListChoiceActivity extends BaseActivity implements SwipeRefresh
                         || !TextUtils.isEmpty(selectEndTime)) {
                     selectStartTime = "";
                     selectEndTime = "";
+
+                    tvToolBarTitle.setText("最近一周");
+                    long currentStartTime = System.currentTimeMillis() - 6 * 24 * 60 * 60 * 1000;
+                    selectStartTime = sdf.format(new Date(currentStartTime)).split(" ")[0];
+                    selectEndTime = currentDate.split(" ")[0];
                     refreshLayout.setRefreshing(true);
                     requestListData();
                 }

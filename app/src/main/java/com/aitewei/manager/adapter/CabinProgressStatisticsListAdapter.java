@@ -56,6 +56,7 @@ public class CabinProgressStatisticsListAdapter extends AbsBaseListViewAdapter<C
                     break;
                 case Constant.TYPE_EFFICAIENCY://查看效率
                     viewHolder.setViewText(R.id.tv_finishedUsedTime, dataBean.getFinishedUsedTime() + "");
+                    viewHolder.setViewText(R.id.tv_clearanceTime, dataBean.getClearTime() + "");
                     viewHolder.setViewText(R.id.tv_clearanceUsedTime, dataBean.getClearanceUsedTime() + "");
                     viewHolder.setViewText(R.id.tv_finishedEfficiency, dataBean.getFinishedEfficiency() + "");
                     viewHolder.setViewText(R.id.tv_clearanceEfficiency, dataBean.getClearanceEfficiency() + "");
