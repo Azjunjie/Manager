@@ -184,6 +184,8 @@ public class ShipListChoiceActivity extends BaseActivity implements SwipeRefresh
                             }
                             if (!TextUtils.isEmpty(endTime) && !"--".equals(endTime)) {
                                 endTime = endTime.substring(0, 10) + " 00:00";
+                            } else {
+                                endTime = "";
                             }
                             startActivity(UnloaderStatisticsActivity.getIntent(activity,
                                     taskId, shipName, UnloaderStatisticsActivity.TYPE_TEAM,

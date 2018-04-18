@@ -14,8 +14,8 @@ android {
     productFlavors {
         myapp {
             applicationId "com.aitewei.manager"
-            versionName "1.2.0"
-            versionCode 3
+            versionName "1.2.1"
+            versionCode 4
             manifestPlaceholders = [AppName: "京唐港"]
         }
         myapptest {

@@ -67,7 +67,7 @@ public class CabinProgressStatisticsListAdapter extends AbsBaseListViewAdapter<C
                     } else if ("1".equals(status)) {
                         tvStatus.setText("清舱");
                     } else if ("2".equals(status)) {
-                        tvStatus.setText("");
+                        tvStatus.setText("完成");
                     } else {
                         tvStatus.setText("--");
                     }

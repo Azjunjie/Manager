@@ -27,6 +27,7 @@ import com.aitewei.manager.view.LoadGroupView;
 import com.aitewei.manager.view.NoscrollListView;
 import com.aitewei.manager.view.SyncHorizontalScrollView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -137,6 +138,9 @@ public class CabinStatisticsActivity extends BaseActivity {
         btnRefresh.setClickable(false);
         loadView.setVisibility(View.VISIBLE);
         contentView.setVisibility(View.GONE);
+
+        decimalFormat = new DecimalFormat("0.00");
+
         initAdapter();
 
         requestData();
@@ -170,6 +174,8 @@ public class CabinStatisticsActivity extends BaseActivity {
         }
     }
 
+    private DecimalFormat decimalFormat;
+
     private void requestData() {
         String params = "{\"taskId\":" + taskId + ",\"userId\":\"" + User.newInstance().getUserId() +
                 "\",\"cargoId\":" + cargoId + "}";
@@ -198,6 +204,33 @@ public class CabinStatisticsActivity extends BaseActivity {
                                 bean.setFinishedEfficiency(bean.getFinishedEfficiency() + dataBean.getFinishedEfficiency());
                                 bean.setClearanceEfficiency(bean.getClearanceEfficiency() + dataBean.getClearanceEfficiency());
                             }
+                            bean.setTotal(Double.valueOf(decimalFormat.format(bean.getTotal())));
+                            bean.setFinished(Double.valueOf(decimalFormat.format(bean.getFinished())));
+                            bean.setFinishedUsedTime(Double.valueOf(decimalFormat.format(bean.getFinishedUsedTime())));
+                            bean.setRemainder(Double.valueOf(decimalFormat.format(bean.getRemainder())));
+                            bean.setClearance(Double.valueOf(decimalFormat.format(bean.getClearance())));
+                            bean.setClearanceUsedTime(Double.valueOf(decimalFormat.format(bean.getClearanceUsedTime())));
+
+                            double finishUsedTime = bean.getFinishedUsedTime();
+                            if (finishUsedTime == 0) {
+                                finishUsedTime = 1;
+                            }
+                            bean.setFinishedEfficiency(bean.getFinished() / finishUsedTime);
+                            double finishEfficiency = bean.getFinishedEfficiency();
+                            if (finishEfficiency != 0) {
+                                bean.setFinishedEfficiency(Double.valueOf(decimalFormat.format(finishEfficiency)));
+                            }
+
+                            double clearUsedTime = bean.getClearanceUsedTime();
+                            if (clearUsedTime == 0) {
+                                clearUsedTime = 1;
+                            }
+                            bean.setClearanceEfficiency(bean.getClearance() / clearUsedTime);
+                            double clearanceEfficiency = bean.getClearanceEfficiency();
+                            if (clearanceEfficiency != 0) {
+                                bean.setClearanceEfficiency(Double.valueOf(decimalFormat.format(clearanceEfficiency)));
+                            }
+
                             bean.setClearTime("--");
                             bean.setCabinNo("合计");
                             list.add(bean);
