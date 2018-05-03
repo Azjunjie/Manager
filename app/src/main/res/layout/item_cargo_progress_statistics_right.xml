@@ -12,20 +12,31 @@
         <TextView
             android:id="@+id/tv_total"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="match_parent"
             android:layout_gravity="center"
+            android:layout_weight="1"
             android:gravity="center"
             android:text="总量"
             android:textColor="@color/text_89"
             android:textSize="@dimen/f15" />
 
         <TextView
-            android:id="@+id/tv_finished"
+            android:id="@+id/tv_finish_before_clearance"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="match_parent"
             android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/finishedBeforeClearance"
+            android:textColor="@color/text_89"
+            android:textSize="@dimen/f15" />
+
+        <TextView
+            android:id="@+id/tv_finished"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
             android:gravity="center"
             android:text="已完成"
             android:textColor="@color/text_89"
@@ -34,9 +45,9 @@
         <TextView
             android:id="@+id/tv_remainder"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="match_parent"
             android:layout_gravity="center"
+            android:layout_weight="1"
             android:gravity="center"
             android:text="剩余量"
             android:textColor="@color/text_89"
@@ -45,9 +56,9 @@
         <TextView
             android:id="@+id/tv_clearance"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="match_parent"
             android:layout_gravity="center"
+            android:layout_weight="1"
             android:gravity="center"
             android:text="清舱量"
             android:textColor="@color/text_89"

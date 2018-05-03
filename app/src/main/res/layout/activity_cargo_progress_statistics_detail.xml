@@ -222,7 +222,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="2"
                                 android:gravity="center"
-                                android:text="已卸载"
+                                android:text="已完成"
                                 android:textColor="@color/text_31"
                                 android:textSize="@dimen/f13" />
 

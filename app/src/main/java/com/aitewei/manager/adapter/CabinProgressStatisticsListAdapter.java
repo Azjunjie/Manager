@@ -56,8 +56,10 @@ public class CabinProgressStatisticsListAdapter extends AbsBaseListViewAdapter<C
                     break;
                 case Constant.TYPE_EFFICAIENCY://查看效率
                     viewHolder.setViewText(R.id.tv_finishedUsedTime, dataBean.getFinishedUsedTime() + "");
-                    viewHolder.setViewText(R.id.tv_clearanceUsedTime, dataBean.getClearanceUsedTime() + "");
                     viewHolder.setViewText(R.id.tv_finishedEfficiency, dataBean.getFinishedEfficiency() + "");
+                    viewHolder.setViewText(R.id.tv_finishedUsedTime_before_clearance, dataBean.getFinishedUsedTimeBeforeClearance() + "");
+                    viewHolder.setViewText(R.id.tv_finishedEfficiency_before_clearance, dataBean.getFinishedEfficiencyBeforeClearance() + "");
+                    viewHolder.setViewText(R.id.tv_clearanceUsedTime, dataBean.getClearanceUsedTime() + "");
                     viewHolder.setViewText(R.id.tv_clearanceEfficiency, dataBean.getClearanceEfficiency() + "");
                     String status = dataBean.getStatus();
                     TextView tvStatus = (TextView) viewHolder.findView(R.id.tv_status);
@@ -75,6 +77,7 @@ public class CabinProgressStatisticsListAdapter extends AbsBaseListViewAdapter<C
             }
             viewHolder.setViewText(R.id.tv_total, dataBean.getTotal() + "");
             viewHolder.setViewText(R.id.tv_finished, dataBean.getFinished() + "");
+            viewHolder.setViewText(R.id.tv_finish_before_clearance, dataBean.getFinishedBeforeClearance() + "");
             viewHolder.setViewText(R.id.tv_remainder, dataBean.getRemainder() + "");
             viewHolder.setViewText(R.id.tv_clearance, dataBean.getClearance() + "");
         }

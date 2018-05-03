@@ -30,6 +30,16 @@
             android:textSize="@dimen/f15" />
 
         <TextView
+            android:id="@+id/tv_finish_before_clearance"
+            android:layout_width="@dimen/d70"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/finishedBeforeClearance"
+            android:textColor="@color/text_89"
+            android:textSize="@dimen/f15" />
+
+        <TextView
             android:id="@+id/tv_finish"
             android:layout_width="@dimen/d70"
             android:layout_height="match_parent"

@@ -126,6 +126,7 @@ public class CargoProgressActivity extends BaseActivity {
                     dataBean.setCargoName("合计");
                     dataBean.setTotal(bean.getTotal());
                     dataBean.setFinished(bean.getFinished());
+                    dataBean.setFinishedBeforeClearance(bean.getFinishedBeforeClearance());
                     dataBean.setRemainder(bean.getRemainder());
                     dataBean.setClearance(bean.getClearance());
                     beanList.add(dataBean);

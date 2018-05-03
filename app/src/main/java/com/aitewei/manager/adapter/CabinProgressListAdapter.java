@@ -27,6 +27,7 @@ public class CabinProgressListAdapter extends BaseQuickAdapter<GetCargoUnshipInf
         helper.setText(R.id.tv_cargoType, item.getCargoName() + "");
         helper.setText(R.id.tv_total, item.getTotal() + "");
         helper.setText(R.id.tv_finish, item.getFinished() + "");
+        helper.setText(R.id.tv_finish_before_clearance, item.getFinishedBeforeClearance() + "");
         helper.setText(R.id.tv_remainder, item.getRemainder() + "");
         helper.setText(R.id.tv_clearance, item.getClearance() + "");
     }

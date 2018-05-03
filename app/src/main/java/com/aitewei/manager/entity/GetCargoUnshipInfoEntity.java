@@ -28,8 +28,17 @@ public class GetCargoUnshipInfoEntity extends BaseEntity {
         private String cargoName;
         private double total;
         private double finished;
+        private double finishedBeforeClearance;
         private double remainder;
         private double clearance;
+
+        public double getFinishedBeforeClearance() {
+            return finishedBeforeClearance;
+        }
+
+        public void setFinishedBeforeClearance(double finishedBeforeClearance) {
+            this.finishedBeforeClearance = finishedBeforeClearance;
+        }
 
         public int getCargoId() {
             return cargoId;

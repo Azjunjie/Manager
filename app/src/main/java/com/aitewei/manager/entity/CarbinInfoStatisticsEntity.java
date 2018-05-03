@@ -43,12 +43,39 @@ public class CarbinInfoStatisticsEntity extends BaseEntity{
         private double finished;
         private double finishedUsedTime;
         private double finishedEfficiency;
+        private double finishedBeforeClearance;
+        private double finishedUsedTimeBeforeClearance;
+        private double finishedEfficiencyBeforeClearance;
         private double remainder;
         private double clearance;
         private double clearanceUsedTime;
         private double clearanceEfficiency;
         private String status;
         private String clearTime;
+
+        public double getFinishedBeforeClearance() {
+            return finishedBeforeClearance;
+        }
+
+        public void setFinishedBeforeClearance(double finishedBeforeClearance) {
+            this.finishedBeforeClearance = finishedBeforeClearance;
+        }
+
+        public double getFinishedUsedTimeBeforeClearance() {
+            return finishedUsedTimeBeforeClearance;
+        }
+
+        public void setFinishedUsedTimeBeforeClearance(double finishedUsedTimeBeforeClearance) {
+            this.finishedUsedTimeBeforeClearance = finishedUsedTimeBeforeClearance;
+        }
+
+        public double getFinishedEfficiencyBeforeClearance() {
+            return finishedEfficiencyBeforeClearance;
+        }
+
+        public void setFinishedEfficiencyBeforeClearance(double finishedEfficiencyBeforeClearance) {
+            this.finishedEfficiencyBeforeClearance = finishedEfficiencyBeforeClearance;
+        }
 
         public String getCabinNo() {
             return cabinNo;

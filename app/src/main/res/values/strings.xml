@@ -8,7 +8,9 @@
     <string name="hour">时</string>
     <string name="minute">分</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="finishedBeforeClearance">清舱前完成量</string>
+    <string name="finishedUsedTimeBeforeClearance">清舱前作业台时</string>
+    <string name="finishedEfficiencyBeforeClearance">清舱前卸载效率</string>
 
 </resources>

@@ -600,6 +600,7 @@ public class ShipCabinListActivity extends BaseActivity {
                 holder.tvCabinType = convertView.findViewById(R.id.tv_cabin_type);
                 holder.tvTotal = convertView.findViewById(R.id.tv_total);
                 holder.tvFinish = convertView.findViewById(R.id.tv_finish);
+                holder.tvFinishBeforeClearance = convertView.findViewById(R.id.tv_finish_before_clearance);
                 holder.tvRemainder = convertView.findViewById(R.id.tv_remainder);
                 holder.tvClearance = convertView.findViewById(R.id.tv_clearance);
                 holder.tvClearTime = convertView.findViewById(R.id.tv_clearTime);
@@ -627,6 +628,7 @@ public class ShipCabinListActivity extends BaseActivity {
                 for (ShipCabinListEntity.DataBean bean : mListData) {
                     dataBean.setTotal(dataBean.getTotal() + bean.getTotal());
                     dataBean.setFinished(dataBean.getFinished() + bean.getFinished());
+                    dataBean.setFinishedBeforeClearance(dataBean.getFinishedBeforeClearance() + bean.getFinishedBeforeClearance());
                     dataBean.setRemainder(dataBean.getRemainder() + bean.getRemainder());
                     dataBean.setClearance(dataBean.getClearance() + bean.getClearance());
                 }
@@ -639,6 +641,7 @@ public class ShipCabinListActivity extends BaseActivity {
                 });
                 holder.tvTotal.setText(decimalFormat.format(dataBean.getTotal()) + "");
                 holder.tvFinish.setText(decimalFormat.format(dataBean.getFinished()) + "");
+                holder.tvFinishBeforeClearance.setText(decimalFormat.format(dataBean.getFinishedBeforeClearance()) + "");
                 holder.tvRemainder.setText(decimalFormat.format(dataBean.getRemainder()) + "");
                 holder.tvClearance.setText(decimalFormat.format(dataBean.getClearance()) + "");
                 holder.tvClearTime.setText("--");
@@ -660,6 +663,7 @@ public class ShipCabinListActivity extends BaseActivity {
                 });
                 holder.tvTotal.setText(dataBean.getTotal() + "");
                 holder.tvFinish.setText(dataBean.getFinished() + "");
+                holder.tvFinishBeforeClearance.setText(dataBean.getFinishedBeforeClearance() + "");
                 holder.tvRemainder.setText(dataBean.getRemainder() + "");
                 holder.tvClearance.setText(dataBean.getClearance() + "");
                 holder.tvClearTime.setText(dataBean.getClearTime() + "");
@@ -691,6 +695,7 @@ public class ShipCabinListActivity extends BaseActivity {
             TextView tvCabinType;
             TextView tvTotal;
             TextView tvFinish;
+            TextView tvFinishBeforeClearance;
             TextView tvRemainder;
             TextView tvClearance;
             TextView tvClearTime;

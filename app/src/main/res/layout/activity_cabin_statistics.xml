@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -110,6 +111,16 @@
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:gravity="center"
+                    android:text="@string/finishedBeforeClearance"
+                    android:textColor="@color/text_31"
+                    android:textSize="@dimen/f15" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center"
                     android:text="已完成"
                     android:textColor="@color/text_31"
                     android:textSize="@dimen/f15" />
@@ -154,6 +165,33 @@
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:text="总量"
+                        android:textColor="@color/text_31"
+                        android:textSize="@dimen/f15" />
+
+                    <TextView
+                        android:layout_width="@dimen/d70"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@string/finishedBeforeClearance"
+                        android:textColor="@color/text_31"
+                        android:textSize="@dimen/f15" />
+
+                    <TextView
+                        android:layout_width="@dimen/d70"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@string/finishedUsedTimeBeforeClearance"
+                        android:textColor="@color/text_31"
+                        android:textSize="@dimen/f15" />
+
+                    <TextView
+                        android:layout_width="@dimen/d70"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@string/finishedEfficiencyBeforeClearance"
                         android:textColor="@color/text_31"
                         android:textSize="@dimen/f15" />
 

@@ -46,7 +46,16 @@ public class GetShipUnshipInfoEntity extends BaseEntity {
         private double total;
         private double clearance;
         private double finished;
+        private double finishedBeforeClearance;
         private double remainder;
+
+        public double getFinishedBeforeClearance() {
+            return finishedBeforeClearance;
+        }
+
+        public void setFinishedBeforeClearance(double finishedBeforeClearance) {
+            this.finishedBeforeClearance = finishedBeforeClearance;
+        }
 
         public double getTotal() {
             return total;

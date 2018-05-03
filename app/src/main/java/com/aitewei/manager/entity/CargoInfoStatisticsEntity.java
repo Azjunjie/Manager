@@ -41,11 +41,38 @@ public class CargoInfoStatisticsEntity extends BaseEntity{
         private String finished;
         private String finishedUsedTime;
         private String finishedEfficiency;
+        private String finishedBeforeClearance;
+        private String finishedUsedTimeBeforeClearance;
+        private String finishedEfficiencyBeforeClearance;
         private String remainder;
         private String clearance;
         private String clearanceUsedTime;
         private String clearanceEfficiency;
         private String clearTime;
+
+        public String getFinishedBeforeClearance() {
+            return finishedBeforeClearance;
+        }
+
+        public void setFinishedBeforeClearance(String finishedBeforeClearance) {
+            this.finishedBeforeClearance = finishedBeforeClearance;
+        }
+
+        public String getFinishedUsedTimeBeforeClearance() {
+            return finishedUsedTimeBeforeClearance;
+        }
+
+        public void setFinishedUsedTimeBeforeClearance(String finishedUsedTimeBeforeClearance) {
+            this.finishedUsedTimeBeforeClearance = finishedUsedTimeBeforeClearance;
+        }
+
+        public String getFinishedEfficiencyBeforeClearance() {
+            return finishedEfficiencyBeforeClearance;
+        }
+
+        public void setFinishedEfficiencyBeforeClearance(String finishedEfficiencyBeforeClearance) {
+            this.finishedEfficiencyBeforeClearance = finishedEfficiencyBeforeClearance;
+        }
 
         public String getClearTime() {
             return clearTime;
