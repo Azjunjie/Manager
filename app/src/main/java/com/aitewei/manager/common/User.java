@@ -71,21 +71,21 @@ public class User implements Serializable {
         if (data == null) {
             data = new ArrayList<>();
         }
-        if ("jhy".equals(userName)) {//计划员
+        if ("zdy".equals(userName)) {//指导员
             data.clear();
-            data.add("12");//查看船舶列表
-            data.add("7");//报表查看权限
-        } else if ("zdy".equals(userName)) {//指导员
+            data.add(PermissionsCode.watch);
+            data.add(PermissionsCode.watchInfo);
+            data.add(PermissionsCode.watchDetail);
+            data.add(PermissionsCode.shipBerthing);
+            data.add(PermissionsCode.setLocation);
+            data.add(PermissionsCode.clearStatus);
+            data.add(PermissionsCode.completeStatus);
+            data.add(PermissionsCode.completeShip);
+        } else if ("jhy".equals(userName) || "ptry".equals(userName)) {//计划员|普通人员
             data.clear();
-            data.add("12");//查看船舶列表
-            data.add("56");//设置船舱位置
-            data.add("78");//设置清舱状态
-            data.add("21");//设置完成状态
-            data.add("7");//报表查看权限
-        } else if ("ptry".equals(userName)) {//普通人员
-            data.clear();
-            data.add("12");//查看船舶列表
-            data.add("7");//报表查看权限
+            data.add(PermissionsCode.watch);
+            data.add(PermissionsCode.watchInfo);
+            data.add(PermissionsCode.watchDetail);
         }
         this.data = data;
     }

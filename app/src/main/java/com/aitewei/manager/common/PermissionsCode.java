@@ -8,14 +8,20 @@ import java.util.List;
  */
 
 public class PermissionsCode {
-    //查看船舶列表
-    public static String shipList = "12";
+    //船舶靠泊
+    public static String shipBerthing = "10";
     //设置船舱位置
     public static String setLocation = "56";
     //设置清舱状态
     public static String clearStatus = "78";
     //设置完成状态
     public static String completeStatus = "21";
+    //完成船舶
+    public static String completeShip = "13";
+    //查看船舶、船舱、货物信息；
+    public static String watchInfo = "16";
+    //查看船舶、船舱卸船信息以及状态；
+    public static String watchDetail = "12";
     //报表查看
     public static String watch = "7";
 

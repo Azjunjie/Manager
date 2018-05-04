@@ -127,7 +127,7 @@ public class ShipCabinListActivity extends BaseActivity {
             } else {
                 btnModifyLocation.setVisibility(View.GONE);
             }
-            if (PermissionsCode.isHasPermission(PermissionsCode.completeStatus)) {
+            if (PermissionsCode.isHasPermission(PermissionsCode.completeShip)) {
                 btnComplete.setVisibility(View.VISIBLE);
             } else {
                 btnComplete.setVisibility(View.GONE);
@@ -142,7 +142,7 @@ public class ShipCabinListActivity extends BaseActivity {
             } else {
                 btnModifyLocation.setVisibility(View.GONE);
             }
-            if (PermissionsCode.isHasPermission(PermissionsCode.clearStatus)) {
+            if (PermissionsCode.isHasPermission(PermissionsCode.shipBerthing)) {
                 btnBegin.setVisibility(View.VISIBLE);
             } else {
                 btnBegin.setVisibility(View.GONE);

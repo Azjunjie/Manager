@@ -13,7 +13,9 @@ import android.view.ViewGroup;
 
 import com.aitewei.manager.R;
 import com.aitewei.manager.activity.statistics.StatisticsActivity;
+import com.aitewei.manager.common.PermissionsCode;
 import com.aitewei.manager.common.Popup;
+import com.aitewei.manager.utils.ToastUtils;
 import com.aitewei.manager.utils.ToolBarUtil;
 import com.gyf.barlibrary.ImmersionBar;
 
@@ -168,7 +170,11 @@ public abstract class BaseActivity extends AppCompatActivity {
                 onClickTask();
                 break;
             case R.id.btn_statistics://统计
-                onClickStatistics();
+                if (PermissionsCode.isHasPermission(PermissionsCode.watch)) {
+                    onClickStatistics();
+                } else {
+                    ToastUtils.show(this, "抱歉，暂无操作权限！");
+                }
                 break;
         }
     }
