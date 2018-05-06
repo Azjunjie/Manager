@@ -569,7 +569,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/d15"
-                            android:text="载重/吨："
+                            android:text="货物总重："
                             android:textColor="@color/text_31"
                             android:textSize="@dimen/f15" />
 

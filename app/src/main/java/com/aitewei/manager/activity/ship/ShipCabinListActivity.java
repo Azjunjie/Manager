@@ -114,7 +114,7 @@ public class ShipCabinListActivity extends BaseActivity {
 
         type = getIntent().getIntExtra("type", -1);
         if (type == Constant.TYPE_WORKING) {
-            tvClearTime.setVisibility(View.GONE);
+            tvClearTime.setVisibility(View.VISIBLE);
             btnBegin.setVisibility(View.GONE);
             btnMenu.setVisibility(View.VISIBLE);
             if (PermissionsCode.isHasPermission(PermissionsCode.clearStatus)) {
@@ -617,10 +617,10 @@ public class ShipCabinListActivity extends BaseActivity {
             } else {
                 holder.tvOperation.setVisibility(View.GONE);
             }
-            if (type == Constant.TYPE_FINISH) {
-                holder.tvClearTime.setVisibility(View.VISIBLE);
-            } else {
+            if (type == Constant.TYPE_COMING) {
                 holder.tvClearTime.setVisibility(View.GONE);
+            } else {
+                holder.tvClearTime.setVisibility(View.VISIBLE);
             }
             int count = getCount() - 1;
             if (count == position) {

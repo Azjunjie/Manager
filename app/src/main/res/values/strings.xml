@@ -9,8 +9,21 @@
     <string name="minute">分</string>
 
 
-    <string name="finishedBeforeClearance">清舱前完成量</string>
-    <string name="finishedUsedTimeBeforeClearance">清舱前作业台时</string>
-    <string name="finishedEfficiencyBeforeClearance">清舱前卸载效率</string>
+    <string name="cargo_name">货名</string>
+    <string name="total">总量</string>
+    <string name="finishedBeforeClearance">清舱前</string>
+    <string name="finishedUsedTimeBeforeClearance">清舱前用时</string>
+    <string name="finishedEfficiencyBeforeClearance">清舱前作业效率</string>
+    <string name="clearance">清舱量</string>
+    <string name="clearanceUsedTime">清舱用时</string>
+    <string name="clearanceEfficiency">清舱效率</string>
+    <string name="finished">完成量</string>
+    <string name="finishedUsedTime">整体用时</string>
+    <string name="finishedEfficiency">整体效率</string>
+    <string name="reminded">剩余量</string>
+    <string name="clearance_time">清舱时间</string>
+    <string name="cabinFinished">整舱完成量</string>
+    <string name="cabinFinishedUsedTime">整舱用时</string>
+    <string name="cabinFinishedEfficiency">整舱效率</string>
 
 </resources>

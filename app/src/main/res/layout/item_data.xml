@@ -15,7 +15,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="种类"
+            android:text="@string/cargo_name"
             android:textColor="@color/blue"
             android:textSize="@dimen/f15" />
 
@@ -25,7 +25,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="总量"
+            android:text="@string/total"
             android:textColor="@color/text_89"
             android:textSize="@dimen/f15" />
 
@@ -40,12 +40,22 @@
             android:textSize="@dimen/f15" />
 
         <TextView
+            android:id="@+id/tv_clearance"
+            android:layout_width="@dimen/d70"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/clearance"
+            android:textColor="@color/text_89"
+            android:textSize="@dimen/f15" />
+
+        <TextView
             android:id="@+id/tv_finish"
             android:layout_width="@dimen/d70"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="已完成"
+            android:text="@string/finished"
             android:textColor="@color/text_89"
             android:textSize="@dimen/f15" />
 
@@ -55,27 +65,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="剩余量"
-            android:textColor="@color/text_89"
-            android:textSize="@dimen/f15" />
-
-        <TextView
-            android:id="@+id/tv_clearance"
-            android:layout_width="@dimen/d70"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="清仓量"
-            android:textColor="@color/text_89"
-            android:textSize="@dimen/f15" />
-
-        <TextView
-            android:id="@+id/tv_clearTime"
-            android:layout_width="@dimen/d100"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="清仓时间"
+            android:text="@string/reminded"
             android:textColor="@color/text_89"
             android:textSize="@dimen/f15" />
 
@@ -86,6 +76,16 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:text="状态"
+            android:textColor="@color/text_89"
+            android:textSize="@dimen/f15" />
+
+        <TextView
+            android:id="@+id/tv_clearTime"
+            android:layout_width="@dimen/d100"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/clearance_time"
             android:textColor="@color/text_89"
             android:textSize="@dimen/f15" />
 
