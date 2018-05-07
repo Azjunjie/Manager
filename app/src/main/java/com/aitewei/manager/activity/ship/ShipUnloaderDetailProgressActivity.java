@@ -2,10 +2,12 @@ package com.aitewei.manager.activity.ship;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.TextView;
 
 import com.aitewei.manager.R;
 import com.aitewei.manager.adapter.ShipUnloaderDetailProgressListAdapter;
@@ -23,11 +25,16 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * 卸船机卸货明细列表
  */
 public class ShipUnloaderDetailProgressActivity extends BaseActivity {
+
+    @BindView(R.id.btn_ship_info)
+    TextView btnShipInfo;
 
     @BindView(R.id.load_view)
     LoadGroupView loadView;
@@ -42,9 +49,11 @@ public class ShipUnloaderDetailProgressActivity extends BaseActivity {
     private String endTime;
     private ShipUnloaderDetailProgressListAdapter adapter;
 
-    public static Intent getIntent(Context context, String taskId, String unloaderName, String unloaderId, String startTime, String endTime) {
+    public static Intent getIntent(Context context, String taskId, String shipName
+            , String unloaderName, String unloaderId, String startTime, String endTime) {
         Intent intent = new Intent(context, ShipUnloaderDetailProgressActivity.class);
         intent.putExtra("taskId", taskId);
+        intent.putExtra("shipName", shipName);
         intent.putExtra("unloaderName", unloaderName);
         intent.putExtra("unloaderId", unloaderId);
         intent.putExtra("startTime", startTime);
@@ -75,6 +84,8 @@ public class ShipUnloaderDetailProgressActivity extends BaseActivity {
     protected void initData() {
         Intent intent = getIntent();
         taskId = intent.getStringExtra("taskId");
+        String shipName = intent.getStringExtra("shipName");
+        btnShipInfo.setText(shipName + "");
         String unloaderName = intent.getStringExtra("unloaderName");
         ToolBarUtil.init(activity, unloaderName + "");
         unloaderId = intent.getStringExtra("unloaderId");
@@ -131,4 +142,12 @@ public class ShipUnloaderDetailProgressActivity extends BaseActivity {
                 });
     }
 
+    @OnClick({R.id.btn_ship_info})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.btn_ship_info:
+                startActivity(ShipBaseInfoActivity.getIntent(activity, taskId));
+                break;
+        }
+    }
 }

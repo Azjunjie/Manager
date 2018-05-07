@@ -78,6 +78,7 @@ public class UnloaderStatisticsActivity extends BaseActivity {
     private String endTime = "";
     private SimpleDateFormat dateFormat;
     private DecimalFormat decimalFormat;
+    private String shipName;
 
     public static Intent getIntent(Context context, String taskId, String shipName, int type) {
         Intent intent = new Intent(context, UnloaderStatisticsActivity.class);
@@ -123,13 +124,13 @@ public class UnloaderStatisticsActivity extends BaseActivity {
         decimalFormat = new DecimalFormat("0.00");
 
         taskId = getIntent().getStringExtra("taskId");
+        shipName = getIntent().getStringExtra("shipName");
         int type = getIntent().getIntExtra("type", 0);
         switch (type) {
             case TYPE_ALL://查看全部
                 btnShipInfo.setVisibility(View.VISIBLE);
                 tvInfo.setVisibility(View.GONE);
                 btnPopup.setVisibility(View.GONE);
-                String shipName = getIntent().getStringExtra("shipName");
                 btnShipInfo.setText(shipName + "");
                 ToolBarUtil.init(this, "卸船机作业量统计");
                 break;
@@ -155,7 +156,7 @@ public class UnloaderStatisticsActivity extends BaseActivity {
                 UnloaderInfoStatisticsEntity.DataBean bean = list.get(position);
                 String unloaderName = bean.getUnloaderName();
                 if (!"合计".equals(unloaderName)) {
-                    startActivity(ShipUnloaderDetailProgressActivity.getIntent(activity, taskId, bean.getUnloaderName()
+                    startActivity(ShipUnloaderDetailProgressActivity.getIntent(activity, taskId, shipName, bean.getUnloaderName()
                             , bean.getUnloaderId(), startTime, endTime));
                 }
             }

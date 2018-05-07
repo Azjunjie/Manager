@@ -59,6 +59,7 @@ public class ShipUnloaderProgressActivity extends BaseActivity {
     SwipeRefreshLayout refreshLayout;
 
     private String taskId;
+    private String shipName;
     private String currentDate;
     private String selectDate;//选择的日期
     private String selectTeam;//选择的班次
@@ -70,9 +71,10 @@ public class ShipUnloaderProgressActivity extends BaseActivity {
     private SimpleDateFormat dateFormat;
     private DecimalFormat decimalFormat;
 
-    public static Intent getIntent(Context context, String taskId) {
+    public static Intent getIntent(Context context, String taskId, String shipName) {
         Intent intent = new Intent(context, ShipUnloaderProgressActivity.class);
         intent.putExtra("taskId", taskId);
+        intent.putExtra("shipName", shipName);
         return intent;
     }
 
@@ -100,6 +102,7 @@ public class ShipUnloaderProgressActivity extends BaseActivity {
     @Override
     protected void initData() {
         taskId = getIntent().getStringExtra("taskId");
+        shipName = getIntent().getStringExtra("shipName");
 
         dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         decimalFormat = new DecimalFormat("0.00");
@@ -114,7 +117,7 @@ public class ShipUnloaderProgressActivity extends BaseActivity {
                 GetUnloaderUnshipInfoEntity.DataBean bean = list.get(position);
                 String unloaderName = bean.getUnloaderName();
                 if (!"合计".equals(unloaderName)) {
-                    startActivity(ShipUnloaderDetailProgressActivity.getIntent(activity, taskId, bean.getUnloaderName()
+                    startActivity(ShipUnloaderDetailProgressActivity.getIntent(activity, taskId, shipName, bean.getUnloaderName()
                             , bean.getUnloaderId(), startTime, endTime));
                 }
             }

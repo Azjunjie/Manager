@@ -60,7 +60,7 @@ public class SettingActivity extends BaseActivity {
         } else if ("ptry".equals(userName)) {
             tvType.setText("类别：普通人员");
         } else {
-            tvType.setText("类别：计划员");
+            tvType.setText("");
         }
         tvVersion.setText("版本号" + AppInfoUtils.getVersionName(activity));
     }

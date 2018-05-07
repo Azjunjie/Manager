@@ -68,25 +68,25 @@ public class User implements Serializable {
     }
 
     public void setData(List<String> data) {
-        if (data == null) {
-            data = new ArrayList<>();
-        }
-        if ("zdy".equals(userName)) {//指导员
-            data.clear();
-            data.add(PermissionsCode.watch);
-            data.add(PermissionsCode.watchInfo);
-            data.add(PermissionsCode.watchDetail);
-            data.add(PermissionsCode.shipBerthing);
-            data.add(PermissionsCode.setLocation);
-            data.add(PermissionsCode.clearStatus);
-            data.add(PermissionsCode.completeStatus);
-            data.add(PermissionsCode.completeShip);
-        } else if ("jhy".equals(userName) || "ptry".equals(userName)) {//计划员|普通人员
-            data.clear();
-            data.add(PermissionsCode.watch);
-            data.add(PermissionsCode.watchInfo);
-            data.add(PermissionsCode.watchDetail);
-        }
+//        if (data == null) {
+//            data = new ArrayList<>();
+//        }
+//        if ("zdy".equals(userName)) {//指导员
+//            data.clear();
+//            data.add(PermissionsCode.watch);
+//            data.add(PermissionsCode.watchInfo);
+//            data.add(PermissionsCode.watchDetail);
+//            data.add(PermissionsCode.shipBerthing);
+//            data.add(PermissionsCode.setLocation);
+//            data.add(PermissionsCode.clearStatus);
+//            data.add(PermissionsCode.completeStatus);
+//            data.add(PermissionsCode.completeShip);
+//        } else if ("jhy".equals(userName) || "ptry".equals(userName)) {//计划员|普通人员
+//            data.clear();
+//            data.add(PermissionsCode.watch);
+//            data.add(PermissionsCode.watchInfo);
+//            data.add(PermissionsCode.watchDetail);
+//        }
         this.data = data;
     }
 

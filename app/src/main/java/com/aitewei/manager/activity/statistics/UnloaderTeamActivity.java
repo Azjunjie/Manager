@@ -23,8 +23,10 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
+ * 暂时用不到
  * 卸船机班组查看
  */
+@Deprecated
 public class UnloaderTeamActivity extends BaseActivity {
     private static final int REQUEST_SHIP_LIST = 1;
 
