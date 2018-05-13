@@ -9,7 +9,6 @@ android {
         flavorDimensions "versionCode"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-
     //创建productFlavors
     productFlavors {
         myapp {
@@ -25,7 +24,6 @@ android {
             manifestPlaceholders = [AppName: "京唐港测试"]
         }
     }
-
     signingConfigs {
         release {
             storeFile file("../manager.jks")
@@ -34,7 +32,6 @@ android {
             keyPassword "123456"
         }
     }
-
     buildTypes {
         debug {
             minifyEnabled false
@@ -47,11 +44,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
     packagingOptions {
         exclude 'META-INF/rxjava.properties'
     }
-
+    buildToolsVersion '26.0.2'
 }
 
 repositories {
