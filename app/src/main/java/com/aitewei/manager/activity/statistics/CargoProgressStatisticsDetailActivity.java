@@ -12,10 +12,12 @@ import android.widget.TextView;
 
 import com.aitewei.manager.R;
 import com.aitewei.manager.activity.ship.ShipCargoDetailActivity;
+import com.aitewei.manager.adapter.UnloadListAdapter;
 import com.aitewei.manager.adapter.UnloaderStatisticsListAdapter;
 import com.aitewei.manager.base.BaseActivity;
 import com.aitewei.manager.common.User;
 import com.aitewei.manager.entity.CarbinInfoStatisticsEntity;
+import com.aitewei.manager.entity.GetUploaderDetailEntity;
 import com.aitewei.manager.entity.UnloaderInfoStatisticsEntity;
 import com.aitewei.manager.retrofit.RetrofitFactory;
 import com.aitewei.manager.rxjava.BaseObserver;
@@ -59,7 +61,7 @@ public class CargoProgressStatisticsDetailActivity extends BaseActivity {
     @BindView(R.id.refreshLayout)
     SwipeRefreshLayout refreshLayout;
 
-    private UnloaderStatisticsListAdapter adapter;
+    private UnloadListAdapter adapter;
 
     private String taskId;
     private String cargoId;
@@ -103,7 +105,7 @@ public class CargoProgressStatisticsDetailActivity extends BaseActivity {
         String cargoName = getIntent().getStringExtra("cargoName");
         tvCargoType.setText(cargoName + "");
 
-        adapter = new UnloaderStatisticsListAdapter(R.layout.layout_ship_unloader_progress_list_item, null);
+        adapter = new UnloadListAdapter(R.layout.layout_unload_list_item, null);
         listView.setAdapter(adapter);
 
         loadView.setVisibility(View.VISIBLE);
@@ -145,16 +147,18 @@ public class CargoProgressStatisticsDetailActivity extends BaseActivity {
                 });
 
         //卸船机的数据
-        String params = "{\"taskId\":" + taskId + ",\"cargoId\":\"" + cargoId
-                + "\",\"cabinNo\":\"" + cabinNo
-                + "\",\"userId\":\"" + User.newInstance().getUserId() + "\"}";
+//        String params = "{\"taskId\":" + taskId + ",\"cargoId\":\"" + cargoId
+//                + "\",\"cabinNo\":\"" + cabinNo
+//                + "\",\"userId\":\"" + User.newInstance().getUserId() + "\"}";
+        String params = "{\"taskId\":\"" + taskId + "\",\"cabinNo\":\"" + cabinNo + "\""
+                + ",\"userId\":\"" + User.newInstance().getUserId() + "\"}";
         LogUtil.e("doGetUnloaderUnshipInfo json=" + params);
         RetrofitFactory.getInstance()
-                .doUnloaderInfoStatistics(params)
-                .compose(RxSchedulers.<UnloaderInfoStatisticsEntity>compose())
-                .subscribe(new BaseObserver<UnloaderInfoStatisticsEntity>(compositeDisposable) {
+                .doGetUnloaderDetail(params)
+                .compose(RxSchedulers.<GetUploaderDetailEntity>compose())
+                .subscribe(new BaseObserver<GetUploaderDetailEntity>(compositeDisposable) {
                     @Override
-                    protected void onHandleSuccess(UnloaderInfoStatisticsEntity entity) {
+                    protected void onHandleSuccess(GetUploaderDetailEntity entity) {
                         adapter.setNewData(entity.getData());
                     }
 

@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.aitewei.manager.R;
+import com.aitewei.manager.adapter.UnloadListAdapter;
 import com.aitewei.manager.base.BaseActivity;
 import com.aitewei.manager.base.BaseEntity;
 import com.aitewei.manager.common.PermissionsCode;
@@ -365,23 +366,6 @@ public class ShipCabinDetailActivity extends BaseActivity {
         }
         tvTitle.setText(msg + "");
         tipPopup.showAtLocation(activity, findViewById(R.id.parent_layout), Gravity.CENTER, 0, 0);
-    }
-
-    private class UnloadListAdapter extends BaseQuickAdapter<GetUploaderDetailEntity.UnloaderDetailBean, BaseViewHolder> {
-
-        public UnloadListAdapter(int layoutResId, @Nullable List<GetUploaderDetailEntity.UnloaderDetailBean> data) {
-            super(layoutResId, data);
-        }
-
-        @Override
-        protected void convert(BaseViewHolder helper, GetUploaderDetailEntity.UnloaderDetailBean item) {
-            helper.setText(R.id.tv_unloaderName, item.getUnloaderName() + "");
-            helper.setText(R.id.tv_startTime, item.getStartTime() + "");
-            helper.setText(R.id.tv_endTime, item.getEndTime() + "");
-            helper.setText(R.id.tv_usedTime, item.getUsedTime() + "");
-            helper.setText(R.id.tv_unloading, item.getUnloading() + "");
-            helper.setText(R.id.tv_efficiency, item.getEfficiency() + "");
-        }
     }
 
 }

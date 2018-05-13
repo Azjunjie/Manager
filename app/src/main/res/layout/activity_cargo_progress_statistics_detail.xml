@@ -296,8 +296,7 @@
                         android:gravity="center"
                         android:text="开始时间"
                         android:textColor="@color/text_31"
-                        android:textSize="@dimen/f14"
-                        android:visibility="gone" />
+                        android:textSize="@dimen/f14" />
 
                     <TextView
                         android:layout_width="0dp"
@@ -307,8 +306,7 @@
                         android:gravity="center"
                         android:text="结束时间"
                         android:textColor="@color/text_31"
-                        android:textSize="@dimen/f14"
-                        android:visibility="gone" />
+                        android:textSize="@dimen/f14" />
 
                     <TextView
                         android:layout_width="0dp"
