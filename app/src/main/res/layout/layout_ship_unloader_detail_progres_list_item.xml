@@ -21,6 +21,17 @@
             android:textSize="@dimen/f14" />
 
         <TextView
+            android:id="@+id/tv_cargoType"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="3"
+            android:gravity="center"
+            android:text="货名"
+            android:textColor="@color/text_89"
+            android:textSize="@dimen/f14" />
+
+        <TextView
             android:id="@+id/tv_startTime"
             android:layout_width="0dp"
             android:layout_height="match_parent"

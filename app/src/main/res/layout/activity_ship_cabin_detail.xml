@@ -81,16 +81,33 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/tv_cabinNo"
-                        android:layout_width="@dimen/d60"
-                        android:layout_height="@dimen/d45"
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_margin="@dimen/d15"
-                        android:background="@drawable/shape_corner_btn_bg"
-                        android:gravity="center"
-                        android:text="1#舱"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/f16" />
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_cabinNo"
+                            android:layout_width="@dimen/d60"
+                            android:layout_height="@dimen/d45"
+                            android:background="@drawable/shape_corner_btn_bg"
+                            android:gravity="center"
+                            android:text="1#舱"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/f16" />
+
+                        <TextView
+                            android:id="@+id/tv_cargoType"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="@dimen/d15"
+                            android:gravity="center"
+                            android:text="货名"
+                            android:textColor="@color/blue"
+                            android:textSize="@dimen/f16" />
+                    </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -109,18 +126,18 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="2"
                                 android:gravity="center"
-                                android:text="货名"
+                                android:text="@string/finishedBeforeClearance"
                                 android:textColor="@color/text_31"
                                 android:textSize="@dimen/f13" />
 
                             <TextView
-                                android:id="@+id/tv_cargoType"
+                                android:id="@+id/tv_finish_before_clearance"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="3"
                                 android:gravity="center"
-                                android:text="货名"
-                                android:textColor="@color/blue"
+                                android:text="@string/finishedBeforeClearance"
+                                android:textColor="@color/text_89"
                                 android:textSize="@dimen/f13" />
 
                         </LinearLayout>

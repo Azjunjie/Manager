@@ -37,12 +37,21 @@ public class GetUnloaderUnshipDetailListEntity extends BaseEntity {
         private int cabinNo;
         private int cabinId;
         private String cmsid;
+        private String cargoName;
         private String unloaderName;
         private String startTime;
         private String endTime;
         private double usedTime;
         private double unloading;
         private double efficiency;
+
+        public String getCargoName() {
+            return cargoName;
+        }
+
+        public void setCargoName(String cargoName) {
+            this.cargoName = cargoName;
+        }
 
         public int getCabinNo() {
             return cabinNo;

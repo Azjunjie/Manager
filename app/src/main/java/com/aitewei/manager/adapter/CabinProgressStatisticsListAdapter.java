@@ -1,6 +1,7 @@
 package com.aitewei.manager.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -19,6 +20,7 @@ public class CabinProgressStatisticsListAdapter extends AbsBaseListViewAdapter<C
     public static final int LEFT = 1;
     public static final int RIGHT = 2;
 
+    private String cargoId;
     private int dataType;//1-左 2-右
     private int showType;//效率、进度显示类别
     private List<CarbinInfoStatisticsEntity.DataBean> list;
@@ -28,8 +30,9 @@ public class CabinProgressStatisticsListAdapter extends AbsBaseListViewAdapter<C
      * @param list     数据源
      * @param layoutId 布局文件id
      */
-    public CabinProgressStatisticsListAdapter(Context context, int dataType, int showType, List<CarbinInfoStatisticsEntity.DataBean> list, int layoutId) {
+    public CabinProgressStatisticsListAdapter(Context context, String cargoId, int dataType, int showType, List<CarbinInfoStatisticsEntity.DataBean> list, int layoutId) {
         super(context, list, layoutId);
+        this.cargoId = cargoId;
         this.dataType = dataType;
         this.showType = showType;
         this.list = list;
@@ -74,6 +77,13 @@ public class CabinProgressStatisticsListAdapter extends AbsBaseListViewAdapter<C
                         tvStatus.setText("--");
                     }
                     break;
+            }
+            TextView tvCargoType = (TextView) viewHolder.findView(R.id.tv_cargoType);
+            if (!TextUtils.isEmpty(cargoId)) {
+                tvCargoType.setVisibility(View.GONE);
+            } else {
+                tvCargoType.setVisibility(View.VISIBLE);
+                viewHolder.setViewText(R.id.tv_cargoType, dataBean.getCargoName() + "");
             }
             viewHolder.setViewText(R.id.tv_total, dataBean.getTotal() + "");
             viewHolder.setViewText(R.id.tv_finished, dataBean.getFinished() + "");

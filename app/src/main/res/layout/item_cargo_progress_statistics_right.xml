@@ -10,6 +10,18 @@
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/tv_cargoType"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/cargo_name"
+            android:textColor="@color/text_89"
+            android:textSize="@dimen/f15"
+            android:visibility="gone" />
+
+        <TextView
             android:id="@+id/tv_total"
             android:layout_width="0dp"
             android:layout_height="match_parent"

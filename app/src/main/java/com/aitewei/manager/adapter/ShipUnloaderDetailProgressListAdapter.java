@@ -25,6 +25,7 @@ public class ShipUnloaderDetailProgressListAdapter extends BaseQuickAdapter<GetU
         helper.addOnClickListener(R.id.tv_cabin_no);
 
         helper.setText(R.id.tv_cabin_no, item.getCabinNo() + "");
+        helper.setText(R.id.tv_cargoType, item.getCargoName() + "");
         helper.setText(R.id.tv_startTime, item.getStartTime() + "");
         helper.setText(R.id.tv_endTime, item.getEndTime() + "");
         helper.setText(R.id.tv_usedTime, item.getUsedTime() + "");

@@ -43,11 +43,20 @@ public class ShipCabinDetailEntity extends BaseEntity {
 
         private int cabinNo;
         private String cargoName;
+        private double finishedBeforeClearance;
         private double total;
         private double finished;
         private double remainder;
         private double clearance;
         private String status;
+
+        public double getFinishedBeforeClearance() {
+            return finishedBeforeClearance;
+        }
+
+        public void setFinishedBeforeClearance(double finishedBeforeClearance) {
+            this.finishedBeforeClearance = finishedBeforeClearance;
+        }
 
         public int getCabinNo() {
             return cabinNo;

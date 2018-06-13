@@ -46,6 +46,10 @@ public class CabinStatisticsActivity extends BaseActivity {
 
     @BindView(R.id.btn_ship_info)
     TextView btnShipInfo;
+    @BindView(R.id.tv_cargoType)
+    TextView tvCargoType;
+    @BindView(R.id.tv_cargoType1)
+    TextView tvCargoType1;
 
     @BindView(R.id.lv_left)
     NoscrollListView mLeft;
@@ -118,6 +122,8 @@ public class CabinStatisticsActivity extends BaseActivity {
         taskId = getIntent().getStringExtra("taskId");
         cargoId = getIntent().getStringExtra("cargoId");
         if (TextUtils.isEmpty(cargoId)) {
+            tvCargoType.setVisibility(View.VISIBLE);
+            tvCargoType1.setVisibility(View.VISIBLE);
             String shipName = getIntent().getStringExtra("shipName");
             btnShipInfo.setText(shipName + "");
             if (showType == Constant.TYPE_PROGRESS) {
@@ -148,7 +154,7 @@ public class CabinStatisticsActivity extends BaseActivity {
 
     private void initAdapter() {
         list = new ArrayList<>();
-        leftAdapter = new CabinProgressStatisticsListAdapter(this, CabinProgressStatisticsListAdapter.LEFT
+        leftAdapter = new CabinProgressStatisticsListAdapter(this, cargoId, CabinProgressStatisticsListAdapter.LEFT
                 , showType, list, R.layout.item_left);
         leftAdapter.setOnItemChildClick(new CabinProgressStatisticsListAdapter.OnItemChildClick() {
             @Override
@@ -164,11 +170,11 @@ public class CabinStatisticsActivity extends BaseActivity {
         mLeft.setAdapter(leftAdapter);
 
         if (showType == Constant.TYPE_PROGRESS) {
-            rightAdapter = new CabinProgressStatisticsListAdapter(this, CargoProgressStatisticsListAdapter.RIGHT
+            rightAdapter = new CabinProgressStatisticsListAdapter(this, cargoId, CargoProgressStatisticsListAdapter.RIGHT
                     , showType, list, R.layout.item_cargo_progress_statistics_right);
             mLvProgressData.setAdapter(rightAdapter);
         } else {
-            rightAdapter = new CabinProgressStatisticsListAdapter(this, CabinProgressStatisticsListAdapter.RIGHT
+            rightAdapter = new CabinProgressStatisticsListAdapter(this, cargoId, CabinProgressStatisticsListAdapter.RIGHT
                     , showType, list, R.layout.item_cargo_statistics_right);
             mData.setAdapter(rightAdapter);
         }
