@@ -198,64 +198,63 @@ public class CabinStatisticsActivity extends BaseActivity {
 
                         list.clear();
                         list.addAll(entity.getData());
-                        if (!TextUtils.isEmpty(cargoId)) {
-                            CarbinInfoStatisticsEntity.DataBean bean = new CarbinInfoStatisticsEntity.DataBean();
-                            for (CarbinInfoStatisticsEntity.DataBean dataBean : list) {
-                                bean.setTotal(bean.getTotal() + dataBean.getTotal());
-                                bean.setFinished(bean.getFinished() + dataBean.getFinished());
-                                bean.setFinishedUsedTime(bean.getFinishedUsedTime() + dataBean.getFinishedUsedTime());
-                                bean.setFinishedEfficiency(bean.getFinishedEfficiency() + dataBean.getFinishedEfficiency());
-                                bean.setFinishedBeforeClearance(bean.getFinishedBeforeClearance() + dataBean.getFinishedBeforeClearance());
-                                bean.setFinishedUsedTimeBeforeClearance(bean.getFinishedUsedTimeBeforeClearance() + dataBean.getFinishedUsedTimeBeforeClearance());
-                                bean.setFinishedEfficiencyBeforeClearance(bean.getFinishedEfficiencyBeforeClearance() + dataBean.getFinishedEfficiencyBeforeClearance());
-                                bean.setRemainder(bean.getRemainder() + dataBean.getRemainder());
-                                bean.setClearance(bean.getClearance() + dataBean.getClearance());
-                                bean.setClearanceUsedTime(bean.getClearanceUsedTime() + dataBean.getClearanceUsedTime());
-                                bean.setClearanceEfficiency(bean.getClearanceEfficiency() + dataBean.getClearanceEfficiency());
-                            }
-                            bean.setTotal(Double.valueOf(decimalFormat.format(bean.getTotal())));
-                            bean.setFinished(Double.valueOf(decimalFormat.format(bean.getFinished())));
-                            bean.setFinishedUsedTime(Double.valueOf(decimalFormat.format(bean.getFinishedUsedTime())));
-                            bean.setFinishedBeforeClearance(Double.valueOf(decimalFormat.format(bean.getFinishedBeforeClearance())));
-                            bean.setFinishedUsedTimeBeforeClearance(Double.valueOf(decimalFormat.format(bean.getFinishedUsedTimeBeforeClearance())));
-                            bean.setRemainder(Double.valueOf(decimalFormat.format(bean.getRemainder())));
-                            bean.setClearance(Double.valueOf(decimalFormat.format(bean.getClearance())));
-                            bean.setClearanceUsedTime(Double.valueOf(decimalFormat.format(bean.getClearanceUsedTime())));
-
-                            double finishUsedTime = bean.getFinishedUsedTime();
-                            if (finishUsedTime == 0) {
-                                finishUsedTime = 1;
-                            }
-                            bean.setFinishedEfficiency(bean.getFinished() / finishUsedTime);
-                            double finishEfficiency = bean.getFinishedEfficiency();
-                            if (finishEfficiency != 0) {
-                                bean.setFinishedEfficiency(Double.valueOf(decimalFormat.format(finishEfficiency)));
-                            }
-
-                            double finishUsedTimeBeforeClearance = bean.getFinishedUsedTimeBeforeClearance();
-                            if (finishUsedTimeBeforeClearance == 0) {
-                                finishUsedTimeBeforeClearance = 1;
-                            }
-                            bean.setFinishedEfficiencyBeforeClearance(bean.getFinishedBeforeClearance() / finishUsedTimeBeforeClearance);
-                            double finishEfficiencyBeforeClearance = bean.getFinishedEfficiencyBeforeClearance();
-                            if (finishEfficiencyBeforeClearance != 0) {
-                                bean.setFinishedEfficiencyBeforeClearance(Double.valueOf(decimalFormat.format(finishEfficiencyBeforeClearance)));
-                            }
-
-                            double clearUsedTime = bean.getClearanceUsedTime();
-                            if (clearUsedTime == 0) {
-                                clearUsedTime = 1;
-                            }
-                            bean.setClearanceEfficiency(bean.getClearance() / clearUsedTime);
-                            double clearanceEfficiency = bean.getClearanceEfficiency();
-                            if (clearanceEfficiency != 0) {
-                                bean.setClearanceEfficiency(Double.valueOf(decimalFormat.format(clearanceEfficiency)));
-                            }
-
-                            bean.setClearTime("--");
-                            bean.setCabinNo("合计");
-                            list.add(bean);
+                        CarbinInfoStatisticsEntity.DataBean bean = new CarbinInfoStatisticsEntity.DataBean();
+                        for (CarbinInfoStatisticsEntity.DataBean dataBean : list) {
+                            bean.setTotal(bean.getTotal() + dataBean.getTotal());
+                            bean.setFinished(bean.getFinished() + dataBean.getFinished());
+                            bean.setFinishedUsedTime(bean.getFinishedUsedTime() + dataBean.getFinishedUsedTime());
+                            bean.setFinishedEfficiency(bean.getFinishedEfficiency() + dataBean.getFinishedEfficiency());
+                            bean.setFinishedBeforeClearance(bean.getFinishedBeforeClearance() + dataBean.getFinishedBeforeClearance());
+                            bean.setFinishedUsedTimeBeforeClearance(bean.getFinishedUsedTimeBeforeClearance() + dataBean.getFinishedUsedTimeBeforeClearance());
+                            bean.setFinishedEfficiencyBeforeClearance(bean.getFinishedEfficiencyBeforeClearance() + dataBean.getFinishedEfficiencyBeforeClearance());
+                            bean.setRemainder(bean.getRemainder() + dataBean.getRemainder());
+                            bean.setClearance(bean.getClearance() + dataBean.getClearance());
+                            bean.setClearanceUsedTime(bean.getClearanceUsedTime() + dataBean.getClearanceUsedTime());
+                            bean.setClearanceEfficiency(bean.getClearanceEfficiency() + dataBean.getClearanceEfficiency());
                         }
+                        bean.setTotal(Double.valueOf(decimalFormat.format(bean.getTotal())));
+                        bean.setFinished(Double.valueOf(decimalFormat.format(bean.getFinished())));
+                        bean.setFinishedUsedTime(Double.valueOf(decimalFormat.format(bean.getFinishedUsedTime())));
+                        bean.setFinishedBeforeClearance(Double.valueOf(decimalFormat.format(bean.getFinishedBeforeClearance())));
+                        bean.setFinishedUsedTimeBeforeClearance(Double.valueOf(decimalFormat.format(bean.getFinishedUsedTimeBeforeClearance())));
+                        bean.setRemainder(Double.valueOf(decimalFormat.format(bean.getRemainder())));
+                        bean.setClearance(Double.valueOf(decimalFormat.format(bean.getClearance())));
+                        bean.setClearanceUsedTime(Double.valueOf(decimalFormat.format(bean.getClearanceUsedTime())));
+
+                        double finishUsedTime = bean.getFinishedUsedTime();
+                        if (finishUsedTime == 0) {
+                            finishUsedTime = 1;
+                        }
+                        bean.setFinishedEfficiency(bean.getFinished() / finishUsedTime);
+                        double finishEfficiency = bean.getFinishedEfficiency();
+                        if (finishEfficiency != 0) {
+                            bean.setFinishedEfficiency(Double.valueOf(decimalFormat.format(finishEfficiency)));
+                        }
+
+                        double finishUsedTimeBeforeClearance = bean.getFinishedUsedTimeBeforeClearance();
+                        if (finishUsedTimeBeforeClearance == 0) {
+                            finishUsedTimeBeforeClearance = 1;
+                        }
+                        bean.setFinishedEfficiencyBeforeClearance(bean.getFinishedBeforeClearance() / finishUsedTimeBeforeClearance);
+                        double finishEfficiencyBeforeClearance = bean.getFinishedEfficiencyBeforeClearance();
+                        if (finishEfficiencyBeforeClearance != 0) {
+                            bean.setFinishedEfficiencyBeforeClearance(Double.valueOf(decimalFormat.format(finishEfficiencyBeforeClearance)));
+                        }
+
+                        double clearUsedTime = bean.getClearanceUsedTime();
+                        if (clearUsedTime == 0) {
+                            clearUsedTime = 1;
+                        }
+                        bean.setClearanceEfficiency(bean.getClearance() / clearUsedTime);
+                        double clearanceEfficiency = bean.getClearanceEfficiency();
+                        if (clearanceEfficiency != 0) {
+                            bean.setClearanceEfficiency(Double.valueOf(decimalFormat.format(clearanceEfficiency)));
+                        }
+
+                        bean.setClearTime("--");
+                        bean.setCabinNo("合计");
+                        bean.setCargoName("--");
+                        list.add(bean);
                         leftAdapter.notifyDataSetChanged();
                         rightAdapter.notifyDataSetChanged();
                     }

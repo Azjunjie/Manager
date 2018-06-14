@@ -24,6 +24,7 @@ import com.aitewei.manager.view.LoadGroupView;
 import com.aitewei.manager.view.NoscrollListView;
 import com.aitewei.manager.view.SyncHorizontalScrollView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,6 +68,7 @@ public class CargoProgressStatisticsActivity extends BaseActivity {
 
     private String taskId;
     private int showType;
+    private DecimalFormat decimalFormat;
 
     public static Intent getIntent(Context context, int type, String taskId, String shipName) {
         Intent intent = new Intent(context, CargoProgressStatisticsActivity.class);
@@ -89,6 +91,7 @@ public class CargoProgressStatisticsActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+        decimalFormat = new DecimalFormat("0.00");
         showType = getIntent().getIntExtra("type", 0);
         if (showType == Constant.TYPE_PROGRESS) {
             llProgressContianer.setVisibility(View.VISIBLE);
@@ -125,8 +128,11 @@ public class CargoProgressStatisticsActivity extends BaseActivity {
             public void onItemChildClick(int position) {
                 CargoInfoStatisticsEntity.DataBean bean = list.get(position);
 
-                startActivity(CabinStatisticsActivity.getIntent(activity, showType,
-                        taskId, bean.getCargoId(), bean.getCargoName()));
+                String cargoName = bean.getCargoName();
+                if (!"合计".equals(cargoName)) {
+                    startActivity(CabinStatisticsActivity.getIntent(activity, showType,
+                            taskId, bean.getCargoId(), cargoName));
+                }
             }
         });
         mLeft.setAdapter(leftAdapter);
@@ -156,8 +162,46 @@ public class CargoProgressStatisticsActivity extends BaseActivity {
                         loadView.setVisibility(View.GONE);
                         contentView.setVisibility(View.VISIBLE);
 
+                        List<CargoInfoStatisticsEntity.DataBean> beanList = entity.getData();
                         list.clear();
-                        list.addAll(entity.getData());
+                        list.addAll(beanList);
+
+                        CargoInfoStatisticsEntity.DataBean dataBean = new CargoInfoStatisticsEntity.DataBean();
+                        dataBean.setCargoName("合计");
+                        for (CargoInfoStatisticsEntity.DataBean bean : beanList) {
+                            dataBean.setTotal(dataBean.getTotal() + bean.getTotal());
+                            dataBean.setFinishedBeforeClearance(dataBean.getFinishedBeforeClearance() + bean.getFinishedBeforeClearance());
+                            dataBean.setFinishedUsedTimeBeforeClearance(dataBean.getFinishedUsedTimeBeforeClearance() + bean.getFinishedUsedTimeBeforeClearance());
+                            dataBean.setClearance(dataBean.getClearance() + bean.getClearance());
+                            dataBean.setClearanceUsedTime(dataBean.getClearanceUsedTime() + bean.getClearanceUsedTime());
+                            dataBean.setFinished(dataBean.getFinished() + bean.getFinished());
+                            dataBean.setFinishedUsedTime(dataBean.getFinishedUsedTime() + bean.getFinishedUsedTime());
+                            dataBean.setRemainder(dataBean.getRemainder() + bean.getRemainder());
+                        }
+                        dataBean.setClearTime("--");
+                        dataBean.setFinishedUsedTimeBeforeClearance(Double.valueOf(decimalFormat.format(dataBean.getFinishedUsedTimeBeforeClearance())));
+                        dataBean.setClearanceUsedTime(Double.valueOf(decimalFormat.format(dataBean.getClearanceUsedTime())));
+                        dataBean.setFinishedUsedTime(Double.valueOf(decimalFormat.format(dataBean.getFinishedUsedTime())));
+                        double beforeUseTime = dataBean.getFinishedUsedTimeBeforeClearance();
+                        if (beforeUseTime == 0) {
+                            beforeUseTime = 1;
+                        }
+                        dataBean.setFinishedEfficiencyBeforeClearance(Double.valueOf(
+                                decimalFormat.format(dataBean.getFinishedBeforeClearance() / beforeUseTime)));
+                        double clearanceUseTime = dataBean.getClearanceUsedTime();
+                        if (clearanceUseTime == 0) {
+                            clearanceUseTime = 1;
+                        }
+                        dataBean.setClearanceEfficiency(Double.valueOf(
+                                decimalFormat.format(dataBean.getClearance() / clearanceUseTime)));
+                        double finishedUseTime = dataBean.getFinishedUsedTime();
+                        if (finishedUseTime == 0) {
+                            finishedUseTime = 1;
+                        }
+                        dataBean.setFinishedEfficiency(Double.valueOf(
+                                decimalFormat.format(dataBean.getFinished() / finishedUseTime)));
+
+                        list.add(dataBean);
                         leftAdapter.notifyDataSetChanged();
                         rightAdapter.notifyDataSetChanged();
                     }

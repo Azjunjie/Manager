@@ -40,6 +40,8 @@ public class CargoProgressStatisticsDetailActivity extends BaseActivity {
     TextView tvCabinNo;
     @BindView(R.id.tv_cargoType)
     TextView tvCargoType;
+    @BindView(R.id.tv_finish_before_clearance)
+    TextView tvFinishBeforeClearance;
     @BindView(R.id.tv_total)
     TextView tvTotal;
     @BindView(R.id.tv_remainder)
@@ -171,6 +173,7 @@ public class CargoProgressStatisticsDetailActivity extends BaseActivity {
     private void bindDetail(CarbinInfoStatisticsEntity.DataBean data) {
         tvCabinNo.setText(data.getCabinNo() + "#舱");
         tvCargoType.setText(data.getCargoName() + "");
+        tvFinishBeforeClearance.setText(data.getFinishedBeforeClearance() + "");
         tvTotal.setText(data.getTotal() + "");
         tvRemainder.setText(data.getRemainder() + "");
         tvFinished.setText(data.getFinished() + "");
