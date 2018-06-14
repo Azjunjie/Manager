@@ -19,8 +19,8 @@ android {
         }
         myapptest {
             applicationId "com.aitewei.managertest"
-            versionName "1.1.7"
-            versionCode 9
+            versionName "1.1.8"
+            versionCode 10
             manifestPlaceholders = [AppName: "京唐港测试"]
         }
     }
