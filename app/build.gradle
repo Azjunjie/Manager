@@ -4,7 +4,7 @@ android {
     compileSdkVersion 26
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 26
+        targetSdkVersion 23
         // Specifies a flavor dimension.保持同一纬度
         flavorDimensions "versionCode"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -19,8 +19,8 @@ android {
         }
         myapptest {
             applicationId "com.aitewei.managertest"
-            versionName "1.1.8"
-            versionCode 10
+            versionName "1.1.9"
+            versionCode 11
             manifestPlaceholders = [AppName: "京唐港测试"]
         }
     }
