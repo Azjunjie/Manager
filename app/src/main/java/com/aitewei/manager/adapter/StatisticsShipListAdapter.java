@@ -12,12 +12,12 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import java.util.List;
 
 /**
- * 船舶列表适配器
+ * 统计船舶列表适配器
  * Created by zhangjunjie on 2017/11/8.
  */
-public class ShipListAdapter extends BaseQuickAdapter<ShipListEntity.DataBean, BaseViewHolder> {
+public class StatisticsShipListAdapter extends BaseQuickAdapter<ShipListEntity.DataBean, BaseViewHolder> {
 
-    public ShipListAdapter(int layoutResId, @Nullable List<ShipListEntity.DataBean> data) {
+    public StatisticsShipListAdapter(int layoutResId, @Nullable List<ShipListEntity.DataBean> data) {
         super(layoutResId, data);
     }
 

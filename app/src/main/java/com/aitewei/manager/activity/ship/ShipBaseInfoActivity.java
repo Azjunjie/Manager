@@ -110,14 +110,19 @@ public class ShipBaseInfoActivity extends BaseActivity {
 
                     @Override
                     protected void onHandleRequestError(String code, String msg) {
-                        contentView.setVisibility(View.GONE);
-                        loadView.setVisibility(View.VISIBLE);
-                        loadView.setLoadError(msg + "");
+                        if (contentView != null) {
+                            contentView.setVisibility(View.GONE);
+                            loadView.setVisibility(View.VISIBLE);
+                            loadView.setLoadError(msg + "");
+                        }
                     }
                 });
     }
 
     private void bindInfo(ShipBaseInfoEntity.DataBean dataBean) {
+        if (loadView == null) {
+            return;
+        }
         loadView.setVisibility(View.GONE);
         contentView.setVisibility(View.VISIBLE);
 

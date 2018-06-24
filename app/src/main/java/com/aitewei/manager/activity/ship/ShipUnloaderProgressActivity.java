@@ -105,7 +105,7 @@ public class ShipUnloaderProgressActivity extends BaseActivity {
         shipName = getIntent().getStringExtra("shipName");
 
         dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        decimalFormat = new DecimalFormat("0.00");
+        decimalFormat = new DecimalFormat("0.0");
         initDatePicker();
 
         adapter = new ShipUnloaderProgressListAdapter(R.layout.layout_ship_unloader_progress_list_item, null);
@@ -139,9 +139,10 @@ public class ShipUnloaderProgressActivity extends BaseActivity {
                 .subscribe(new BaseObserver<GetUnloaderUnshipInfoEntity>(compositeDisposable) {
                     @Override
                     protected void onHandleSuccess(GetUnloaderUnshipInfoEntity entity) {
-                        if (refreshLayout != null) {
-                            refreshLayout.setRefreshing(false);
+                        if (refreshLayout == null) {
+                            return;
                         }
+                        refreshLayout.setRefreshing(false);
                         List<GetUnloaderUnshipInfoEntity.DataBean> list = entity.getData();
                         if (list != null && !list.isEmpty()) {
                             loadView.setVisibility(View.GONE);
@@ -176,10 +177,10 @@ public class ShipUnloaderProgressActivity extends BaseActivity {
                     protected void onHandleRequestError(String code, String msg) {
                         if (refreshLayout != null) {
                             refreshLayout.setRefreshing(false);
+                            loadView.setVisibility(View.VISIBLE);
+                            listView.setVisibility(View.GONE);
+                            loadView.setLoadError(msg + "");
                         }
-                        loadView.setVisibility(View.VISIBLE);
-                        listView.setVisibility(View.GONE);
-                        loadView.setLoadError(msg + "");
                     }
                 });
     }

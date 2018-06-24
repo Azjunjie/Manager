@@ -40,6 +40,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
+/**
+ * 船舱详情
+ */
 public class ShipCabinDetailActivity extends BaseActivity {
 
     @BindView(R.id.load_view)
@@ -74,12 +77,12 @@ public class ShipCabinDetailActivity extends BaseActivity {
     SwipeRefreshLayout refreshLayout;
 
     private String taskId;
-    private int cabinNo;
+    private String cabinNo;
     private UnloadListAdapter adapter;
 
     private String status;
 
-    public static Intent getIntent(Context context, String taskId, int cabinNo) {
+    public static Intent getIntent(Context context, String taskId, String cabinNo) {
         Intent intent = new Intent(context, ShipCabinDetailActivity.class);
         intent.putExtra("taskId", taskId);
         intent.putExtra("cabinNo", cabinNo);
@@ -107,7 +110,7 @@ public class ShipCabinDetailActivity extends BaseActivity {
     protected void initData() {
         Intent intent = getIntent();
         taskId = intent.getStringExtra("taskId");
-        cabinNo = intent.getIntExtra("cabinNo", 0);
+        cabinNo = intent.getStringExtra("cabinNo");
 
         initAdapter();
 
@@ -246,7 +249,7 @@ public class ShipCabinDetailActivity extends BaseActivity {
     public void onClickView(View v) {
         switch (v.getId()) {
             case R.id.tv_cargoType://种类
-                startActivity(ShipCargoDetailActivity.getIntent(activity, taskId, cabinNo));
+                startActivity(ShipCargoDetailActivity.getIntent(activity, taskId, cabinNo,""));
                 break;
             case R.id.btn_refresh:
                 btnRefresh.setClickable(false);

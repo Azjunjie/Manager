@@ -8,6 +8,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -15,6 +16,8 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.aitewei.manager.R;
+import com.aitewei.manager.adapter.ShipCabinListAdapter;
+import com.aitewei.manager.adapter.ShipCabinNoListAdapter;
 import com.aitewei.manager.base.BaseActivity;
 import com.aitewei.manager.base.BaseEntity;
 import com.aitewei.manager.common.Constant;
@@ -80,8 +83,8 @@ public class ShipCabinListActivity extends BaseActivity {
     @BindView(R.id.btn_menu)
     FrameLayout btnMenu;
 
-    private LeftAdapter mLeftAdapter;
-    private DataAdapter mDataAdapter;
+    private ShipCabinNoListAdapter mLeftAdapter;
+    private ShipCabinListAdapter mDataAdapter;
 
     private List<ShipCabinListEntity.DataBean> mListData;
 
@@ -90,7 +93,6 @@ public class ShipCabinListActivity extends BaseActivity {
     private ShipCabinListEntity.DataBean operationBean;//当前设置船舱状态的bean
     private int cabinNum;
     private String shipName;
-    private DecimalFormat decimalFormat;
 
     public static Intent getIntent(Context context, int type, String taskId, String shipName) {
         Intent intent = new Intent(context, ShipCabinListActivity.class);
@@ -159,8 +161,6 @@ public class ShipCabinListActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        decimalFormat = new DecimalFormat("0.00");
-
         taskId = getIntent().getStringExtra("taskId");
         shipName = getIntent().getStringExtra("shipName");
 
@@ -179,7 +179,9 @@ public class ShipCabinListActivity extends BaseActivity {
             showLoadingPopup();
         }
         requestCabinListData();
-        handler.sendEmptyMessageDelayed(1, 1000 * 60 * 3);
+        if (handler != null) {
+            handler.sendEmptyMessageDelayed(1, 1000 * 60 * 3);
+        }
     }
 
     @Override
@@ -208,32 +210,46 @@ public class ShipCabinListActivity extends BaseActivity {
                     @Override
                     protected void onHandleSuccess(ShipCabinListEntity entity) {
                         dismissLoadingPopup();
-                        btnRefresh.setClickable(true);
-                        loadView.setVisibility(View.GONE);
-                        contentView.setVisibility(View.VISIBLE);
-                        cabinNum = entity.getTotal();
-                        mListData = entity.getData();
-                        mLeftAdapter.notifyDataSetChanged();
-                        mDataAdapter.notifyDataSetChanged();
+                        if (btnRefresh != null) {
+                            btnRefresh.setClickable(true);
+                            loadView.setVisibility(View.GONE);
+                            contentView.setVisibility(View.VISIBLE);
+                            cabinNum = entity.getTotal();
+                            mListData = entity.getData();
+                            mLeftAdapter.setmListData(mListData);
+                            mDataAdapter.setmListData(mListData);
+                        }
                     }
 
                     @Override
                     protected void onHandleRequestError(String code, String msg) {
                         dismissLoadingPopup();
-                        btnRefresh.setClickable(true);
-                        contentView.setVisibility(View.GONE);
-                        loadView.setVisibility(View.VISIBLE);
-                        loadView.setLoadError(msg + "");
+                        if (btnRefresh != null) {
+                            btnRefresh.setClickable(true);
+                            contentView.setVisibility(View.GONE);
+                            loadView.setVisibility(View.VISIBLE);
+                            loadView.setLoadError(msg + "");
+                        }
                     }
                 });
     }
 
     private void initAdapter() {
-        mLeftAdapter = new LeftAdapter();
+        mLeftAdapter = new ShipCabinNoListAdapter(this, taskId, mListData);
         mLeft.setAdapter(mLeftAdapter);
+        mLeft.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                int size = mListData.size();
+                if (position < size) {
+                    ShipCabinListEntity.DataBean bean = mListData.get(position);
+                    startActivity(ShipCabinDetailActivity.getIntent(activity, taskId, bean.getCabinNo() + ""));
+                }
+            }
+        });
 
-        mDataAdapter = new DataAdapter();
-        mDataAdapter.setOnClickStatusListener(new OnClickOperationListener() {
+        mDataAdapter = new ShipCabinListAdapter(this, taskId, type, mListData);
+        mDataAdapter.setOnClickStatusListener(new ShipCabinListAdapter.OnClickOperationListener() {
             @Override
             public void onClickOperation(final ShipCabinListEntity.DataBean dataBean) {
                 if (PermissionsCode.isHasPermission(PermissionsCode.clearStatus)) {
@@ -244,7 +260,6 @@ public class ShipCabinListActivity extends BaseActivity {
                         showSetCabinStatusPopup(1);
                     } else if ("1".equals(status)) {
                         //完成操作提示
-//                        showSetCabinStatusPopup(2);
                     } else if ("2".equals(status)) {
                     } else {
                         //卸货操作提示
@@ -511,207 +526,6 @@ public class ShipCabinListActivity extends BaseActivity {
         }
         tvTitle.setText(msg + "");
         tipPopup.showAtLocation(activity, findViewById(R.id.parent_layout), Gravity.CENTER, 0, 0);
-    }
-
-    private class LeftAdapter extends BaseAdapter {
-
-        @Override
-        public int getCount() {
-            if (mListData != null) {
-                return mListData.size() + 1;
-            }
-            return 0;
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return mListData.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            ViewHolder holder = null;
-            if (convertView == null) {
-                holder = new ViewHolder();
-                convertView = LayoutInflater.from(ShipCabinListActivity.this).inflate(R.layout.item_left, null);
-                holder.tvCabinNo = convertView.findViewById(R.id.tv_cabin_no);
-                convertView.setTag(holder);
-            } else {
-                holder = (ViewHolder) convertView.getTag();
-            }
-            int count = getCount() - 1;
-            if (position == count) {
-                holder.tvCabinNo.setText("合计");
-                holder.tvCabinNo.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                    }
-                });
-            } else {
-                ShipCabinListEntity.DataBean dataBean = mListData.get(position);
-                final int cabinNo = dataBean.getCabinNo();
-                holder.tvCabinNo.setText(cabinNo + "");
-                holder.tvCabinNo.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        startActivity(ShipCabinDetailActivity.getIntent(activity, taskId, cabinNo));
-                    }
-                });
-            }
-            return convertView;
-        }
-
-        class ViewHolder {
-            TextView tvCabinNo;
-        }
-    }
-
-    private class DataAdapter extends BaseAdapter {
-
-        @Override
-        public int getCount() {
-            if (mListData != null) {
-                return mListData.size() + 1;
-            }
-            return 0;
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return mListData.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            ViewHolder holder = null;
-            if (convertView == null) {
-                holder = new ViewHolder();
-                convertView = LayoutInflater.from(ShipCabinListActivity.this).inflate(R.layout.item_data, null);
-                holder.tvCabinType = convertView.findViewById(R.id.tv_cabin_type);
-                holder.tvTotal = convertView.findViewById(R.id.tv_total);
-                holder.tvFinish = convertView.findViewById(R.id.tv_finish);
-                holder.tvFinishBeforeClearance = convertView.findViewById(R.id.tv_finish_before_clearance);
-                holder.tvRemainder = convertView.findViewById(R.id.tv_remainder);
-                holder.tvClearance = convertView.findViewById(R.id.tv_clearance);
-                holder.tvClearTime = convertView.findViewById(R.id.tv_clearTime);
-                holder.tvStatus = convertView.findViewById(R.id.tv_status);
-                holder.tvOperation = convertView.findViewById(R.id.tv_operation);
-                convertView.setTag(holder);
-            } else {
-                holder = (ViewHolder) convertView.getTag();
-            }
-
-            boolean hasPermission = PermissionsCode.isHasPermission(PermissionsCode.clearStatus);
-            if (type == Constant.TYPE_WORKING && hasPermission) {
-                holder.tvOperation.setVisibility(View.VISIBLE);
-            } else {
-                holder.tvOperation.setVisibility(View.GONE);
-            }
-            if (type == Constant.TYPE_COMING) {
-                holder.tvClearTime.setVisibility(View.GONE);
-            } else {
-                holder.tvClearTime.setVisibility(View.VISIBLE);
-            }
-            int count = getCount() - 1;
-            if (count == position) {
-                ShipCabinListEntity.DataBean dataBean = new ShipCabinListEntity.DataBean();
-                for (ShipCabinListEntity.DataBean bean : mListData) {
-                    dataBean.setTotal(dataBean.getTotal() + bean.getTotal());
-                    dataBean.setFinished(dataBean.getFinished() + bean.getFinished());
-                    dataBean.setFinishedBeforeClearance(dataBean.getFinishedBeforeClearance() + bean.getFinishedBeforeClearance());
-                    dataBean.setRemainder(dataBean.getRemainder() + bean.getRemainder());
-                    dataBean.setClearance(dataBean.getClearance() + bean.getClearance());
-                }
-                holder.tvCabinType.setText("--");
-                holder.tvClearTime.setText("--");
-                holder.tvCabinType.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                    }
-                });
-                holder.tvTotal.setText(decimalFormat.format(dataBean.getTotal()) + "");
-                holder.tvFinish.setText(decimalFormat.format(dataBean.getFinished()) + "");
-                holder.tvFinishBeforeClearance.setText(decimalFormat.format(dataBean.getFinishedBeforeClearance()) + "");
-                holder.tvRemainder.setText(decimalFormat.format(dataBean.getRemainder()) + "");
-                holder.tvClearance.setText(decimalFormat.format(dataBean.getClearance()) + "");
-                holder.tvClearTime.setText("--");
-                holder.tvStatus.setText("--");
-                holder.tvOperation.setText("--");
-                holder.tvOperation.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                    }
-                });
-            } else {
-                final ShipCabinListEntity.DataBean dataBean = mListData.get(position);
-                holder.tvCabinType.setText(dataBean.getCargoName() + "");
-                holder.tvCabinType.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        startActivity(ShipCargoDetailActivity.getIntent(activity, taskId, dataBean.getCabinNo()));
-                    }
-                });
-                holder.tvTotal.setText(dataBean.getTotal() + "");
-                holder.tvFinish.setText(dataBean.getFinished() + "");
-                holder.tvFinishBeforeClearance.setText(dataBean.getFinishedBeforeClearance() + "");
-                holder.tvRemainder.setText(dataBean.getRemainder() + "");
-                holder.tvClearance.setText(dataBean.getClearance() + "");
-                holder.tvClearTime.setText(dataBean.getClearTime() + "");
-                String status = dataBean.getStatus();//0|卸货;1|清舱;2|完成
-                if ("0".equals(status)) {
-                    holder.tvStatus.setText("卸货");
-                    holder.tvOperation.setText("清舱");
-                } else if ("1".equals(status)) {
-                    holder.tvStatus.setText("清舱");
-                    holder.tvOperation.setText("");
-                } else if ("2".equals(status)) {
-                    holder.tvStatus.setText("");
-                    holder.tvOperation.setText("");
-                } else {
-                    holder.tvStatus.setText("未开始");
-                    holder.tvOperation.setText("卸货");
-                }
-                holder.tvOperation.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        onClickOperationListener.onClickOperation(dataBean);
-                    }
-                });
-            }
-            return convertView;
-        }
-
-        class ViewHolder {
-            TextView tvCabinType;
-            TextView tvTotal;
-            TextView tvFinish;
-            TextView tvFinishBeforeClearance;
-            TextView tvRemainder;
-            TextView tvClearance;
-            TextView tvClearTime;
-            TextView tvStatus;
-            TextView tvOperation;
-        }
-
-        private OnClickOperationListener onClickOperationListener;
-
-        public void setOnClickStatusListener(OnClickOperationListener onClickOperationListener) {
-            this.onClickOperationListener = onClickOperationListener;
-        }
-    }
-
-    private interface OnClickOperationListener {
-        void onClickOperation(ShipCabinListEntity.DataBean dataBean);
     }
 
 }

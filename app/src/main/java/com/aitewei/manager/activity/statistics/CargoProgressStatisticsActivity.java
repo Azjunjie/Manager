@@ -91,7 +91,7 @@ public class CargoProgressStatisticsActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        decimalFormat = new DecimalFormat("0.00");
+        decimalFormat = new DecimalFormat("0.0");
         showType = getIntent().getIntExtra("type", 0);
         if (showType == Constant.TYPE_PROGRESS) {
             llProgressContianer.setVisibility(View.VISIBLE);
@@ -158,6 +158,9 @@ public class CargoProgressStatisticsActivity extends BaseActivity {
                     @Override
                     protected void onHandleSuccess(CargoInfoStatisticsEntity entity) {
                         dismissLoadingPopup();
+                        if (btnRefresh == null) {
+                            return;
+                        }
                         btnRefresh.setClickable(true);
                         loadView.setVisibility(View.GONE);
                         contentView.setVisibility(View.VISIBLE);
@@ -209,10 +212,12 @@ public class CargoProgressStatisticsActivity extends BaseActivity {
                     @Override
                     protected void onHandleRequestError(String code, String msg) {
                         dismissLoadingPopup();
-                        btnRefresh.setClickable(true);
-                        loadView.setVisibility(View.VISIBLE);
-                        contentView.setVisibility(View.GONE);
-                        loadView.setLoadError(msg + "");
+                        if (btnRefresh != null) {
+                            btnRefresh.setClickable(true);
+                            loadView.setVisibility(View.VISIBLE);
+                            contentView.setVisibility(View.GONE);
+                            loadView.setLoadError(msg + "");
+                        }
                     }
                 });
     }

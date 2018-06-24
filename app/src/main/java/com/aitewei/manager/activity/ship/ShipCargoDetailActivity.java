@@ -48,21 +48,22 @@ public class ShipCargoDetailActivity extends BaseActivity {
 
     private String taskId;
     private String cargoId;
-    private int cabinNo;
+    private String cabinNo;
 
-    public static Intent getIntent(Context context, String taskId, int cabinNo) {
+    public static Intent getIntent(Context context, String taskId, String cabinNo, String cargoId) {
         Intent intent = new Intent(context, ShipCargoDetailActivity.class);
         intent.putExtra("taskId", taskId);
         intent.putExtra("cabinNo", cabinNo);
-        return intent;
-    }
-
-    public static Intent getIntent(Context context, String taskId, String cargoId) {
-        Intent intent = new Intent(context, ShipCargoDetailActivity.class);
-        intent.putExtra("taskId", taskId);
         intent.putExtra("cargoId", cargoId);
         return intent;
     }
+
+//    public static Intent getIntent(Context context, String taskId, String cargoId) {
+//        Intent intent = new Intent(context, ShipCargoDetailActivity.class);
+//        intent.putExtra("taskId", taskId);
+//        intent.putExtra("cargoId", cargoId);
+//        return intent;
+//    }
 
     @Override
     protected int getLayoutId() {
@@ -78,7 +79,7 @@ public class ShipCargoDetailActivity extends BaseActivity {
     protected void initData() {
         taskId = getIntent().getStringExtra("taskId");
         cargoId = getIntent().getStringExtra("cargoId");
-        cabinNo = getIntent().getIntExtra("cabinNo", 0);
+        cabinNo = getIntent().getStringExtra("cabinNo");
 
         loadView.setVisibility(View.VISIBLE);
         contentView.setVisibility(View.GONE);
@@ -102,9 +103,11 @@ public class ShipCargoDetailActivity extends BaseActivity {
 
                         @Override
                         protected void onHandleRequestError(String code, String msg) {
-                            contentView.setVisibility(View.GONE);
-                            loadView.setVisibility(View.VISIBLE);
-                            loadView.setLoadError(msg + "");
+                            if (contentView != null) {
+                                contentView.setVisibility(View.GONE);
+                                loadView.setVisibility(View.VISIBLE);
+                                loadView.setLoadError(msg + "");
+                            }
                         }
                     });
         } else {
@@ -131,6 +134,9 @@ public class ShipCargoDetailActivity extends BaseActivity {
     }
 
     private void bindDetail(ShipGoodsDetailEntity.DataBean dataBean) {
+        if (loadView == null) {
+            return;
+        }
         loadView.setVisibility(View.GONE);
         contentView.setVisibility(View.VISIBLE);
 

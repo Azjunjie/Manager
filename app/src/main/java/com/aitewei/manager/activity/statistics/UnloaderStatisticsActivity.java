@@ -121,7 +121,7 @@ public class UnloaderStatisticsActivity extends BaseActivity {
     @Override
     protected void initData() {
         dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        decimalFormat = new DecimalFormat("0.00");
+        decimalFormat = new DecimalFormat("0.0");
 
         taskId = getIntent().getStringExtra("taskId");
         shipName = getIntent().getStringExtra("shipName");
@@ -182,9 +182,10 @@ public class UnloaderStatisticsActivity extends BaseActivity {
                 .subscribe(new BaseObserver<UnloaderInfoStatisticsEntity>(compositeDisposable) {
                     @Override
                     protected void onHandleSuccess(UnloaderInfoStatisticsEntity entity) {
-                        if (refreshLayout != null) {
-                            refreshLayout.setRefreshing(false);
+                        if (refreshLayout == null) {
+                            return;
                         }
+                        refreshLayout.setRefreshing(false);
                         List<UnloaderInfoStatisticsEntity.DataBean> list = entity.getData();
                         if (list != null && !list.isEmpty()) {
                             loadView.setVisibility(View.GONE);
@@ -219,10 +220,10 @@ public class UnloaderStatisticsActivity extends BaseActivity {
                     protected void onHandleRequestError(String code, String msg) {
                         if (refreshLayout != null) {
                             refreshLayout.setRefreshing(false);
+                            loadView.setVisibility(View.VISIBLE);
+                            listView.setVisibility(View.GONE);
+                            loadView.setLoadError(msg + "");
                         }
-                        loadView.setVisibility(View.VISIBLE);
-                        listView.setVisibility(View.GONE);
-                        loadView.setLoadError(msg + "");
                     }
                 });
     }

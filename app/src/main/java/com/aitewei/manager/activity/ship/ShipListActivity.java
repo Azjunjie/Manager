@@ -34,8 +34,6 @@ public class ShipListActivity extends BaseActivity {
 
     @BindView(R.id.tool_bar)
     FrameLayout toolBar;
-//    @BindView(R.id.banner)
-//    Banner banner;
 
     @BindView(R.id.view_pager)
     ViewPager viewPager;
@@ -60,15 +58,11 @@ public class ShipListActivity extends BaseActivity {
             toolBar.setLayoutParams(layoutParams);
         }
         btnTask.setSelected(true);
-//        ViewGroup.LayoutParams layoutParams = banner.getLayoutParams();
-//        layoutParams.height = (int) (ScreenUtils.getScreenWidth(activity) / 16f * 9);
-//        banner.setLayoutParams(layoutParams);
     }
 
     @Override
     protected void initData() {
         EventBus.getDefault().register(this);
-//        initBanner();
 
         List<BaseFragment> fragments = new ArrayList<>();
         fragments.add(ShipListNewFragment.newInstance());
@@ -76,20 +70,6 @@ public class ShipListActivity extends BaseActivity {
         FragmentViewPagerAdapter adapter = new FragmentViewPagerAdapter(getSupportFragmentManager(), fragments);
         viewPager.setAdapter(adapter);
     }
-
-//    private void initBanner() {
-//        List<Integer> imgList = new ArrayList<>();
-//        imgList.add(R.drawable.bg_banner2);
-//        imgList.add(R.drawable.bg_banner4);
-//        banner.setImageLoader(new GlideImageLoader());
-//        //设置轮播时间
-//        banner.setDelayTime(3000);
-//        //设置指示器位置（当banner模式中有指示器时）
-//        banner.setIndicatorGravity(BannerConfig.RIGHT);
-//        banner.setImages(imgList);
-//        //banner设置方法全部调用完毕时最后调用
-//        banner.start();
-//    }
 
     @OnClick({R.id.btn_mine, R.id.btn_statistics})
     public void onViewClicked(View view) {
@@ -102,20 +82,6 @@ public class ShipListActivity extends BaseActivity {
                 break;
         }
     }
-
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//        //开始轮播
-//        banner.startAutoPlay();
-//    }
-//
-//    @Override
-//    public void onStop() {
-//        super.onStop();
-//        //结束轮播
-//        banner.stopAutoPlay();
-//    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventMainThread(String tag) {

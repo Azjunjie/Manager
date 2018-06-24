@@ -93,7 +93,7 @@ public class CargoProgressActivity extends BaseActivity {
                 GetCargoUnshipInfoEntity.DataBean bean = list.get(position);
                 String cargoName = bean.getCargoName();
                 if (!"合计".equals(cargoName)) {
-                    startActivity(ShipCargoDetailActivity.getIntent(activity, taskId, bean.getCargoId() + ""));
+                    startActivity(ShipCargoDetailActivity.getIntent(activity, taskId, "",bean.getCargoId() + ""));
                 }
             }
         });
@@ -149,20 +149,20 @@ public class CargoProgressActivity extends BaseActivity {
                     public void accept(List<GetCargoUnshipInfoEntity.DataBean> dataBeans) throws Exception {
                         if (refreshLayout != null) {
                             refreshLayout.setRefreshing(false);
+                            loadView.setVisibility(View.GONE);
+                            listView.setVisibility(View.VISIBLE);
+                            adapter.setNewData(dataBeans);
                         }
-                        loadView.setVisibility(View.GONE);
-                        listView.setVisibility(View.VISIBLE);
-                        adapter.setNewData(dataBeans);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         if (refreshLayout != null) {
                             refreshLayout.setRefreshing(false);
+                            loadView.setVisibility(View.VISIBLE);
+                            listView.setVisibility(View.GONE);
+                            loadView.setLoadError(throwable.getMessage() + "");
                         }
-                        loadView.setVisibility(View.VISIBLE);
-                        listView.setVisibility(View.GONE);
-                        loadView.setLoadError(throwable.getMessage() + "");
                     }
                 }, new Action() {
                     @Override

@@ -123,10 +123,12 @@ public class SetCabinPositionActivity extends BaseActivity {
                     @Override
                     protected void onHandleRequestError(String code, String msg) {
                         dismissLoadingPopup();
-                        contentView.setVisibility(View.GONE);
-                        loadView.setVisibility(View.VISIBLE);
-                        loadView.setLoadError(msg + "");
-                        btnRefresh.setClickable(false);
+                        if (contentView != null) {
+                            contentView.setVisibility(View.GONE);
+                            loadView.setVisibility(View.VISIBLE);
+                            loadView.setLoadError(msg + "");
+                            btnRefresh.setClickable(false);
+                        }
                     }
                 });
     }
@@ -208,60 +210,11 @@ public class SetCabinPositionActivity extends BaseActivity {
 
                 @Override
                 public void afterTextChanged(Editable editable) {
-                    dataBean.setStartPosition(editable.toString() + "");
-
-//                        View childView = container.getChildAt(1);
-//                        if (childView != null) {
-//                            TextView tvStart = childView.findViewById(R.id.tv_start);
-//                            if (tvStart != null) {
-//                                CabinPositionEntity.DataBean bean = positionList.get(1);
-//                                bean.setStartPosition(endPosition);
-//                                tvStart.setText(endPosition);
-//                            }
-//                        }
+                    if (dataBean != null) {
+                        dataBean.setStartPosition(editable.toString() + "");
+                    }
                 }
             });
-//            if (i == 0) {
-//            } else {
-//                view = inflater.inflate(R.layout.layout_cabin_position_set_item2, null);
-//                TextView tvCabinNo = view.findViewById(R.id.tv_cabin_no);
-//                TextView tvStart = view.findViewById(R.id.tv_start);
-//                EditText etEnd = view.findViewById(R.id.et_end);
-//
-//                tvCabinNo.setText(dataBean.getCabinNo() + "");
-//                tvStart.setText(dataBean.getStartPosition() + "");
-//                etEnd.setText(dataBean.getEndPosition() + "");
-//                etEnd.setSelection(etEnd.length());
-//
-//                final int finalI = i;
-//                etEnd.addTextChangedListener(new TextWatcher() {
-//                    @Override
-//                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//
-//                    }
-//
-//                    @Override
-//                    public void afterTextChanged(Editable editable) {
-//                        String endPosition = editable.toString() + "";
-//                        dataBean.setEndPosition(endPosition);
-//
-//                        View childView = container.getChildAt(finalI + 1);
-//                        if (childView != null) {
-//                            TextView tvStart = childView.findViewById(R.id.tv_start);
-//                            if (tvStart != null) {
-//                                CabinPositionEntity.DataBean bean = positionList.get(finalI + 1);
-//                                bean.setStartPosition(endPosition);
-//                                tvStart.setText(endPosition);
-//                            }
-//                        }
-//                    }
-//                });
-//            }
             container.addView(view);
         }
     }

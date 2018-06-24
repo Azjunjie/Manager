@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.aitewei.manager.R;
 import com.aitewei.manager.activity.ship.ShipCabinListActivity;
-import com.aitewei.manager.adapter.ShipListAdapter;
+import com.aitewei.manager.adapter.StatisticsShipListAdapter;
 import com.aitewei.manager.base.BaseActivity;
 import com.aitewei.manager.common.Constant;
 import com.aitewei.manager.common.Popup;
@@ -68,7 +68,7 @@ public class ShipListChoiceActivity extends BaseActivity implements SwipeRefresh
 
     private SimpleDateFormat sdf;
 
-    private ShipListAdapter adapter;
+    private StatisticsShipListAdapter adapter;
 
     private int type;
 
@@ -152,7 +152,7 @@ public class ShipListChoiceActivity extends BaseActivity implements SwipeRefresh
         listView.setLayoutManager(layoutManager);
         listView.setHasFixedSize(true);
 
-        adapter = new ShipListAdapter(R.layout.layout_ship_list_item, null);
+        adapter = new StatisticsShipListAdapter(R.layout.layout_ship_list_item, null);
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -234,10 +234,10 @@ public class ShipListChoiceActivity extends BaseActivity implements SwipeRefresh
                         if (errorCount >= 3) {
                             if (refreshLayout != null) {
                                 refreshLayout.setRefreshing(false);
+                                listView.setVisibility(View.GONE);
+                                loadView.setVisibility(View.VISIBLE);
+                                loadView.setLoadError(msg + "");
                             }
-                            listView.setVisibility(View.GONE);
-                            loadView.setVisibility(View.VISIBLE);
-                            loadView.setLoadError(msg + "");
                         } else {
                             errorCount++;
                             requestListData();
@@ -251,17 +251,21 @@ public class ShipListChoiceActivity extends BaseActivity implements SwipeRefresh
     private void bindAdapter(List<ShipListEntity.DataBean> dataList) {
         if (refreshLayout != null) {
             refreshLayout.setRefreshing(false);
+            adapter.loadMoreComplete();
         }
-        adapter.loadMoreComplete();
         if (dataList != null && !dataList.isEmpty()) {
-            loadView.setVisibility(View.GONE);
-            listView.setVisibility(View.VISIBLE);
-            adapter.setNewData(dataList);
+            if (loadView != null) {
+                loadView.setVisibility(View.GONE);
+                listView.setVisibility(View.VISIBLE);
+                adapter.setNewData(dataList);
+            }
         } else {
-            adapter.loadMoreEnd();
-            listView.setVisibility(View.GONE);
-            loadView.setVisibility(View.VISIBLE);
-            loadView.setLoadType(LoadGroupView.TYPE_EMPTY);
+            if (loadView != null) {
+                adapter.loadMoreEnd();
+                listView.setVisibility(View.GONE);
+                loadView.setVisibility(View.VISIBLE);
+                loadView.setLoadType(LoadGroupView.TYPE_EMPTY);
+            }
         }
     }
 

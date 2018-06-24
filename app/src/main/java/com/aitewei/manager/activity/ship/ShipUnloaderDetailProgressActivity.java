@@ -98,7 +98,7 @@ public class ShipUnloaderDetailProgressActivity extends BaseActivity {
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 List<GetUnloaderUnshipDetailListEntity.DataBean> list = adapter.getData();
                 GetUnloaderUnshipDetailListEntity.DataBean bean = list.get(position);
-                startActivity(ShipCabinDetailActivity.getIntent(activity, taskId, bean.getCabinNo()));
+                startActivity(ShipCabinDetailActivity.getIntent(activity, taskId, bean.getCabinNo()+""));
             }
         });
         listView.setAdapter(adapter);
@@ -123,21 +123,21 @@ public class ShipUnloaderDetailProgressActivity extends BaseActivity {
                     protected void onHandleSuccess(GetUnloaderUnshipDetailListEntity entity) {
                         if (refreshLayout != null) {
                             refreshLayout.setRefreshing(false);
+                            loadView.setVisibility(View.GONE);
+                            listView.setVisibility(View.VISIBLE);
+                            List<GetUnloaderUnshipDetailListEntity.DataBean> list = entity.getData();
+                            adapter.setNewData(list);
                         }
-                        loadView.setVisibility(View.GONE);
-                        listView.setVisibility(View.VISIBLE);
-                        List<GetUnloaderUnshipDetailListEntity.DataBean> list = entity.getData();
-                        adapter.setNewData(list);
                     }
 
                     @Override
                     protected void onHandleRequestError(String code, String msg) {
                         if (refreshLayout != null) {
                             refreshLayout.setRefreshing(false);
+                            loadView.setVisibility(View.VISIBLE);
+                            listView.setVisibility(View.GONE);
+                            loadView.setLoadError(msg + "");
                         }
-                        loadView.setVisibility(View.VISIBLE);
-                        listView.setVisibility(View.GONE);
-                        loadView.setLoadError(msg + "");
                     }
                 });
     }

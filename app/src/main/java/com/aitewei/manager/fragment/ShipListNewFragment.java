@@ -244,10 +244,10 @@ public class ShipListNewFragment extends BaseFragment implements SwipeRefreshLay
                         if (errorCount >= 3) {
                             if (refreshLayout != null) {
                                 refreshLayout.setRefreshing(false);
+                                listView.setVisibility(View.VISIBLE);
+                                loadView.setVisibility(View.VISIBLE);
+                                loadView.setLoadError(throwable.getMessage() + "");
                             }
-                            listView.setVisibility(View.VISIBLE);
-                            loadView.setVisibility(View.VISIBLE);
-                            loadView.setLoadError(throwable.getMessage() + "");
                         } else {
                             errorCount++;
                             requestListData();
@@ -262,16 +262,26 @@ public class ShipListNewFragment extends BaseFragment implements SwipeRefreshLay
         if (refreshLayout != null) {
             refreshLayout.setRefreshing(false);
         }
-        adapter.loadMoreComplete();
+        if (adapter != null) {
+            adapter.loadMoreComplete();
+        }
         if (dataList != null && !dataList.isEmpty()) {
-            loadView.setVisibility(View.GONE);
-            listView.setVisibility(View.VISIBLE);
-            adapter.setNewData(dataList);
+            if (loadView != null) {
+                loadView.setVisibility(View.GONE);
+                listView.setVisibility(View.VISIBLE);
+                if (adapter != null) {
+                    adapter.setNewData(dataList);
+                }
+            }
         } else {
-            adapter.loadMoreEnd();
-            listView.setVisibility(View.VISIBLE);
-            loadView.setVisibility(View.VISIBLE);
-            loadView.setLoadType(LoadGroupView.TYPE_EMPTY);
+            if (listView != null) {
+                if (adapter != null) {
+                    adapter.loadMoreEnd();
+                }
+                listView.setVisibility(View.VISIBLE);
+                loadView.setVisibility(View.VISIBLE);
+                loadView.setLoadType(LoadGroupView.TYPE_EMPTY);
+            }
         }
     }
 

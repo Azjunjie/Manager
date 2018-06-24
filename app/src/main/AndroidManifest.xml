@@ -73,9 +73,6 @@
             android:name=".activity.statistics.StatisticsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.statistics.UnloaderTeamActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".activity.ship.CargoProgressActivity"
             android:screenOrientation="portrait" />
         <activity

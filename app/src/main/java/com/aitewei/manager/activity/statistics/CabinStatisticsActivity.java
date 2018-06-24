@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.aitewei.manager.R;
 import com.aitewei.manager.activity.ship.ShipBaseInfoActivity;
+import com.aitewei.manager.activity.ship.ShipCabinDetailActivity;
 import com.aitewei.manager.activity.ship.ShipCargoDetailActivity;
 import com.aitewei.manager.adapter.CabinProgressStatisticsListAdapter;
 import com.aitewei.manager.adapter.CargoProgressStatisticsListAdapter;
@@ -145,7 +146,7 @@ public class CabinStatisticsActivity extends BaseActivity {
         loadView.setVisibility(View.VISIBLE);
         contentView.setVisibility(View.GONE);
 
-        decimalFormat = new DecimalFormat("0.00");
+        decimalFormat = new DecimalFormat("0.0");
 
         initAdapter();
 
@@ -163,8 +164,8 @@ public class CabinStatisticsActivity extends BaseActivity {
                 if ("合计".equals(bean.getCabinNo())) {
                     return;
                 }
-                startActivity(CargoProgressStatisticsDetailActivity.getIntent(activity,
-                        taskId, bean.getCabinNo(), bean.getCargoId(), bean.getCargoName()));
+                startActivity(ShipCabinDetailActivity.getIntent(activity,
+                        taskId, bean.getCabinNo() + ""));
             }
         });
         mLeft.setAdapter(leftAdapter);
@@ -193,6 +194,9 @@ public class CabinStatisticsActivity extends BaseActivity {
                 .subscribe(new BaseObserver<CarbinInfoStatisticsEntity>(compositeDisposable) {
                     @Override
                     protected void onHandleSuccess(CarbinInfoStatisticsEntity entity) {
+                        if (loadView == null) {
+                            return;
+                        }
                         loadView.setVisibility(View.GONE);
                         contentView.setVisibility(View.VISIBLE);
 
@@ -261,9 +265,11 @@ public class CabinStatisticsActivity extends BaseActivity {
 
                     @Override
                     protected void onHandleRequestError(String code, String msg) {
-                        loadView.setVisibility(View.VISIBLE);
-                        contentView.setVisibility(View.GONE);
-                        loadView.setLoadError(msg + "");
+                        if (loadView != null) {
+                            loadView.setVisibility(View.VISIBLE);
+                            contentView.setVisibility(View.GONE);
+                            loadView.setLoadError(msg + "");
+                        }
                     }
                 });
     }
@@ -280,7 +286,7 @@ public class CabinStatisticsActivity extends BaseActivity {
                 if (TextUtils.isEmpty(cargoId)) {
                     startActivity(ShipBaseInfoActivity.getIntent(activity, taskId));
                 } else {
-                    startActivity(ShipCargoDetailActivity.getIntent(activity, taskId, cargoId));
+                    startActivity(ShipCargoDetailActivity.getIntent(activity, taskId, "", cargoId));
                 }
                 break;
         }

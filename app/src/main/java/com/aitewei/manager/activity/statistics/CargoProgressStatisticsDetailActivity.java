@@ -30,8 +30,9 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
- * 货物进度统计-单个货物明细
+ * 船舱详情
  */
+@Deprecated
 public class CargoProgressStatisticsDetailActivity extends BaseActivity {
 
     @BindView(R.id.load_view)
@@ -149,9 +150,6 @@ public class CargoProgressStatisticsDetailActivity extends BaseActivity {
                 });
 
         //卸船机的数据
-//        String params = "{\"taskId\":" + taskId + ",\"cargoId\":\"" + cargoId
-//                + "\",\"cabinNo\":\"" + cabinNo
-//                + "\",\"userId\":\"" + User.newInstance().getUserId() + "\"}";
         String params = "{\"taskId\":\"" + taskId + "\",\"cabinNo\":\"" + cabinNo + "\""
                 + ",\"userId\":\"" + User.newInstance().getUserId() + "\"}";
         LogUtil.e("doGetUnloaderUnshipInfo json=" + params);
@@ -193,7 +191,7 @@ public class CargoProgressStatisticsDetailActivity extends BaseActivity {
 
     @OnClick(R.id.tv_cargoType)
     public void onViewClicked() {
-        startActivity(ShipCargoDetailActivity.getIntent(activity, taskId, cargoId));
+        startActivity(ShipCargoDetailActivity.getIntent(activity, taskId, "", cargoId));
     }
 
 
