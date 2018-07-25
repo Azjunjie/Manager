@@ -181,22 +181,30 @@ public class CargoProgressStatisticsActivity extends BaseActivity {
                             dataBean.setFinishedUsedTime(dataBean.getFinishedUsedTime() + bean.getFinishedUsedTime());
                             dataBean.setRemainder(dataBean.getRemainder() + bean.getRemainder());
                         }
-                        dataBean.setClearTime("--");
+                        dataBean.setTotal(Double.valueOf(decimalFormat.format(dataBean.getTotal())));
+                        dataBean.setFinishedBeforeClearance(Double.valueOf(decimalFormat.format(dataBean.getFinishedBeforeClearance())));
                         dataBean.setFinishedUsedTimeBeforeClearance(Double.valueOf(decimalFormat.format(dataBean.getFinishedUsedTimeBeforeClearance())));
+                        dataBean.setClearance(Double.valueOf(decimalFormat.format(dataBean.getClearance())));
                         dataBean.setClearanceUsedTime(Double.valueOf(decimalFormat.format(dataBean.getClearanceUsedTime())));
+                        dataBean.setFinished(Double.valueOf(decimalFormat.format(dataBean.getFinished())));
                         dataBean.setFinishedUsedTime(Double.valueOf(decimalFormat.format(dataBean.getFinishedUsedTime())));
+                        dataBean.setRemainder(Double.valueOf(decimalFormat.format(dataBean.getRemainder())));
+                        dataBean.setClearTime("--");
+
                         double beforeUseTime = dataBean.getFinishedUsedTimeBeforeClearance();
                         if (beforeUseTime == 0) {
                             beforeUseTime = 1;
                         }
                         dataBean.setFinishedEfficiencyBeforeClearance(Double.valueOf(
                                 decimalFormat.format(dataBean.getFinishedBeforeClearance() / beforeUseTime)));
+
                         double clearanceUseTime = dataBean.getClearanceUsedTime();
                         if (clearanceUseTime == 0) {
                             clearanceUseTime = 1;
                         }
                         dataBean.setClearanceEfficiency(Double.valueOf(
                                 decimalFormat.format(dataBean.getClearance() / clearanceUseTime)));
+
                         double finishedUseTime = dataBean.getFinishedUsedTime();
                         if (finishedUseTime == 0) {
                             finishedUseTime = 1;

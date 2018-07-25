@@ -1,11 +1,13 @@
 package com.aitewei.manager.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
 import com.aitewei.manager.R;
+import com.aitewei.manager.activity.ship.ShipCargoDetailActivity;
 import com.aitewei.manager.common.Constant;
 import com.aitewei.manager.entity.CarbinInfoStatisticsEntity;
 
@@ -20,6 +22,7 @@ public class CabinProgressStatisticsListAdapter extends AbsBaseListViewAdapter<C
     public static final int LEFT = 1;
     public static final int RIGHT = 2;
 
+    private Context context;
     private String cargoId;
     private int dataType;//1-左 2-右
     private int showType;//效率、进度显示类别
@@ -32,6 +35,7 @@ public class CabinProgressStatisticsListAdapter extends AbsBaseListViewAdapter<C
      */
     public CabinProgressStatisticsListAdapter(Context context, String cargoId, int dataType, int showType, List<CarbinInfoStatisticsEntity.DataBean> list, int layoutId) {
         super(context, list, layoutId);
+        this.context = context;
         this.cargoId = cargoId;
         this.dataType = dataType;
         this.showType = showType;
@@ -40,7 +44,7 @@ public class CabinProgressStatisticsListAdapter extends AbsBaseListViewAdapter<C
 
     @Override
     public void setData(ViewHolder viewHolder, final int position) {
-        CarbinInfoStatisticsEntity.DataBean dataBean = list.get(position);
+        final CarbinInfoStatisticsEntity.DataBean dataBean = list.get(position);
         if (dataType == LEFT) {
             TextView tvName = (TextView) viewHolder.findView(R.id.tv_cabin_no);
             viewHolder.setViewText(R.id.tv_cabin_no, dataBean.getCabinNo() + "");
@@ -84,6 +88,14 @@ public class CabinProgressStatisticsListAdapter extends AbsBaseListViewAdapter<C
             } else {
                 tvCargoType.setVisibility(View.VISIBLE);
                 viewHolder.setViewText(R.id.tv_cargoType, dataBean.getCargoName() + "");
+                tvCargoType.setTextColor(Color.parseColor("#1296db"));
+                tvCargoType.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        context.startActivity(
+                                ShipCargoDetailActivity.getIntent(context, "", "", dataBean.getCargoId()));
+                    }
+                });
             }
             viewHolder.setViewText(R.id.tv_total, dataBean.getTotal() + "");
             viewHolder.setViewText(R.id.tv_finished, dataBean.getFinished() + "");

@@ -207,14 +207,11 @@ public class CabinStatisticsActivity extends BaseActivity {
                             bean.setTotal(bean.getTotal() + dataBean.getTotal());
                             bean.setFinished(bean.getFinished() + dataBean.getFinished());
                             bean.setFinishedUsedTime(bean.getFinishedUsedTime() + dataBean.getFinishedUsedTime());
-                            bean.setFinishedEfficiency(bean.getFinishedEfficiency() + dataBean.getFinishedEfficiency());
                             bean.setFinishedBeforeClearance(bean.getFinishedBeforeClearance() + dataBean.getFinishedBeforeClearance());
                             bean.setFinishedUsedTimeBeforeClearance(bean.getFinishedUsedTimeBeforeClearance() + dataBean.getFinishedUsedTimeBeforeClearance());
-                            bean.setFinishedEfficiencyBeforeClearance(bean.getFinishedEfficiencyBeforeClearance() + dataBean.getFinishedEfficiencyBeforeClearance());
                             bean.setRemainder(bean.getRemainder() + dataBean.getRemainder());
                             bean.setClearance(bean.getClearance() + dataBean.getClearance());
                             bean.setClearanceUsedTime(bean.getClearanceUsedTime() + dataBean.getClearanceUsedTime());
-                            bean.setClearanceEfficiency(bean.getClearanceEfficiency() + dataBean.getClearanceEfficiency());
                         }
                         bean.setTotal(Double.valueOf(decimalFormat.format(bean.getTotal())));
                         bean.setFinished(Double.valueOf(decimalFormat.format(bean.getFinished())));
@@ -225,35 +222,26 @@ public class CabinStatisticsActivity extends BaseActivity {
                         bean.setClearance(Double.valueOf(decimalFormat.format(bean.getClearance())));
                         bean.setClearanceUsedTime(Double.valueOf(decimalFormat.format(bean.getClearanceUsedTime())));
 
-                        double finishUsedTime = bean.getFinishedUsedTime();
-                        if (finishUsedTime == 0) {
-                            finishUsedTime = 1;
+                        double beforeUseTime = bean.getFinishedUsedTimeBeforeClearance();
+                        if (beforeUseTime == 0) {
+                            beforeUseTime = 1;
                         }
-                        bean.setFinishedEfficiency(bean.getFinished() / finishUsedTime);
-                        double finishEfficiency = bean.getFinishedEfficiency();
-                        if (finishEfficiency != 0) {
-                            bean.setFinishedEfficiency(Double.valueOf(decimalFormat.format(finishEfficiency)));
-                        }
+                        bean.setFinishedEfficiencyBeforeClearance(Double.valueOf(
+                                decimalFormat.format(bean.getFinishedBeforeClearance() / beforeUseTime)));
 
-                        double finishUsedTimeBeforeClearance = bean.getFinishedUsedTimeBeforeClearance();
-                        if (finishUsedTimeBeforeClearance == 0) {
-                            finishUsedTimeBeforeClearance = 1;
+                        double clearanceUseTime = bean.getClearanceUsedTime();
+                        if (clearanceUseTime == 0) {
+                            clearanceUseTime = 1;
                         }
-                        bean.setFinishedEfficiencyBeforeClearance(bean.getFinishedBeforeClearance() / finishUsedTimeBeforeClearance);
-                        double finishEfficiencyBeforeClearance = bean.getFinishedEfficiencyBeforeClearance();
-                        if (finishEfficiencyBeforeClearance != 0) {
-                            bean.setFinishedEfficiencyBeforeClearance(Double.valueOf(decimalFormat.format(finishEfficiencyBeforeClearance)));
-                        }
+                        bean.setClearanceEfficiency(Double.valueOf(
+                                decimalFormat.format(bean.getClearance() / clearanceUseTime)));
 
-                        double clearUsedTime = bean.getClearanceUsedTime();
-                        if (clearUsedTime == 0) {
-                            clearUsedTime = 1;
+                        double finishedUseTime = bean.getFinishedUsedTime();
+                        if (finishedUseTime == 0) {
+                            finishedUseTime = 1;
                         }
-                        bean.setClearanceEfficiency(bean.getClearance() / clearUsedTime);
-                        double clearanceEfficiency = bean.getClearanceEfficiency();
-                        if (clearanceEfficiency != 0) {
-                            bean.setClearanceEfficiency(Double.valueOf(decimalFormat.format(clearanceEfficiency)));
-                        }
+                        bean.setFinishedEfficiency(Double.valueOf(
+                                decimalFormat.format(bean.getFinished() / finishedUseTime)));
 
                         bean.setClearTime("--");
                         bean.setCabinNo("合计");

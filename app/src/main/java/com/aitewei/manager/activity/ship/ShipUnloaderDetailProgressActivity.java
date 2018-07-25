@@ -98,7 +98,15 @@ public class ShipUnloaderDetailProgressActivity extends BaseActivity {
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 List<GetUnloaderUnshipDetailListEntity.DataBean> list = adapter.getData();
                 GetUnloaderUnshipDetailListEntity.DataBean bean = list.get(position);
-                startActivity(ShipCabinDetailActivity.getIntent(activity, taskId, bean.getCabinNo()+""));
+                switch (view.getId()) {
+                    case R.id.tv_cabin_no:
+                        startActivity(ShipCabinDetailActivity.getIntent(activity, taskId, bean.getCabinNo() + ""));
+                        break;
+                    case R.id.tv_cargoType:
+                        startActivity(ShipCargoDetailActivity
+                                .getIntent(activity, taskId, bean.getCabinNo() + "", ""));
+                        break;
+                }
             }
         });
         listView.setAdapter(adapter);

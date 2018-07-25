@@ -21,6 +21,7 @@ import com.aitewei.manager.utils.ToolBarUtil;
 import com.aitewei.manager.view.LoadGroupView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import butterknife.BindView;
@@ -49,6 +50,7 @@ public class CargoProgressActivity extends BaseActivity {
 
     private CabinProgressListAdapter adapter;
     private String taskId;
+    private DecimalFormat decimalFormat;
 
     public static Intent getIntent(Context context, String taskId, String shipName) {
         Intent intent = new Intent(context, CargoProgressActivity.class);
@@ -84,6 +86,8 @@ public class CargoProgressActivity extends BaseActivity {
         String shipName = getIntent().getStringExtra("shipName");
         btnShipInfo.setText(shipName + "");
 
+        decimalFormat = new DecimalFormat("0.0");
+
         adapter = new CabinProgressListAdapter(R.layout.layout_cabin_progress_list_item, null);
         listView.setAdapter(adapter);
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
@@ -93,7 +97,7 @@ public class CargoProgressActivity extends BaseActivity {
                 GetCargoUnshipInfoEntity.DataBean bean = list.get(position);
                 String cargoName = bean.getCargoName();
                 if (!"合计".equals(cargoName)) {
-                    startActivity(ShipCargoDetailActivity.getIntent(activity, taskId, "",bean.getCargoId() + ""));
+                    startActivity(ShipCargoDetailActivity.getIntent(activity, taskId, "", bean.getCargoId() + ""));
                 }
             }
         });
@@ -124,11 +128,11 @@ public class CargoProgressActivity extends BaseActivity {
                     GetShipUnshipInfoEntity.DataBean bean = list.get(0);
                     GetCargoUnshipInfoEntity.DataBean dataBean = new GetCargoUnshipInfoEntity.DataBean();
                     dataBean.setCargoName("合计");
-                    dataBean.setTotal(bean.getTotal());
-                    dataBean.setFinished(bean.getFinished());
-                    dataBean.setFinishedBeforeClearance(bean.getFinishedBeforeClearance());
-                    dataBean.setRemainder(bean.getRemainder());
-                    dataBean.setClearance(bean.getClearance());
+                    dataBean.setTotal(Double.valueOf(decimalFormat.format(bean.getTotal())));
+                    dataBean.setFinished(Double.valueOf(decimalFormat.format(bean.getFinished())));
+                    dataBean.setFinishedBeforeClearance(Double.valueOf(decimalFormat.format(bean.getFinishedBeforeClearance())));
+                    dataBean.setRemainder(Double.valueOf(decimalFormat.format(bean.getRemainder())));
+                    dataBean.setClearance(Double.valueOf(decimalFormat.format(bean.getClearance())));
                     beanList.add(dataBean);
                     return beanList;
                 }
