@@ -43,7 +43,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="取消"
-                android:textColor="@color/blue"
+                android:textColor="@color/text_89"
                 android:textSize="@dimen/f16" />
 
             <View

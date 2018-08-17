@@ -126,7 +126,7 @@ public class LoginActivity extends BaseActivity {
                             User user = User.newInstance();
                             user.setUserName(accountStr);
                             user.setData(getPrivilegeEntity.getData());
-                            User.onSaveUser(activity);
+                            User.onSaveUser(activity.getApplicationContext());
                             startActivity(ShipListActivity.getIntent(activity));
                             finish();
                         } else {
