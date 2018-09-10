@@ -2,6 +2,7 @@ package com.aitewei.manager.activity.ship;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.view.Gravity;
@@ -12,6 +13,8 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -30,6 +33,7 @@ import com.aitewei.manager.retrofit.RetrofitFactory;
 import com.aitewei.manager.rxjava.BaseObserver;
 import com.aitewei.manager.rxjava.RxSchedulers;
 import com.aitewei.manager.utils.LogUtil;
+import com.aitewei.manager.utils.ScreenUtils;
 import com.aitewei.manager.utils.ToastUtils;
 import com.aitewei.manager.utils.ToolBarUtil;
 import com.aitewei.manager.view.LoadGroupView;
@@ -55,6 +59,12 @@ public class ShipCabinListActivity extends BaseActivity {
     @BindView(R.id.content_view)
     ScrollView contentView;
 
+    @BindView(R.id.tool_bar)
+    RelativeLayout toolBar;
+    @BindView(R.id.tv_tool_bar_title)
+    TextView tvToolBarTitle;
+    @BindView(R.id.iv_exception)
+    FrameLayout ivException;
     @BindView(R.id.btn_ship_info)
     TextView btnShipInfo;
     @BindView(R.id.tv_clearTime)
@@ -109,7 +119,12 @@ public class ShipCabinListActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        ToolBarUtil.init(activity, "卸船情况");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) toolBar.getLayoutParams();
+            layoutParams.topMargin = ScreenUtils.getStatusHeight(activity);
+            toolBar.setLayoutParams(layoutParams);
+        }
+        tvToolBarTitle.setText("卸船情况");
 
         mDataHorizontal.setScrollView(mHeaderHorizontal);
         mHeaderHorizontal.setScrollView(mDataHorizontal);
@@ -181,6 +196,10 @@ public class ShipCabinListActivity extends BaseActivity {
         requestCabinListData();
         if (handler != null) {
             handler.sendEmptyMessageDelayed(1, 1000 * 60 * 3);
+        }
+        if (type == Constant.TYPE_WORKING) {
+            //作业船舶才有卸船机异常提示
+            ivException.setVisibility(View.VISIBLE);
         }
     }
 
@@ -350,14 +369,20 @@ public class ShipCabinListActivity extends BaseActivity {
                 });
     }
 
-    @OnClick({R.id.btn_refresh, R.id.btn_ship_info, R.id.btn_modify_location, R.id.btn_begin
-            , R.id.btn_complete, R.id.btn_menu})
+    @OnClick({R.id.btn_back, R.id.btn_refresh, R.id.iv_exception, R.id.btn_ship_info
+            , R.id.btn_modify_location, R.id.btn_begin, R.id.btn_complete, R.id.btn_menu})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.btn_back://返回
+                finish();
+                break;
             case R.id.btn_refresh://刷新
                 btnRefresh.setClickable(false);
                 showLoadingPopup();
                 requestCabinListData();
+                break;
+            case R.id.iv_exception://卸船机异常提示
+                showTipPopup("xxxxxxxxxxxx卸船机异常详情提示信息xxxxxxxxxxxx");
                 break;
             case R.id.btn_ship_info://查看船舶详情
                 startActivity(ShipBaseInfoActivity.getIntent(activity, taskId));
