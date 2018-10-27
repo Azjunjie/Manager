@@ -95,7 +95,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.statistics.CabinStatisticsActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.ship.OutboardInfoActivity"></activity>
     </application>
 
 </manifest>

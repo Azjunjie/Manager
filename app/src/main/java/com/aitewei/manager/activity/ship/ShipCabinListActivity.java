@@ -28,6 +28,8 @@ import com.aitewei.manager.common.PermissionsCode;
 import com.aitewei.manager.common.Popup;
 import com.aitewei.manager.common.User;
 import com.aitewei.manager.entity.CabinPositionEntity;
+import com.aitewei.manager.entity.QueryOutboardInfoRemind;
+import com.aitewei.manager.entity.QueryUnloaderDropped;
 import com.aitewei.manager.entity.ShipCabinListEntity;
 import com.aitewei.manager.retrofit.RetrofitFactory;
 import com.aitewei.manager.rxjava.BaseObserver;
@@ -63,8 +65,7 @@ public class ShipCabinListActivity extends BaseActivity {
     RelativeLayout toolBar;
     @BindView(R.id.tv_tool_bar_title)
     TextView tvToolBarTitle;
-    @BindView(R.id.iv_exception)
-    FrameLayout ivException;
+
     @BindView(R.id.btn_ship_info)
     TextView btnShipInfo;
     @BindView(R.id.tv_clearTime)
@@ -93,6 +94,11 @@ public class ShipCabinListActivity extends BaseActivity {
     @BindView(R.id.btn_menu)
     FrameLayout btnMenu;
 
+    @BindView(R.id.tv_unloader_exception)
+    TextView tvUnloaderException;
+    @BindView(R.id.tv_outboard_info)
+    TextView tvOutboardInfo;
+
     private ShipCabinNoListAdapter mLeftAdapter;
     private ShipCabinListAdapter mDataAdapter;
 
@@ -103,6 +109,7 @@ public class ShipCabinListActivity extends BaseActivity {
     private ShipCabinListEntity.DataBean operationBean;//当前设置船舱状态的bean
     private int cabinNum;
     private String shipName;
+    private List<QueryUnloaderDropped.DataBean> unloaderDroppedList;//卸船机异常列表
 
     public static Intent getIntent(Context context, int type, String taskId, String shipName) {
         Intent intent = new Intent(context, ShipCabinListActivity.class);
@@ -199,8 +206,63 @@ public class ShipCabinListActivity extends BaseActivity {
         }
         if (type == Constant.TYPE_WORKING) {
             //作业船舶才有卸船机异常提示
-            ivException.setVisibility(View.VISIBLE);
+            requestUnloaderDropped();
         }
+        if (type != Constant.TYPE_COMING) {
+            //舱外作业量查询
+            requestOutboardInfoRemind();
+        }
+    }
+
+    /**
+     * 查询卸船机掉线信息
+     */
+    private void requestUnloaderDropped() {
+        String params = "{\"taskId\":\"" + taskId + "\",\"userId\":\"" + User.newInstance().getUserId() + "\"}";
+        RetrofitFactory.getInstance()
+                .doQueryUnloaderDropped(params)
+                .compose(RxSchedulers.<QueryUnloaderDropped>compose())
+                .subscribe(new BaseObserver<QueryUnloaderDropped>(compositeDisposable) {
+                    @Override
+                    protected void onHandleSuccess(QueryUnloaderDropped entity) {
+                        //1|正常;0|掉线
+                        int whetherToDrop = entity.getWhetherToDrop();
+                        if (whetherToDrop == 1) {
+                            tvUnloaderException.setVisibility(View.GONE);
+                        } else {
+                            unloaderDroppedList = entity.getData();
+                            tvUnloaderException.setVisibility(View.VISIBLE);
+                        }
+                    }
+
+                    @Override
+                    protected void onHandleRequestError(String code, String msg) {
+                        tvUnloaderException.setVisibility(View.GONE);
+                    }
+                });
+    }
+
+    /**
+     * 舱外作业量提醒查询
+     */
+    private void requestOutboardInfoRemind() {
+        String params = "{\"taskId\":\"" + taskId + "\",\"userId\":\"" + User.newInstance().getUserId() + "\"}";
+        RetrofitFactory.getInstance()
+                .doQueryOutboardInfoRemind(params)
+                .compose(RxSchedulers.<QueryOutboardInfoRemind>compose())
+                .subscribe(new BaseObserver<QueryOutboardInfoRemind>(compositeDisposable) {
+                    @Override
+                    protected void onHandleSuccess(QueryOutboardInfoRemind entity) {
+                        //1|正常;0|有舱外量
+                        int whetherOutboardInfo = entity.getWhetherOutboardInfo();
+                        tvOutboardInfo.setVisibility(whetherOutboardInfo == 1 ? View.GONE : View.VISIBLE);
+                    }
+
+                    @Override
+                    protected void onHandleRequestError(String code, String msg) {
+                        tvOutboardInfo.setVisibility(View.GONE);
+                    }
+                });
     }
 
     @Override
@@ -254,7 +316,7 @@ public class ShipCabinListActivity extends BaseActivity {
     }
 
     private void initAdapter() {
-        mLeftAdapter = new ShipCabinNoListAdapter(this, taskId, mListData);
+        mLeftAdapter = new ShipCabinNoListAdapter(this, mListData);
         mLeft.setAdapter(mLeftAdapter);
         mLeft.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -369,8 +431,9 @@ public class ShipCabinListActivity extends BaseActivity {
                 });
     }
 
-    @OnClick({R.id.btn_back, R.id.btn_refresh, R.id.iv_exception, R.id.btn_ship_info
-            , R.id.btn_modify_location, R.id.btn_begin, R.id.btn_complete, R.id.btn_menu})
+    @OnClick({R.id.btn_back, R.id.btn_refresh, R.id.btn_ship_info
+            , R.id.btn_modify_location, R.id.btn_begin, R.id.btn_complete, R.id.btn_menu
+            , R.id.tv_unloader_exception, R.id.tv_outboard_info})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_back://返回
@@ -380,9 +443,6 @@ public class ShipCabinListActivity extends BaseActivity {
                 btnRefresh.setClickable(false);
                 showLoadingPopup();
                 requestCabinListData();
-                break;
-            case R.id.iv_exception://卸船机异常提示
-                showTipPopup("xxxxxxxxxxxx卸船机异常详情提示信息xxxxxxxxxxxx");
                 break;
             case R.id.btn_ship_info://查看船舶详情
                 startActivity(ShipBaseInfoActivity.getIntent(activity, taskId));
@@ -410,6 +470,19 @@ public class ShipCabinListActivity extends BaseActivity {
                 break;
             case R.id.btn_menu://菜单
                 showMenuPopup();
+                break;
+            case R.id.tv_unloader_exception://卸船机异常提示
+                if (unloaderDroppedList != null && !unloaderDroppedList.isEmpty()) {
+                    StringBuilder stringBuilder = new StringBuilder("卸船机 ");
+                    for (QueryUnloaderDropped.DataBean bean : unloaderDroppedList) {
+                        stringBuilder.append(bean.getUnloaderName() + " ");
+                    }
+                    stringBuilder.append("异常，请及时检查！");
+                    showTipPopup(stringBuilder.toString());
+                }
+                break;
+            case R.id.tv_outboard_info://舱外作业量
+                OutboardInfoActivity.start(this, taskId);
                 break;
         }
     }

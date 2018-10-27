@@ -7,6 +7,7 @@
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="blue">#1296db</color>
+    <color name="warning">#db1912</color>
 
     <color name="bg_color">#eaeaea</color>
     <color name="line_color">#eaeaea</color>

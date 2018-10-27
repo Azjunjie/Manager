@@ -10,6 +10,9 @@ import com.aitewei.manager.entity.GetShipUnshipInfoEntity;
 import com.aitewei.manager.entity.GetUnloaderUnshipDetailListEntity;
 import com.aitewei.manager.entity.GetUnloaderUnshipInfoEntity;
 import com.aitewei.manager.entity.GetUploaderDetailEntity;
+import com.aitewei.manager.entity.OutboardInfoStatistics;
+import com.aitewei.manager.entity.QueryOutboardInfoRemind;
+import com.aitewei.manager.entity.QueryUnloaderDropped;
 import com.aitewei.manager.entity.ShipBaseInfoEntity;
 import com.aitewei.manager.entity.ShipCabinDetailEntity;
 import com.aitewei.manager.entity.ShipCabinListEntity;
@@ -170,5 +173,27 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("ship/doUnloaderInfoStatistics")
     Observable<UnloaderInfoStatisticsEntity> doUnloaderInfoStatistics(@Field("json") String json);
+
+    /**
+     * 查询卸船机掉线信息
+     */
+    @FormUrlEncoded
+    @POST("ship/doQueryUnloaderDropped")
+    Observable<QueryUnloaderDropped> doQueryUnloaderDropped(@Field("json") String json);
+
+    /**
+     * 舱外作业量提醒查询
+     */
+    @FormUrlEncoded
+    @POST("ship/doQueryOutboardInfoRemind")
+    Observable<QueryOutboardInfoRemind> doQueryOutboardInfoRemind(@Field("json") String json);
+
+    /**
+     * 舱外作业量提醒查询
+     */
+    @FormUrlEncoded
+    @POST("ship/doOutboardInfoStatistics")
+    Observable<OutboardInfoStatistics> doOutboardInfoStatistics(@Field("json") String json);
+
 
 }

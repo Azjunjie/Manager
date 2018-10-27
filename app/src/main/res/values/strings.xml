@@ -26,4 +26,7 @@
     <string name="cabinFinishedUsedTime">整舱用时</string>
     <string name="cabinFinishedEfficiency">整舱效率</string>
 
+    <string name="unloader_dropped">卸船机异常>></string>
+    <string name="OutboardInfoRemind">舱外作业量>></string>
+
 </resources>

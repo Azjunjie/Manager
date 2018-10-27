@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/d40"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_startPosition"
+            android:layout_width="@dimen/d70"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="后橄"
+            android:textColor="@color/text_89"
+            android:textSize="@dimen/f15" />
+
+        <TextView
+            android:id="@+id/tv_endPosition"
+            android:layout_width="@dimen/d70"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="前橄"
+            android:textColor="@color/text_89"
+            android:textSize="@dimen/f15" />
+
+        <TextView
+            android:id="@+id/tv_leftOffset"
+            android:layout_width="@dimen/d100"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="舱左边最远偏移位置|米"
+            android:textColor="@color/text_89"
+            android:textSize="@dimen/f15" />
+
+        <TextView
+            android:id="@+id/tv_leftShovelNumber"
+            android:layout_width="@dimen/d70"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="左边舱外作业铲数"
+            android:textColor="@color/text_89"
+            android:textSize="@dimen/f15" />
+
+        <TextView
+            android:id="@+id/tv_leftUnloading"
+            android:layout_width="@dimen/d70"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="左边舱外作业量"
+            android:textColor="@color/text_89"
+            android:textSize="@dimen/f15" />
+
+        <TextView
+            android:id="@+id/tv_rightOffset"
+            android:layout_width="@dimen/d100"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="舱右边最远偏移位置|米"
+            android:textColor="@color/text_89"
+            android:textSize="@dimen/f15" />
+
+        <TextView
+            android:id="@+id/tv_rightShovelNumber"
+            android:layout_width="@dimen/d70"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="右边舱外作业铲数"
+            android:textColor="@color/text_89"
+            android:textSize="@dimen/f15" />
+
+        <TextView
+            android:id="@+id/tv_rightUnloading"
+            android:layout_width="@dimen/d70"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="右边舱外作业量"
+            android:textColor="@color/text_89"
+            android:textSize="@dimen/f15" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/d1"
+        android:background="@color/line_color" />
+
+</LinearLayout>

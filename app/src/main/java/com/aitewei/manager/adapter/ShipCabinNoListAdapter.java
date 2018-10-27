@@ -19,14 +19,11 @@ import java.util.List;
  */
 
 public class ShipCabinNoListAdapter extends BaseAdapter {
-    private ShipCabinListActivity activity;
-    private String taskId;
+
     private List<ShipCabinListEntity.DataBean> mListData;
     private LayoutInflater inflater;
 
-    public ShipCabinNoListAdapter(ShipCabinListActivity activity, String taskId, List<ShipCabinListEntity.DataBean> mListData) {
-        this.activity = activity;
-        this.taskId = taskId;
+    public ShipCabinNoListAdapter(ShipCabinListActivity activity, List<ShipCabinListEntity.DataBean> mListData) {
         this.mListData = mListData;
         this.inflater = LayoutInflater.from(activity);
     }
