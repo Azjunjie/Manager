@@ -145,7 +145,7 @@ public class ShipCabinListAdapter extends BaseAdapter {
                 holder.tvStatus.setText("清舱");
                 holder.tvOperation.setText("");
             } else if ("2".equals(status)) {
-                holder.tvStatus.setText("");
+                holder.tvStatus.setText("完成");
                 holder.tvOperation.setText("");
             } else {
                 holder.tvStatus.setText("未开始");
