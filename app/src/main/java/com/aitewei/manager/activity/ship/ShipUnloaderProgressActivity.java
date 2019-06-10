@@ -157,12 +157,13 @@ public class ShipUnloaderProgressActivity extends BaseActivity {
                             dataBean.setUnloading(Double.valueOf(decimalFormat.format(dataBean.getUnloading())));
                             double usedTime = dataBean.getUsedTime();
                             if (usedTime == 0) {
-                                usedTime = 1;
-                            }
-                            dataBean.setEfficiency(dataBean.getUnloading() / usedTime);
-                            double efficiency = dataBean.getEfficiency();
-                            if (efficiency != 0) {
-                                dataBean.setEfficiency(Double.valueOf(decimalFormat.format(efficiency)));
+                                dataBean.setEfficiency(0);
+                            } else {
+                                dataBean.setEfficiency(dataBean.getUnloading() / usedTime);
+                                double efficiency = dataBean.getEfficiency();
+                                if (efficiency != 0) {
+                                    dataBean.setEfficiency(Double.valueOf(decimalFormat.format(efficiency)));
+                                }
                             }
                             list.add(dataBean);
                             adapter.setNewData(list);

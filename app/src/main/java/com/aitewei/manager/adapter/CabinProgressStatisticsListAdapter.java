@@ -63,11 +63,26 @@ public class CabinProgressStatisticsListAdapter extends AbsBaseListViewAdapter<C
                     break;
                 case Constant.TYPE_EFFICAIENCY://查看效率
                     viewHolder.setViewText(R.id.tv_finishedUsedTime, dataBean.getFinishedUsedTime() + "");
-                    viewHolder.setViewText(R.id.tv_finishedEfficiency, dataBean.getFinishedEfficiency() + "");
+                    double finishedEfficiency = dataBean.getFinishedEfficiency();
+                    if (finishedEfficiency == 0) {
+                        viewHolder.setViewText(R.id.tv_finishedEfficiency, "--");
+                    } else {
+                        viewHolder.setViewText(R.id.tv_finishedEfficiency, finishedEfficiency + "");
+                    }
                     viewHolder.setViewText(R.id.tv_finishedUsedTime_before_clearance, dataBean.getFinishedUsedTimeBeforeClearance() + "");
-                    viewHolder.setViewText(R.id.tv_finishedEfficiency_before_clearance, dataBean.getFinishedEfficiencyBeforeClearance() + "");
+                    double finishedEfficiencyBeforeClearance = dataBean.getFinishedEfficiencyBeforeClearance();
+                    if (finishedEfficiencyBeforeClearance == 0) {
+                        viewHolder.setViewText(R.id.tv_finishedEfficiency_before_clearance, "--");
+                    } else {
+                        viewHolder.setViewText(R.id.tv_finishedEfficiency_before_clearance, finishedEfficiencyBeforeClearance + "");
+                    }
                     viewHolder.setViewText(R.id.tv_clearanceUsedTime, dataBean.getClearanceUsedTime() + "");
-                    viewHolder.setViewText(R.id.tv_clearanceEfficiency, dataBean.getClearanceEfficiency() + "");
+                    double clearanceEfficiency = dataBean.getClearanceEfficiency();
+                    if (clearanceEfficiency == 0) {
+                        viewHolder.setViewText(R.id.tv_clearanceEfficiency, "--");
+                    } else {
+                        viewHolder.setViewText(R.id.tv_clearanceEfficiency, clearanceEfficiency + "");
+                    }
                     String status = dataBean.getStatus();
                     TextView tvStatus = (TextView) viewHolder.findView(R.id.tv_status);
                     tvStatus.setVisibility(View.VISIBLE);

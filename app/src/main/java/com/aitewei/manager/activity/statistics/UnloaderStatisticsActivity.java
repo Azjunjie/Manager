@@ -200,9 +200,10 @@ public class UnloaderStatisticsActivity extends BaseActivity {
                             dataBean.setUnloading(Double.valueOf(decimalFormat.format(dataBean.getUnloading())));
                             double usedTime = dataBean.getUsedTime();
                             if (usedTime == 0) {
-                                usedTime = 1;
+                                dataBean.setEfficiency(0);
+                            } else {
+                                dataBean.setEfficiency(Double.valueOf(decimalFormat.format(dataBean.getUnloading() / usedTime)));
                             }
-                            dataBean.setEfficiency(Double.valueOf(decimalFormat.format(dataBean.getUnloading() / usedTime)));
 
                             list.add(dataBean);
                             adapter.setNewData(list);

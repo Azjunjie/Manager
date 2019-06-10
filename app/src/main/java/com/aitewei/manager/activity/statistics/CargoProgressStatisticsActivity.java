@@ -193,24 +193,27 @@ public class CargoProgressStatisticsActivity extends BaseActivity {
 
                         double beforeUseTime = dataBean.getFinishedUsedTimeBeforeClearance();
                         if (beforeUseTime == 0) {
-                            beforeUseTime = 1;
+                            dataBean.setFinishedEfficiencyBeforeClearance(0);
+                        } else {
+                            dataBean.setFinishedEfficiencyBeforeClearance(Double.valueOf(
+                                    decimalFormat.format(dataBean.getFinishedBeforeClearance() / beforeUseTime)));
                         }
-                        dataBean.setFinishedEfficiencyBeforeClearance(Double.valueOf(
-                                decimalFormat.format(dataBean.getFinishedBeforeClearance() / beforeUseTime)));
 
                         double clearanceUseTime = dataBean.getClearanceUsedTime();
                         if (clearanceUseTime == 0) {
-                            clearanceUseTime = 1;
+                            dataBean.setClearanceEfficiency(0);
+                        } else {
+                            dataBean.setClearanceEfficiency(Double.valueOf(
+                                    decimalFormat.format(dataBean.getClearance() / clearanceUseTime)));
                         }
-                        dataBean.setClearanceEfficiency(Double.valueOf(
-                                decimalFormat.format(dataBean.getClearance() / clearanceUseTime)));
 
                         double finishedUseTime = dataBean.getFinishedUsedTime();
                         if (finishedUseTime == 0) {
-                            finishedUseTime = 1;
+                            dataBean.setFinishedEfficiency(0);
+                        } else {
+                            dataBean.setFinishedEfficiency(Double.valueOf(
+                                    decimalFormat.format(dataBean.getFinished() / finishedUseTime)));
                         }
-                        dataBean.setFinishedEfficiency(Double.valueOf(
-                                decimalFormat.format(dataBean.getFinished() / finishedUseTime)));
 
                         list.add(dataBean);
                         leftAdapter.notifyDataSetChanged();

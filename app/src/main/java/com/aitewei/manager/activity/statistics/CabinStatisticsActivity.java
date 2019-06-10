@@ -224,24 +224,27 @@ public class CabinStatisticsActivity extends BaseActivity {
 
                         double beforeUseTime = bean.getFinishedUsedTimeBeforeClearance();
                         if (beforeUseTime == 0) {
-                            beforeUseTime = 1;
+                            bean.setFinishedEfficiencyBeforeClearance(0);
+                        } else {
+                            bean.setFinishedEfficiencyBeforeClearance(Double.valueOf(
+                                    decimalFormat.format(bean.getFinishedBeforeClearance() / beforeUseTime)));
                         }
-                        bean.setFinishedEfficiencyBeforeClearance(Double.valueOf(
-                                decimalFormat.format(bean.getFinishedBeforeClearance() / beforeUseTime)));
 
                         double clearanceUseTime = bean.getClearanceUsedTime();
                         if (clearanceUseTime == 0) {
-                            clearanceUseTime = 1;
+                            bean.setClearanceEfficiency(0);
+                        } else {
+                            bean.setClearanceEfficiency(Double.valueOf(
+                                    decimalFormat.format(bean.getClearance() / clearanceUseTime)));
                         }
-                        bean.setClearanceEfficiency(Double.valueOf(
-                                decimalFormat.format(bean.getClearance() / clearanceUseTime)));
 
                         double finishedUseTime = bean.getFinishedUsedTime();
                         if (finishedUseTime == 0) {
-                            finishedUseTime = 1;
+                            bean.setFinishedEfficiency(0);
+                        } else {
+                            bean.setFinishedEfficiency(Double.valueOf(
+                                    decimalFormat.format(bean.getFinished() / finishedUseTime)));
                         }
-                        bean.setFinishedEfficiency(Double.valueOf(
-                                decimalFormat.format(bean.getFinished() / finishedUseTime)));
 
                         bean.setClearTime("--");
                         bean.setCabinNo("合计");

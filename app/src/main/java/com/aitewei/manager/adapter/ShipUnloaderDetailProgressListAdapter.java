@@ -31,6 +31,11 @@ public class ShipUnloaderDetailProgressListAdapter extends BaseQuickAdapter<GetU
         helper.setText(R.id.tv_endTime, item.getEndTime() + "");
         helper.setText(R.id.tv_usedTime, item.getUsedTime() + "");
         helper.setText(R.id.tv_unloading, item.getUnloading() + "");
-        helper.setText(R.id.tv_efficiency, item.getEfficiency() + "");
+        double efficiency = item.getEfficiency();
+        if (efficiency == 0) {
+            helper.setText(R.id.tv_efficiency, "--");
+        } else {
+            helper.setText(R.id.tv_efficiency, efficiency + "");
+        }
     }
 }
