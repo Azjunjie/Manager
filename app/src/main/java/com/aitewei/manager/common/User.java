@@ -3,6 +3,8 @@ package com.aitewei.manager.common;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.aitewei.manager.entity.GetPrivilegeEntity;
+import com.aitewei.manager.retrofit.RetrofitFactory;
 import com.aitewei.manager.utils.LogUtil;
 
 import java.io.File;
@@ -12,7 +14,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -68,25 +69,6 @@ public class User implements Serializable {
     }
 
     public void setData(List<String> data) {
-//        if (data == null) {
-//            data = new ArrayList<>();
-//        }
-//        if ("zdy".equals(userName)) {//指导员
-//            data.clear();
-//            data.add(PermissionsCode.watch);
-//            data.add(PermissionsCode.watchInfo);
-//            data.add(PermissionsCode.watchDetail);
-//            data.add(PermissionsCode.shipBerthing);
-//            data.add(PermissionsCode.setLocation);
-//            data.add(PermissionsCode.clearStatus);
-//            data.add(PermissionsCode.completeStatus);
-//            data.add(PermissionsCode.completeShip);
-//        } else if ("jhy".equals(userName) || "ptry".equals(userName)) {//计划员|普通人员
-//            data.clear();
-//            data.add(PermissionsCode.watch);
-//            data.add(PermissionsCode.watchInfo);
-//            data.add(PermissionsCode.watchDetail);
-//        }
         this.data = data;
     }
 
@@ -145,6 +127,21 @@ public class User implements Serializable {
                     User user = (User) objIn.readObject();
                     User.newInstance().setUserName(user.getUserName());
                     User.newInstance().setData(user.getData());
+
+                    if (User.isLogin()) {//请求用户权限
+                        String params = "{\"userName\":\"" + user.getUserName() + "\"}";
+                        RetrofitFactory.getInstance()
+                                .doGetPrivileges(params)
+                                .subscribeOn(Schedulers.io())
+                                .subscribe(new Consumer<GetPrivilegeEntity>() {
+                                    @Override
+                                    public void accept(GetPrivilegeEntity getPrivilegeEntity) throws Exception {
+                                        User.newInstance().setData(getPrivilegeEntity.getData());
+                                        onSaveUser(context);
+                                    }
+                                });
+                    }
+
                     e1.onNext(true);
                 } catch (IOException e) {
                     e.printStackTrace();

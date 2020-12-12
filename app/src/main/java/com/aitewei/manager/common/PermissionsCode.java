@@ -24,6 +24,8 @@ public class PermissionsCode {
     public static String setLocation = "56";
     //设置清舱状态
     public static String clearStatus = "78";
+    //查看plc
+    public static String plcDetail = "81";
 
     /**
      * 检查权限

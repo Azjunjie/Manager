@@ -15,7 +15,7 @@ import com.aitewei.manager.activity.user.SettingActivity;
 import com.aitewei.manager.adapter.FragmentViewPagerAdapter;
 import com.aitewei.manager.base.BaseActivity;
 import com.aitewei.manager.base.BaseFragment;
-import com.aitewei.manager.common.User;
+import com.aitewei.manager.common.PermissionsCode;
 import com.aitewei.manager.fragment.ShipListNewFragment;
 import com.aitewei.manager.utils.ScreenUtils;
 
@@ -63,8 +63,7 @@ public class ShipListActivity extends BaseActivity {
         }
         btnTask.setSelected(true);
 
-        String userName = User.newInstance().getUserName();
-        if ("zdy".equals(userName)) {
+        if (PermissionsCode.isHasPermission(PermissionsCode.plcDetail)) {
             btnPlc.setVisibility(View.VISIBLE);
         } else {
             btnPlc.setVisibility(View.GONE);

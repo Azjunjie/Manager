@@ -98,7 +98,6 @@ public class ShipUnLoaderParamDetailListActivity extends BaseActivity {
         observer = new BaseObserver<GetUnloaderPlcParamDetailListEntity>(compositeDisposable) {
             @Override
             protected void onHandleSuccess(GetUnloaderPlcParamDetailListEntity entity) {
-                dismissLoadingPopup();
                 if (btnRefresh != null) {
                     btnRefresh.setClickable(true);
                 }
@@ -106,7 +105,6 @@ public class ShipUnLoaderParamDetailListActivity extends BaseActivity {
                     loadView.setVisibility(View.GONE);
                     contentView.setVisibility(View.VISIBLE);
                 }
-                dismissLoadingPopup();
                 list = entity.getData();
                 adapter.setList(list);
                 if (handler != null) {
@@ -116,7 +114,6 @@ public class ShipUnLoaderParamDetailListActivity extends BaseActivity {
 
             @Override
             protected void onHandleRequestError(String code, String msg) {
-                dismissLoadingPopup();
                 if (btnRefresh != null) {
                     btnRefresh.setClickable(true);
                 }
@@ -174,7 +171,6 @@ public class ShipUnLoaderParamDetailListActivity extends BaseActivity {
             observer.getDisposable().dispose();
         }
         btnRefresh.setClickable(false);
-        showLoadingPopup();
         requestShipUnLoaderParamDetailData();
     }
 
