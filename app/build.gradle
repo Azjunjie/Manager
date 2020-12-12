@@ -9,18 +9,19 @@ android {
         flavorDimensions "versionCode"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
     //创建productFlavors
     productFlavors {
         myapp {
             applicationId "com.aitewei.manager"
-            versionName "1.4.0"
-            versionCode 6
+            versionName "1.5.0"
+            versionCode 7
             manifestPlaceholders = [AppName: "京唐港"]
         }
         myapptest {
             applicationId "com.aitewei.managertest"
-            versionName "1.2.2"
-            versionCode 15
+            versionName "1.3.1"
+            versionCode 17
             manifestPlaceholders = [AppName: "京唐港测试"]
         }
     }

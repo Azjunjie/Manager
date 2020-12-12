@@ -115,7 +115,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     protected void dismissLoadingPopup() {
-        if (loadingPopup != null) {
+        if (loadingPopup != null && loadingPopup.isShowing()) {
             loadingPopup.dismiss();
         }
     }

@@ -16,6 +16,7 @@ import io.reactivex.disposables.Disposable;
 public abstract class BaseObserver<T extends BaseEntity> implements Observer<T> {
 
     private CompositeDisposable compositeDisposable;
+    private Disposable disposable;
 
     private String TAG = "BaseObserver";
 
@@ -55,6 +56,10 @@ public abstract class BaseObserver<T extends BaseEntity> implements Observer<T> 
     @Override
     public void onComplete() {
         LogUtil.e(TAG, "onComplete");
+    }
+
+    public Disposable getDisposable() {
+        return disposable;
     }
 
     /**

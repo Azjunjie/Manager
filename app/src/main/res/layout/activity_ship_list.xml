@@ -13,6 +13,18 @@
         android:background="@color/blue">
 
         <TextView
+            android:id="@+id/btn_plc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="@dimen/d15"
+            android:paddingRight="@dimen/d15"
+            android:text="PLC查询"
+            android:textColor="@color/white"
+            android:textSize="@dimen/f18"
+            android:visibility="gone" />
+
+        <TextView
             android:id="@+id/tv_tool_bar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

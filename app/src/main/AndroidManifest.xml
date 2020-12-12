@@ -16,7 +16,6 @@
         android:label="${AppName}"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <!-- *****************第三方 begin****************** -->
         <activity
             android:name="com.tencent.bugly.beta.ui.BetaActivity"
@@ -31,10 +30,7 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
-        </provider>
-
-        <!-- *****************第三方 end****************** -->
-
+        </provider> <!-- *****************第三方 end****************** -->
         <activity
             android:name=".activity.SplashActivity"
             android:screenOrientation="portrait"
@@ -96,7 +92,12 @@
         <activity
             android:name=".activity.statistics.CabinStatisticsActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.ship.OutboardInfoActivity"></activity>
+        <activity
+            android:name=".activity.ship.OutboardInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ship.ShipUnLoaderParamDetailListActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

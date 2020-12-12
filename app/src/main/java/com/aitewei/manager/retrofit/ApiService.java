@@ -7,6 +7,7 @@ import com.aitewei.manager.entity.CargoInfoStatisticsEntity;
 import com.aitewei.manager.entity.GetCargoUnshipInfoEntity;
 import com.aitewei.manager.entity.GetPrivilegeEntity;
 import com.aitewei.manager.entity.GetShipUnshipInfoEntity;
+import com.aitewei.manager.entity.GetUnloaderPlcParamDetailListEntity;
 import com.aitewei.manager.entity.GetUnloaderUnshipDetailListEntity;
 import com.aitewei.manager.entity.GetUnloaderUnshipInfoEntity;
 import com.aitewei.manager.entity.GetUploaderDetailEntity;
@@ -195,5 +196,10 @@ public interface ApiService {
     @POST("ship/doOutboardInfoStatistics")
     Observable<OutboardInfoStatistics> doOutboardInfoStatistics(@Field("json") String json);
 
-
+    /**
+     * 查询卸船机PLC参数信息
+     */
+    @FormUrlEncoded
+    @POST("ship/doGetUnloaderPlcParamDetailList")
+    Observable<GetUnloaderPlcParamDetailListEntity> doGetUnloaderPlcParamDetailList(@Field("json") String json);
 }

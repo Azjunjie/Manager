@@ -14,7 +14,7 @@ import java.util.List;
  */
 public abstract class AbsBaseListViewAdapter<T>
         extends BaseAdapter {
-    private List<T> list;
+    protected List<T> list;
     private Context context;
     private int layoutId;
 
@@ -35,6 +35,11 @@ public abstract class AbsBaseListViewAdapter<T>
             return list.size();
         }
         return 0;
+    }
+
+    public void setList(List<T> list) {
+        this.list = list;
+        notifyDataSetChanged();
     }
 
     @Override

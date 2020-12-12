@@ -14,6 +14,6 @@ public interface Config {
     String BUGLY_APP_ID = "908374e9b8";
 
     //服务器地址
-//    String BASEURL = "http://47.95.205.78/wcms/api/http/";
-    String BASEURL = "http://60.2.201.67:3307/wcms/api/http/";
+    String BASEURL = "http://123.56.47.72:8080/wcms/api/http/";
+//    String BASEURL = "http://60.2.201.67:3307/wcms/api/http/";
 }

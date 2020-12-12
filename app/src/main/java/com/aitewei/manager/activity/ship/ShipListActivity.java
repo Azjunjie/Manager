@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.aitewei.manager.R;
 import com.aitewei.manager.activity.statistics.StatisticsActivity;
@@ -14,6 +15,7 @@ import com.aitewei.manager.activity.user.SettingActivity;
 import com.aitewei.manager.adapter.FragmentViewPagerAdapter;
 import com.aitewei.manager.base.BaseActivity;
 import com.aitewei.manager.base.BaseFragment;
+import com.aitewei.manager.common.User;
 import com.aitewei.manager.fragment.ShipListNewFragment;
 import com.aitewei.manager.utils.ScreenUtils;
 
@@ -32,6 +34,8 @@ import butterknife.OnClick;
  */
 public class ShipListActivity extends BaseActivity {
 
+    @BindView(R.id.btn_plc)
+    TextView btnPlc;
     @BindView(R.id.tool_bar)
     FrameLayout toolBar;
 
@@ -58,6 +62,13 @@ public class ShipListActivity extends BaseActivity {
             toolBar.setLayoutParams(layoutParams);
         }
         btnTask.setSelected(true);
+
+        String userName = User.newInstance().getUserName();
+        if ("zdy".equals(userName)) {
+            btnPlc.setVisibility(View.VISIBLE);
+        } else {
+            btnPlc.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -71,9 +82,12 @@ public class ShipListActivity extends BaseActivity {
         viewPager.setAdapter(adapter);
     }
 
-    @OnClick({R.id.btn_mine, R.id.btn_statistics})
+    @OnClick({R.id.btn_plc, R.id.btn_mine, R.id.btn_statistics})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.btn_plc:
+                startActivity(ShipUnLoaderParamDetailListActivity.getIntent(activity));
+                break;
             case R.id.btn_mine:
                 startActivity(SettingActivity.getIntent(activity));
                 break;
