@@ -13,6 +13,8 @@ public interface Config {
     //bugly appid
     String BUGLY_APP_ID = "11c8d0af3f";
 
+    //二维码地址
+    String CODEURL = "http://60.2.201.70:8086/wcms/web/verification";
     //服务器地址
     String BASEURL = "http://60.2.201.70:8086/wcms/api/http/";
 }
